@@ -1,6 +1,11 @@
 import controller.CompetitionController;
 import controller.GUIController;
 
+/**
+ * Main class which starts the application.
+ * @author Giovanbattista
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
@@ -9,18 +14,6 @@ public class Main {
 		GUIController guiController = new GUIController(controller);
 		
 		guiController.showMainMenu();
-		
-//		CompetitionController controller=new CompetitionController();
-//		
-//		List<Valutazione> listaValutazioni=controller.generaValutazioni();
-//		List<Gruppo> listaGruppi=controller.generaGruppiConValutazioni(listaValutazioni);
-//		
-//		Collections.sort(listaGruppi);
-//		for(Gruppo g: listaGruppi) {
-//			System.out.println(g);
-//		}
-//		
-//		controller.generaCsvGruppi(listaGruppi);
 		
 	}
 }
