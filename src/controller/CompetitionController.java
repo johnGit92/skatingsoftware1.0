@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -19,40 +18,46 @@ import model.Gruppo;
 import model.Valutazione;
 
 public class CompetitionController {
+
+//	Testing method
+//	public List<Valutazione> generaValutazioni() {
+//		List<Valutazione> valutazioni=new ArrayList<Valutazione>();
+//		valutazioni.add(new Valutazione(1, "A", 5.6, 5.9));
+//		valutazioni.add(new Valutazione(1, "B", 6, 6));
+//		valutazioni.add(new Valutazione(1, "C", 5.7, 5.8));
+//		valutazioni.add(new Valutazione(1, "E", 6.0, 6.0));
+//			
+//		valutazioni.add(new Valutazione(2, "A", 5.7, 5.7));
+//		valutazioni.add(new Valutazione(2, "B", 5.5, 5.5));
+//		valutazioni.add(new Valutazione(2, "C", 5.6, 5.5));
+//		valutazioni.add(new Valutazione(2, "D", 5.8, 5.6));
+//		valutazioni.add(new Valutazione(2, "E", 6.0, 6.0));
+//		valutazioni.add(new Valutazione(1, "D", 5.6, 6.0));			
+//		
+//		valutazioni.add(new Valutazione(3, "A", 5.5, 5.9));
+//		valutazioni.add(new Valutazione(3, "B", 5.7, 5.6));
+//		valutazioni.add(new Valutazione(3, "C", 5.8, 5.9));
+//		valutazioni.add(new Valutazione(3, "D", 5.9, 5.9));
+//		valutazioni.add(new Valutazione(3, "E", 6.0, 5.9));
+//		
+////		System.out.println("Before Sorting");
+////		for(Valutazione v: valutazioni) {
+////			System.out.println(v);
+////		}
+//		
+////		System.out.println("\nAfter Sorting");
+////		for(Valutazione v: valutazioni) {
+////			System.out.println(v);
+////		}
+//		
+//		return valutazioni;
+//	}
 	
-	public List<Valutazione> generaValutazioni() {
-		List<Valutazione> valutazioni=new ArrayList<Valutazione>();
-		valutazioni.add(new Valutazione(1, "A", 5.6, 5.9));
-		valutazioni.add(new Valutazione(1, "B", 6, 6));
-		valutazioni.add(new Valutazione(1, "C", 5.7, 5.8));
-		valutazioni.add(new Valutazione(1, "E", 6.0, 6.0));
-			
-		valutazioni.add(new Valutazione(2, "A", 5.7, 5.7));
-		valutazioni.add(new Valutazione(2, "B", 5.5, 5.5));
-		valutazioni.add(new Valutazione(2, "C", 5.6, 5.5));
-		valutazioni.add(new Valutazione(2, "D", 5.8, 5.6));
-		valutazioni.add(new Valutazione(2, "E", 6.0, 6.0));
-		valutazioni.add(new Valutazione(1, "D", 5.6, 6.0));			
-		
-		valutazioni.add(new Valutazione(3, "A", 5.5, 5.9));
-		valutazioni.add(new Valutazione(3, "B", 5.7, 5.6));
-		valutazioni.add(new Valutazione(3, "C", 5.8, 5.9));
-		valutazioni.add(new Valutazione(3, "D", 5.9, 5.9));
-		valutazioni.add(new Valutazione(3, "E", 6.0, 5.9));
-		
-//		System.out.println("Before Sorting");
-//		for(Valutazione v: valutazioni) {
-//			System.out.println(v);
-//		}
-		
-//		System.out.println("\nAfter Sorting");
-//		for(Valutazione v: valutazioni) {
-//			System.out.println(v);
-//		}
-		
-		return valutazioni;
-	}
-	
+	/**
+	 * Genera la lista dei gruppi in competizione con le relative valutazioni.
+	 * @param valutazioni lista di valutazioni ricavate dalla tabella.
+	 * @return lista dei gruppi in competizione con relative valutazioni.
+	 */
 	public List<Gruppo> generaGruppiConValutazioni(List<Valutazione> valutazioni) {
 		
 		//ordina lista valutazioni per numero e id giudice.
@@ -74,14 +79,20 @@ public class CompetitionController {
 			if(count==0) {
 				g=new Gruppo(v.getNumero());
 				g.getValutazioni().add(v);
+				g.setCoreografico(g.getCoreografico()+v.getCoreografico());
+				g.setTecnico(g.getTecnico()+v.getTecnico());
 				lista.add(g);
 			}
 			else if(count%2!=0) {//modificare per 5 giudici count%5
 				g.getValutazioni().add(v);
+				g.setCoreografico(g.getCoreografico()+v.getCoreografico());
+				g.setTecnico(g.getTecnico()+v.getTecnico());
 			}
 			else {
 				g=new Gruppo(v.getNumero()); //crea gruppo ogni 2 valutazioni (2 giudici)
 				g.getValutazioni().add(v);
+				g.setCoreografico(g.getCoreografico()+v.getCoreografico());
+				g.setTecnico(g.getTecnico()+v.getTecnico());
 				lista.add(g);
 			}
 			
@@ -94,21 +105,33 @@ public class CompetitionController {
 		
 	}
 
+	/**
+	 * Genera file csv dalla lista di gruppi già ordinata secondo classifica.
+	 * @param gruppi lista di gruppi ordinata secondo classifica.
+	 */
 	public void generaCsvGruppi(List<Gruppo> gruppi) {
 		try {
-			String path="csv/classifica.csv";
+			final String dir = System.getProperty("user.home");
+			String path=dir+"/classifica.csv";
 			FileWriter file=new FileWriter(path);
-			file.append("Numero\n");
+			file.append("Numero,Tecnico,Coreografico\n");
 			for(Gruppo g: gruppi) {
-				file.append(g.getNumero()+"\n");
+				file.append(g.getNumero()+","+g.getTecnico()+","+g.getCoreografico()+"\n");
 			}
 			file.close();
-			Logger.getLogger("Log").info("CSV File created: "+path);
+			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+			Desktop.getDesktop().open(new File(dir));
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
+	/**
+	 * Salva le valutazioni inserite in tabella in un file csv.
+	 * @param categoria categoria competizione.
+	 * @param disciplina disciplina competizione.
+	 * @param valutazioni lista di valutazioni inserite in tabella.
+	 */
 	public void salvaValutazioni(String categoria, String disciplina, List<Valutazione> valutazioni) {
 		try {
 			final String dir = System.getProperty("user.home");
@@ -130,6 +153,11 @@ public class CompetitionController {
 		}		
 	}
 
+	/**
+	 * Genera una lista di valutazioni da un file csv.
+	 * @param f file memorizzato precedentemente.
+	 * @return lista di valutazioni da visualizzare in tabella.
+	 */
 	public List<Valutazione> caricaValutazioni(File f) {
 		List<Valutazione> valutazioni=new ArrayList<Valutazione>();
 		File file = new File(f.getAbsolutePath()); 
@@ -173,6 +201,11 @@ public class CompetitionController {
 		return valutazioni;
 	}
 
+	/**
+	 * Genera una lista di giudici da un file csv.
+	 * @param f file contenente i giudici memorizzati precedentemente.
+	 * @return lista di giudici da visualizzare in tabella.
+	 */
 	public List<Giudice> caricaGiudici(File f) {
 		List<Giudice> giudici=new ArrayList<Giudice>();
 		File file = new File(f.getAbsolutePath()); 
@@ -219,6 +252,10 @@ public class CompetitionController {
 		return giudici;
 	}
 
+	/**
+	 * Memorizza in un file csv la lista di giudici inserita in tabella.
+	 * @param giudici lista di giudici generata dalla tabella.
+	 */
 	public void salvaGiudici(List<Giudice> giudici) {
 		try {
 			final String dir = System.getProperty("user.home");

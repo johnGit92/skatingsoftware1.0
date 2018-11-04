@@ -10,6 +10,8 @@ public class Gruppo implements Comparable<Gruppo>{
 	private String categoria;
 	private String disciplina;
 	private List<Valutazione> valutazioni;
+	private double tecnico;
+	private double coreografico;
 	
 	public Gruppo(int numero, String nominativo, String categoria, String disciplina) {
 		super();
@@ -18,8 +20,9 @@ public class Gruppo implements Comparable<Gruppo>{
 		this.categoria = categoria;
 		this.disciplina = disciplina;
 		valutazioni=new ArrayList<Valutazione>();
-	}
-	
+		tecnico=0;
+		coreografico=0;
+	}	
 	
 
 	public Gruppo(int numero) {
@@ -102,6 +105,28 @@ public class Gruppo implements Comparable<Gruppo>{
 		else if(vince_1<vince_2)
 			return 1;
 		return 0;
+	}
+
+
+
+	public double getCoreografico() {
+		return coreografico;
+	}
+
+
+
+	public void setCoreografico(double coreografico) {
+		this.coreografico = coreografico;
+	}
+
+
+	public double getTecnico() {
+		return tecnico;
+	}
+
+
+	public void setTecnico(double tecnico) {
+		this.tecnico = tecnico;
 	}
 	
 }
