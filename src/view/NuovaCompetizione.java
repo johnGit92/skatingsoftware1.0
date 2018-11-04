@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -10,17 +11,22 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controller.CompetitionController;
 import controller.GUIController;
+import model.Giudice;
 import model.Gruppo;
 import model.Valutazione;
+import java.awt.SystemColor;
 
 public class NuovaCompetizione {
 
@@ -45,7 +51,7 @@ public class NuovaCompetizione {
 	private void initialize() {
 		frmNuovaCompetizione = new JFrame();
 		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Nuova Competizione");
-		frmNuovaCompetizione.setBounds(100, 100, 670, 643);
+		frmNuovaCompetizione.setBounds(100, 100, 672, 643);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		
@@ -81,10 +87,12 @@ public class NuovaCompetizione {
 		String column_names[]= {"Numero","Giudice","Tecnico","Coreografico"};
 		DefaultTableModel model=new DefaultTableModel(column_names,0);
 		table = new JTable(model);
+		table.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		table.setBounds(10, 170, 234, 89);
 		frmNuovaCompetizione.getContentPane().add(table);
 		
 		JScrollPane scrollPaneVal = new JScrollPane(table);
+		scrollPaneVal.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		scrollPaneVal.setBounds(10, 211, 633, 387);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 		
@@ -194,6 +202,11 @@ public class NuovaCompetizione {
 				//ottieni categoria e disciplina
 				File f=chooser.getSelectedFile();
 				if(f!=null) {
+					
+					//pulisci tabella
+					while(model.getRowCount()>0)
+						model.removeRow(0);
+					
 					String name=f.getName();
 					String cat=name.substring(0, name.indexOf("_"));
 					String dis=name.substring(name.indexOf("_")+1, name.length()-4);
@@ -222,13 +235,37 @@ public class NuovaCompetizione {
 		frmNuovaCompetizione.getContentPane().add(btnCaricaDaFile);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(246, 11, 397, 159);
+		scrollPane.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
+		scrollPane.setBounds(246, 32, 397, 138);
 		frmNuovaCompetizione.getContentPane().add(scrollPane);
 
 		String column_names_giudici[]= {"ID","Nome","Cognome"};
 		DefaultTableModel modelGiudici=new DefaultTableModel(column_names_giudici,0);
 		table_1 = new JTable(modelGiudici);
+		table_1.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
 		scrollPane.setViewportView(table_1);
+		
+		JLabel lblGiudiciDiGara = new JLabel("Giudici di Gara");
+		lblGiudiciDiGara.setOpaque(true);
+		lblGiudiciDiGara.setForeground(SystemColor.inactiveCaptionBorder);
+		lblGiudiciDiGara.setBackground(SystemColor.activeCaption);
+		lblGiudiciDiGara.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGiudiciDiGara.setFont(new Font("SansSerif", Font.BOLD, 12));
+		lblGiudiciDiGara.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
+		lblGiudiciDiGara.setBounds(251, 11, 387, 25);
+		frmNuovaCompetizione.getContentPane().add(lblGiudiciDiGara);
+		
+		try {
+			//carica dati in tabella giudici
+			final String dir=System.getProperty("user.home");
+			List<Giudice> giudici=compController.caricaGiudici(new File(dir+"/giudici.csv"));
+			for(Giudice g: giudici) {
+				modelGiudici.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
+			}
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, e1.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 
 	public JFrame getFrame() {

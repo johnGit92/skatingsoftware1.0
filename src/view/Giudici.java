@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -18,6 +19,7 @@ import javax.swing.table.TableModel;
 import controller.CompetitionController;
 import controller.GUIController;
 import model.Giudice;
+import javax.swing.UIManager;
 
 public class Giudici {
 
@@ -58,8 +60,20 @@ public class Giudici {
 		frame.getContentPane().add(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		scrollPane.setBounds(10, 113, 633, 387);
 		frame.getContentPane().add(scrollPane);
+		
+		try {
+			//carica dati in tabella giudici
+			final String dir=System.getProperty("user.home");
+			List<Giudice> giudici=compController.caricaGiudici(new File(dir+"/giudici.csv"));
+			for(Giudice g: giudici) {
+				model.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
+			}
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, e1.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+		}
 		
 		JButton button_1 = new JButton("Aggiungi");
 		button_1.addMouseListener(new MouseAdapter() {
@@ -68,7 +82,7 @@ public class Giudici {
 				model.addRow(new Object[]{"Nuova riga"});
 			}
 		});
-		button_1.setBounds(10, 74, 83, 28);
+		button_1.setBounds(10, 81, 83, 28);
 		frame.getContentPane().add(button_1);
 		
 		JButton button_2 = new JButton("Elimina");
@@ -92,7 +106,7 @@ public class Giudici {
 				}
 			}
 		});
-		button_2.setBounds(105, 74, 83, 28);
+		button_2.setBounds(105, 81, 83, 28);
 		frame.getContentPane().add(button_2);
 		
 		JButton button_3 = new JButton("Salva");
@@ -116,7 +130,7 @@ public class Giudici {
 				compController.salvaGiudici(giudici);
 			}
 		});
-		button_3.setBounds(200, 74, 90, 28);
+		button_3.setBounds(200, 81, 90, 28);
 		frame.getContentPane().add(button_3);
 		
 		JButton button_4 = new JButton("Carica");
@@ -140,7 +154,7 @@ public class Giudici {
 				}
 			}
 		});
-		button_4.setBounds(302, 74, 90, 28);
+		button_4.setBounds(302, 81, 90, 28);
 		frame.getContentPane().add(button_4);
 	}
 
