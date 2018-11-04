@@ -3,6 +3,7 @@ package view;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import controller.CompetitionController;
 import controller.GUIController;
@@ -94,6 +96,26 @@ public class Giudici {
 		frame.getContentPane().add(button_2);
 		
 		JButton button_3 = new JButton("Salva");
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				//genera lista valutazioni dai dati inseriti in tabella.
+				TableModel model=table.getModel();
+				int rows=model.getRowCount(), index=0;
+				List<Giudice> giudici=new ArrayList<Giudice>();
+				String id,nome,cognome;
+				while(index<rows) {
+					id=(String)model.getValueAt(index, 0);
+					nome=(String)model.getValueAt(index, 1);
+					cognome=(String)model.getValueAt(index, 2);
+					giudici.add(new Giudice(id, nome, cognome));
+					index++;
+				}
+				
+				compController.salvaGiudici(giudici);
+			}
+		});
 		button_3.setBounds(200, 74, 90, 28);
 		frame.getContentPane().add(button_3);
 		

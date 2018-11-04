@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 import model.Giudice;
 import model.Gruppo;
@@ -108,7 +111,8 @@ public class CompetitionController {
 
 	public void salvaValutazioni(String categoria, String disciplina, List<Valutazione> valutazioni) {
 		try {
-			String path="csv/saved/"+categoria+"_"+disciplina+".csv";
+			final String dir = System.getProperty("user.home");
+			String path=dir+"/"+categoria+"_"+disciplina+".csv";
 			FileWriter file=new FileWriter(path);
 			String header="Numero,Giudice,Tecnico,Coreografico";
 			file.append(header);
@@ -119,9 +123,10 @@ public class CompetitionController {
 				file.append(String.valueOf(v.getCoreografico()));
 			}
 			file.close();
-			Logger.getLogger("Log").info("CSV File created: "+path);
+			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+			Desktop.getDesktop().open(new File(dir));
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 
@@ -143,19 +148,19 @@ public class CompetitionController {
 			double coreografico;
 			String line; int begin=0,end;
 		    while(sc.hasNext()) {
-		    	line = sc.next(); System.out.println(line);
+		    	line = sc.next(); //System.out.println(line);
 		    	
 		    	end=line.indexOf(",");
 		    	numero=Integer.valueOf(line.substring(begin, end));
-		    	line=line.substring(end+1);System.out.println(line);
+		    	line=line.substring(end+1); //System.out.println(line);
 		    	
 		    	end=line.indexOf(",");
 		    	id=line.substring(begin, end);
-		    	line=line.substring(end+1);System.out.println(line);
+		    	line=line.substring(end+1); //System.out.println(line);
 		    	
 		    	end=line.indexOf(",");
 		    	tecnico=Double.valueOf(line.substring(begin, end));
-		    	line=line.substring(end+1);System.out.println(line);
+		    	line=line.substring(end+1); //System.out.println(line);
 		    	
 		    	coreografico=Double.valueOf(line.substring(begin));
 				
@@ -183,15 +188,15 @@ public class CompetitionController {
 			String id,nome,cognome;
 			String line; int begin=0,end;
 		    while(sc.hasNext()) {
-		    	line = sc.next(); System.out.println(line);
+		    	line = sc.next(); //System.out.println(line);
 		    	
 		    	end=line.indexOf(",");
 		    	id=line.substring(begin, end);
-		    	line=line.substring(end+1);System.out.println(line);
+		    	line=line.substring(end+1); //System.out.println(line);
 		    	
 		    	end=line.indexOf(",");
 		    	nome=line.substring(begin, end);
-		    	line=line.substring(end+1);System.out.println(line);
+		    	line=line.substring(end+1); //System.out.println(line);
 		    	
 		    	end=line.indexOf(",");
 		    	cognome=line.substring(begin);
@@ -212,6 +217,26 @@ public class CompetitionController {
 		});
 		
 		return giudici;
+	}
+
+	public void salvaGiudici(List<Giudice> giudici) {
+		try {
+			final String dir = System.getProperty("user.home");
+			String path=dir+"/giudici.csv";
+			FileWriter file=new FileWriter(path);
+			String header="ID,Nome,Cognome";
+			file.append(header);
+			for(Giudice g: giudici) {
+				file.append("\n"+g.getId()+",");
+				file.append(g.getNome()+",");
+				file.append(g.getCognome());
+			}
+			file.close();
+			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+			Desktop.getDesktop().open(new File(dir));
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+		}		
 	}
 	
 }

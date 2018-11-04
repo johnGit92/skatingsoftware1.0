@@ -2,7 +2,7 @@ import controller.CompetitionController;
 import controller.GUIController;
 
 /**
- * Main class which starts the application.
+ * Main class used to launch the application.
  * @author Giovanbattista
  *
  */
