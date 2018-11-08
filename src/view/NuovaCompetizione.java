@@ -59,19 +59,51 @@ public class NuovaCompetizione {
 		comboBoxCat.setBounds(10, 81, 211, 25);
 		frmNuovaCompetizione.getContentPane().add(comboBoxCat);
 		comboBoxCat.addItem("Seleziona Categoria...");
-		comboBoxCat.addItem("UNDER 8");
+		comboBoxCat.addItem("UNDER 5");
+		comboBoxCat.addItem("UNDER 7");
+		comboBoxCat.addItem("UNDER 9");
 		comboBoxCat.addItem("UNDER 11");
-		comboBoxCat.addItem("UNDER 14");
+		comboBoxCat.addItem("UNDER 13");
 		comboBoxCat.addItem("UNDER 16");
+		comboBoxCat.addItem("UNDER 21");
+		comboBoxCat.addItem("OVER 16");
+		comboBoxCat.addItem("OVER 35");
+		comboBoxCat.addItem("OVER 50 OPEN");
+		comboBoxCat.addItem("OPEN DA ANNI 4 IN POI");
+		comboBoxCat.addItem("ASSOLUTA");
 		
+		JComboBox<String> comboBoxClassi = new JComboBox<String>();
+		comboBoxClassi.setBounds(10, 113, 211, 25);
+		frmNuovaCompetizione.getContentPane().add(comboBoxClassi);
+		comboBoxClassi.addItem("Seleziona Classe...");
+		comboBoxClassi.addItem("ESORDIENTI");
+		comboBoxClassi.addItem("DIVULGATIVA");
+		comboBoxClassi.addItem("RISING STARS");
+		comboBoxClassi.addItem("GOLD STARS");
+		comboBoxClassi.addItem("OPEN");
+				
 		JComboBox<String> comboBoxDis = new JComboBox<String>();
-		comboBoxDis.setBounds(10, 113, 211, 25);
+		comboBoxDis.setBounds(10, 145, 211, 25);
 		frmNuovaCompetizione.getContentPane().add(comboBoxDis);
 		comboBoxDis.addItem("Seleziona Disciplina...");
-		comboBoxDis.addItem("HIP HOP");
-		comboBoxDis.addItem("LATINO");
-		comboBoxDis.addItem("COREOG A");
-		comboBoxDis.addItem("SINCRO B");
+		comboBoxDis.addItem("HOBBY DANCE A");
+		comboBoxDis.addItem("HOBBY DANCE B");
+		comboBoxDis.addItem("SINCRONIZZATO A");
+		comboBoxDis.addItem("SINCRONIZZATO B");
+		comboBoxDis.addItem("COREOGRAFICO A");
+		comboBoxDis.addItem("COREOGRAFICO B");
+		comboBoxDis.addItem("SHOW DANCE A");
+		comboBoxDis.addItem("SHOW DANCE B");
+		comboBoxDis.addItem("DANZE ETNICHE");
+		comboBoxDis.addItem("FOLK");
+		comboBoxDis.addItem("ORIENTALE");
+		comboBoxDis.addItem("FLAMENCO");
+		comboBoxDis.addItem("COUNTRY");
+		comboBoxDis.addItem("SOLO");
+		comboBoxDis.addItem("DUO");
+		comboBoxDis.addItem("PICCOLO GRUPPO");
+		comboBoxDis.addItem("GRANDE GRUPPO");
+		comboBoxDis.addItem("PRODUCTION");
 		
 		JButton btnIndietro = new JButton("Indietro");
 		btnIndietro.addMouseListener(new MouseAdapter() {
@@ -93,7 +125,7 @@ public class NuovaCompetizione {
 		
 		JScrollPane scrollPaneVal = new JScrollPane(table);
 		scrollPaneVal.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
-		scrollPaneVal.setBounds(10, 211, 633, 387);
+		scrollPaneVal.setBounds(10, 224, 633, 374);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 		
 		JButton btnValutaGruppo = new JButton("Aggiungi");
@@ -103,7 +135,7 @@ public class NuovaCompetizione {
 				model.addRow(new Object[]{"Nuova riga"});
 			}
 		});
-		btnValutaGruppo.setBounds(10, 182, 83, 28);
+		btnValutaGruppo.setBounds(10, 192, 83, 28);
 		frmNuovaCompetizione.getContentPane().add(btnValutaGruppo);
 		
 		JButton btnElimina = new JButton("Elimina");
@@ -129,7 +161,7 @@ public class NuovaCompetizione {
 					JOptionPane.showMessageDialog(null, "Nessuna riga selezionata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
 			}
 		});
-		btnElimina.setBounds(105, 182, 83, 28);
+		btnElimina.setBounds(105, 192, 83, 28);
 		frmNuovaCompetizione.getContentPane().add(btnElimina);
 		
 		JButton btnClassifica = new JButton("Classifica");
@@ -140,25 +172,30 @@ public class NuovaCompetizione {
 				//genera lista valutazioni dai dati inseriti in tabella.
 				TableModel model=table.getModel();
 				int rows=model.getRowCount(), index=0;
-				List<Valutazione> valutazioni=new ArrayList<Valutazione>();
-				int numero; String id; double tecnico,coreografico;
-				while(index<rows) {
-					numero=Integer.valueOf((String)model.getValueAt(index, 0));
-					id=(String)model.getValueAt(index, 1);
-					tecnico=Double.valueOf((String)model.getValueAt(index, 2));
-					coreografico=Double.valueOf((String)model.getValueAt(index, 3));
-					valutazioni.add(new Valutazione(numero, id, tecnico, coreografico));
-					index++;
+				if(rows<(2*2)) {//2 valutazioni(cambiare per 5 giudici 2*5) per almeno 2 gruppi
+					JOptionPane.showMessageDialog(null, "Voti mancanti", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 				}
-				
-				//aggiungi valutazioni ai gruppi
-				List<Gruppo> gruppi=compController.generaGruppiConValutazioni(valutazioni);
-				
-				//genera csv con la classifica dei gruppi in competizione
-				compController.generaCsvGruppi(gruppi);
+				else {
+					List<Valutazione> valutazioni=new ArrayList<Valutazione>();
+					int numero; String id; double tecnico,coreografico;
+					while(index<rows) {
+						numero=Integer.valueOf((String)model.getValueAt(index, 0));
+						id=(String)model.getValueAt(index, 1);
+						tecnico=Double.valueOf((String)model.getValueAt(index, 2));
+						coreografico=Double.valueOf((String)model.getValueAt(index, 3));
+						valutazioni.add(new Valutazione(numero, id, tecnico, coreografico));
+						index++;
+					}
+					
+					//aggiungi valutazioni ai gruppi
+					List<Gruppo> gruppi=compController.generaGruppiConValutazioni(valutazioni);
+					
+					//genera csv con la classifica dei gruppi in competizione
+					compController.generaCsvGruppi(gruppi);					
+				}
 			}
 		});
-		btnClassifica.setBounds(544, 182, 83, 28);
+		btnClassifica.setBounds(544, 192, 83, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		JButton btnSalva = new JButton("Salva");
@@ -169,25 +206,36 @@ public class NuovaCompetizione {
 				//genera lista valutazioni dai dati inseriti in tabella.
 				TableModel model=table.getModel();
 				int rows=model.getRowCount(), index=0;
-				List<Valutazione> valutazioni=new ArrayList<Valutazione>();
-				int numero; String id; double tecnico,coreografico;
-				while(index<rows) {
-					numero=Integer.valueOf((String)model.getValueAt(index, 0));
-					id=(String)model.getValueAt(index, 1);
-					tecnico=Double.valueOf((String)model.getValueAt(index, 2));
-					coreografico=Double.valueOf((String)model.getValueAt(index, 3));
-					valutazioni.add(new Valutazione(numero, id, tecnico, coreografico));
-					index++;
+				if(rows>0) {
+					if(comboBoxCat.getSelectedItem().equals("Seleziona Categoria...")||comboBoxDis.getSelectedItem().equals("Seleziona Disciplina...")
+							||comboBoxClassi.getSelectedItem().equals("Seleziona Classe...")) {
+						JOptionPane.showMessageDialog(null, "Seleziona Categoria/Classe/Disciplina", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						List<Valutazione> valutazioni=new ArrayList<Valutazione>();
+						int numero; String id; double tecnico,coreografico;
+						while(index<rows) {
+							numero=Integer.valueOf((String)model.getValueAt(index, 0));
+							id=(String)model.getValueAt(index, 1);
+							tecnico=Double.valueOf((String)model.getValueAt(index, 2));
+							coreografico=Double.valueOf((String)model.getValueAt(index, 3));
+							valutazioni.add(new Valutazione(numero, id, tecnico, coreografico));
+							index++;
+						}
+						
+						//salva valutazioni in un file csv
+						String categoria=comboBoxCat.getItemAt(comboBoxCat.getSelectedIndex());
+						String disciplina=comboBoxDis.getItemAt(comboBoxDis.getSelectedIndex());
+						String classe=comboBoxClassi.getItemAt(comboBoxClassi.getSelectedIndex());
+						compController.salvaValutazioni(categoria,disciplina,classe,valutazioni);							
+					}				
 				}
-				
-				//salva valutazioni in un file csv
-				String categoria=comboBoxCat.getItemAt(comboBoxCat.getSelectedIndex());
-				String disciplina=comboBoxDis.getItemAt(comboBoxDis.getSelectedIndex());
-				compController.salvaValutazioni(categoria,disciplina,valutazioni);
+				else
+					JOptionPane.showMessageDialog(null, "Tabella Vuota", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		});
-		btnSalva.setBounds(200, 182, 90, 28);
+		btnSalva.setBounds(200, 192, 90, 28);
 		frmNuovaCompetizione.getContentPane().add(btnSalva);
 		
 		JButton btnCaricaDaFile = new JButton("Carica");
@@ -209,13 +257,23 @@ public class NuovaCompetizione {
 					
 					String name=f.getName();
 					String cat=name.substring(0, name.indexOf("_"));
-					String dis=name.substring(name.indexOf("_")+1, name.length()-4);
 					
-					//ricerca e seleziona categoria e disciplina
+					name=name.substring(name.indexOf("_")+1);
+					String dis=name.substring(0, name.indexOf("_"));
+					
+					name=name.substring(name.indexOf("_")+1);
+					String classe=name.substring(0, name.length()-4);
+					
+					//ricerca e seleziona categoria, disciplina e classe
 					int index=0,count=comboBoxCat.getItemCount();
 					while(index++<count) {
 						if(cat.equals(comboBoxCat.getItemAt(index)))
 							comboBoxCat.setSelectedIndex(index);
+					}
+					index=0; count=comboBoxClassi.getItemCount();
+					while(index++<count) {
+						if(classe.equals(comboBoxClassi.getItemAt(index)))
+							comboBoxClassi.setSelectedIndex(index);
 					}
 					index=0; count=comboBoxDis.getItemCount();
 					while(index++<count) {
@@ -231,7 +289,7 @@ public class NuovaCompetizione {
 				}
 			}});
 		
-		btnCaricaDaFile.setBounds(302, 182, 90, 28);
+		btnCaricaDaFile.setBounds(302, 192, 90, 28);
 		frmNuovaCompetizione.getContentPane().add(btnCaricaDaFile);
 		
 		JScrollPane scrollPane = new JScrollPane();

@@ -132,10 +132,10 @@ public class CompetitionController {
 	 * @param disciplina disciplina competizione.
 	 * @param valutazioni lista di valutazioni inserite in tabella.
 	 */
-	public void salvaValutazioni(String categoria, String disciplina, List<Valutazione> valutazioni) {
+	public void salvaValutazioni(String categoria, String disciplina, String classe, List<Valutazione> valutazioni) {
 		try {
 			final String dir = System.getProperty("user.home");
-			String path=dir+"/"+categoria+"_"+disciplina+".csv";
+			String path=dir+"/"+categoria+"_"+disciplina+"_"+classe+".csv";
 			FileWriter file=new FileWriter(path);
 			String header="Numero,Giudice,Tecnico,Coreografico";
 			file.append(header);
@@ -238,7 +238,7 @@ public class CompetitionController {
 		    }
 		} catch (FileNotFoundException e) {
 			
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Lista giudici vuota!", "Attenzione", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		//ordina per nome
