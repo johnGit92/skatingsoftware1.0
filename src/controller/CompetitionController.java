@@ -58,9 +58,9 @@ public class CompetitionController {
 	 * @param valutazioni lista di valutazioni ricavate dalla tabella.
 	 * @return lista dei gruppi in competizione con relative valutazioni.
 	 */
-	public List<Gruppo> generaGruppiConValutazioni(List<Valutazione> valutazioni) {
+	public List<Gruppo> generaGruppiConValutazioni(List<Valutazione> valutazioni, int numeroGiudici) {
 		
-		//ordina lista valutazioni per numero e id giudice.
+		//ordina lista valutazioni per numero gruppo e id giudice.
 		Collections.sort(valutazioni,new Comparator<Valutazione>() {
 			@Override
 			public int compare(Valutazione arg0, Valutazione arg1) {
@@ -71,34 +71,25 @@ public class CompetitionController {
 			}
 		});
 		
-		//genera gruppi con valutazioni ordinati secondo classifica.
+		//genera gruppi con valutazioni
 		int count=0; 
 		List<Gruppo> lista=new ArrayList<Gruppo>();
 		Gruppo g=null;
 		for(Valutazione v: valutazioni) {
-			if(count==0) {
-				g=new Gruppo(v.getNumero());
-				g.getValutazioni().add(v);
-				g.setCoreografico(g.getCoreografico()+v.getCoreografico());
-				g.setTecnico(g.getTecnico()+v.getTecnico());
-				lista.add(g);
+			
+			if(count%numeroGiudici==0) {
+				g=new Gruppo(v.getNumero()); //crea nuovo gruppo una volta inserite le valutazioni di tutti i giudici
+				lista.add(g); //aggiungi gruppo alla lista per la classifica
 			}
-			else if(count%2!=0) {//modificare per 5 giudici count%5
-				g.getValutazioni().add(v);
-				g.setCoreografico(g.getCoreografico()+v.getCoreografico());
-				g.setTecnico(g.getTecnico()+v.getTecnico());
-			}
-			else {
-				g=new Gruppo(v.getNumero()); //crea gruppo ogni 2 valutazioni (2 giudici)
-				g.getValutazioni().add(v);
-				g.setCoreografico(g.getCoreografico()+v.getCoreografico());
-				g.setTecnico(g.getTecnico()+v.getTecnico());
-				lista.add(g);
-			}
+			
+			g.getValutazioni().add(v); //aggiungi voti al gruppo
+			g.setCoreografico(g.getCoreografico()+v.getCoreografico()); //aggiorna complessivo coreografico
+			g.setTecnico(g.getTecnico()+v.getTecnico()); //aggiorna complessivo tecnico
 			
 			count++;
 		}
 		
+		//ordina lista gruppi secondo classifica
 		Collections.sort(lista);
 		
 		return lista;

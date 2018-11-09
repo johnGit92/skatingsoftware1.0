@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import controller.GUIController;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class MainMenu {
 
@@ -27,32 +29,27 @@ public class MainMenu {
 	private void initialize() {
 		frmSkatingsoftware = new JFrame();
 		frmSkatingsoftware.setTitle("Skating Software 1.0");
-		frmSkatingsoftware.setBounds(100, 100, 354, 260);
+		frmSkatingsoftware.setBounds(100, 100, 308, 260);
 		frmSkatingsoftware.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSkatingsoftware.getContentPane().setLayout(null);
 		
+		JPanel panel = new JPanel();
+		panel.setBorder(UIManager.getBorder("TitledBorder.border"));
+		panel.setBounds(6, 6, 280, 209);
+		frmSkatingsoftware.getContentPane().add(panel);
+		panel.setLayout(null);
+		
 		JButton btnNuovaCompetizione = new JButton("Nuova Competizione");
-		btnNuovaCompetizione.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				guiController.showNuovaCompetizione();
-				frmSkatingsoftware.setVisible(false);
-			}
-		});
-		btnNuovaCompetizione.setBounds(86, 33, 142, 28);
-		frmSkatingsoftware.getContentPane().add(btnNuovaCompetizione);
+		btnNuovaCompetizione.setBounds(69, 34, 142, 28);
+		panel.add(btnNuovaCompetizione);
 		
 		JButton btnEsci = new JButton("Esci");
-		btnEsci.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.exit(0);
-			}
-		});
-		btnEsci.setBounds(86, 143, 142, 28);
-		frmSkatingsoftware.getContentPane().add(btnEsci);
+		btnEsci.setBounds(69, 144, 142, 28);
+		panel.add(btnEsci);
 		
 		JButton btnGiudici = new JButton("Giudici");
+		btnGiudici.setBounds(69, 74, 142, 28);
+		panel.add(btnGiudici);
 		btnGiudici.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -60,8 +57,19 @@ public class MainMenu {
 				frmSkatingsoftware.setVisible(false);
 			}
 		});
-		btnGiudici.setBounds(86, 73, 142, 28);
-		frmSkatingsoftware.getContentPane().add(btnGiudici);
+		btnEsci.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnNuovaCompetizione.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				guiController.showNuovaCompetizione();
+				frmSkatingsoftware.setVisible(false);
+			}
+		});
 	}
 
 	public JFrame getFrmSkatingsoftware() {

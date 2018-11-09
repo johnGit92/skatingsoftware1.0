@@ -37,8 +37,9 @@ public class Giudici {
 	//Initialize the contents of the frame.
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setTitle("Skating Software 1.0 - Giudici");
-		frame.setBounds(100, 100, 670, 550);
+		frame.setBounds(100, 100, 659, 464);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -60,8 +61,8 @@ public class Giudici {
 		frame.getContentPane().add(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
-		scrollPane.setBounds(10, 113, 633, 387);
+		scrollPane.setBorder(UIManager.getBorder("TitledBorder.border"));
+		scrollPane.setBounds(10, 113, 633, 316);
 		frame.getContentPane().add(scrollPane);
 		
 		try {
@@ -146,10 +147,15 @@ public class Giudici {
 				File f=chooser.getSelectedFile();
 				if(f!=null) {
 					
-					//carica dati in tabella
-					List<Giudice> giudici=compController.caricaGiudici(f);
-					for(Giudice g: giudici) {
-						model.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
+					try {
+						//carica dati in tabella
+						List<Giudice> giudici=compController.caricaGiudici(f);
+						for(Giudice g: giudici) {
+							model.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
+						}
+					} catch (Exception e1) {
+						
+						JOptionPane.showMessageDialog(null, e1.toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

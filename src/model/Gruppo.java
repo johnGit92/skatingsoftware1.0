@@ -31,6 +31,8 @@ public class Gruppo implements Comparable<Gruppo>{
 		super();
 		this.numero = numero;
 		valutazioni=new ArrayList<Valutazione>();
+		tecnico=0;
+		coreografico=0;
 	}
 
 
@@ -122,12 +124,13 @@ public class Gruppo implements Comparable<Gruppo>{
 		List<Valutazione> val_da_confrontare=o.getValutazioni();
 		int index=0; int vince_1=0,vince_2=0; double tecnico_1=0, tecnico_2=0, coreografico_1=0, coreografico_2=0;
 		while(index<2) {//modificare per 5 giudici index<5
+			
+			//ottieni valori tecnico e coreografico dei due gruppi da confrontare
 			tecnico_1=valutazioni.get(index).getTecnico();
-			setTecnico(tecnico+tecnico_1); //aggiorna tecnico complessivo
-			tecnico_2=val_da_confrontare.get(index).getTecnico();
-			o.setTecnico(o.getTecnico()+tecnico_2); //aggiorna coreografico complessivo
 			coreografico_1=valutazioni.get(index).getCoreografico();
+			tecnico_2=val_da_confrontare.get(index).getTecnico();
 			coreografico_2=val_da_confrontare.get(index).getCoreografico();
+			
 			if((tecnico_1+coreografico_1)>(tecnico_2+coreografico_2)) {
 				vince_1++;
 			}

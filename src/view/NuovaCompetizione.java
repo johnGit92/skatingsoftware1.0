@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -26,7 +29,6 @@ import controller.GUIController;
 import model.Giudice;
 import model.Gruppo;
 import model.Valutazione;
-import java.awt.SystemColor;
 
 public class NuovaCompetizione {
 
@@ -34,7 +36,7 @@ public class NuovaCompetizione {
 	private GUIController guiController;
 	private CompetitionController compController;
 	private JTable table;
-	private JTable table_1;
+	private JTable tableGiudici;
 
 	/**
 	 * Create the application.
@@ -50,8 +52,9 @@ public class NuovaCompetizione {
 	 */
 	private void initialize() {
 		frmNuovaCompetizione = new JFrame();
+		frmNuovaCompetizione.setResizable(false);
 		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Nuova Competizione");
-		frmNuovaCompetizione.setBounds(100, 100, 672, 643);
+		frmNuovaCompetizione.setBounds(100, 100, 904, 589);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		
@@ -124,8 +127,8 @@ public class NuovaCompetizione {
 		frmNuovaCompetizione.getContentPane().add(table);
 		
 		JScrollPane scrollPaneVal = new JScrollPane(table);
-		scrollPaneVal.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
-		scrollPaneVal.setBounds(10, 224, 633, 374);
+		scrollPaneVal.setBorder(UIManager.getBorder("TitledBorder.border"));
+		scrollPaneVal.setBounds(10, 224, 463, 320);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 		
 		JButton btnValutaGruppo = new JButton("Aggiungi");
@@ -135,7 +138,7 @@ public class NuovaCompetizione {
 				model.addRow(new Object[]{"Nuova riga"});
 			}
 		});
-		btnValutaGruppo.setBounds(10, 192, 83, 28);
+		btnValutaGruppo.setBounds(10, 192, 76, 28);
 		frmNuovaCompetizione.getContentPane().add(btnValutaGruppo);
 		
 		JButton btnElimina = new JButton("Elimina");
@@ -161,41 +164,50 @@ public class NuovaCompetizione {
 					JOptionPane.showMessageDialog(null, "Nessuna riga selezionata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
 			}
 		});
-		btnElimina.setBounds(105, 192, 83, 28);
+		btnElimina.setBounds(94, 192, 76, 28);
 		frmNuovaCompetizione.getContentPane().add(btnElimina);
 		
 		JButton btnClassifica = new JButton("Classifica");
 		btnClassifica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				//genera lista valutazioni dai dati inseriti in tabella.
-				TableModel model=table.getModel();
-				int rows=model.getRowCount(), index=0;
-				if(rows<(2*2)) {//2 valutazioni(cambiare per 5 giudici 2*5) per almeno 2 gruppi
-					JOptionPane.showMessageDialog(null, "Voti mancanti", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+
+				//numero di giudici selezionati per la competizione
+				int numeroGiudici=tableGiudici.getSelectedRowCount();
+				if(numeroGiudici==0) {
+					JOptionPane.showMessageDialog(null, "Selezionare giudici competizione", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					List<Valutazione> valutazioni=new ArrayList<Valutazione>();
-					int numero; String id; double tecnico,coreografico;
-					while(index<rows) {
-						numero=Integer.valueOf((String)model.getValueAt(index, 0));
-						id=(String)model.getValueAt(index, 1);
-						tecnico=Double.valueOf((String)model.getValueAt(index, 2));
-						coreografico=Double.valueOf((String)model.getValueAt(index, 3));
-						valutazioni.add(new Valutazione(numero, id, tecnico, coreografico));
-						index++;
+					
+					//genera lista valutazioni dai dati inseriti in tabella.
+					TableModel model=table.getModel();
+					int rows=model.getRowCount(), index=0;
+					if(rows<(numeroGiudici*2)) {
+						JOptionPane.showMessageDialog(null, "Voti mancanti", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 					}
-					
-					//aggiungi valutazioni ai gruppi
-					List<Gruppo> gruppi=compController.generaGruppiConValutazioni(valutazioni);
-					
-					//genera csv con la classifica dei gruppi in competizione
-					compController.generaCsvGruppi(gruppi);					
+					else {
+						List<Valutazione> valutazioni=new ArrayList<Valutazione>();
+						int numero; String id; double tecnico,coreografico;
+						while(index<rows) {
+							numero=Integer.valueOf((String)model.getValueAt(index, 0));
+							id=(String)model.getValueAt(index, 1);
+							tecnico=Double.valueOf((String)model.getValueAt(index, 2));
+							coreografico=Double.valueOf((String)model.getValueAt(index, 3));
+							valutazioni.add(new Valutazione(numero, id, tecnico, coreografico));
+							index++;
+						}
+						
+						
+						//aggiungi valutazioni ai gruppi
+						List<Gruppo> gruppi=compController.generaGruppiConValutazioni(valutazioni,numeroGiudici);
+						
+						//genera csv con la classifica dei gruppi in competizione
+						compController.generaCsvGruppi(gruppi);					
+					}					
 				}
 			}
 		});
-		btnClassifica.setBounds(544, 192, 83, 28);
+		btnClassifica.setBounds(387, 192, 83, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		JButton btnSalva = new JButton("Salva");
@@ -235,7 +247,7 @@ public class NuovaCompetizione {
 				
 			}
 		});
-		btnSalva.setBounds(200, 192, 90, 28);
+		btnSalva.setBounds(179, 192, 76, 28);
 		frmNuovaCompetizione.getContentPane().add(btnSalva);
 		
 		JButton btnCaricaDaFile = new JButton("Carica");
@@ -251,57 +263,74 @@ public class NuovaCompetizione {
 				File f=chooser.getSelectedFile();
 				if(f!=null) {
 					
-					//pulisci tabella
-					while(model.getRowCount()>0)
-						model.removeRow(0);
-					
-					String name=f.getName();
-					String cat=name.substring(0, name.indexOf("_"));
-					
-					name=name.substring(name.indexOf("_")+1);
-					String dis=name.substring(0, name.indexOf("_"));
-					
-					name=name.substring(name.indexOf("_")+1);
-					String classe=name.substring(0, name.length()-4);
-					
-					//ricerca e seleziona categoria, disciplina e classe
-					int index=0,count=comboBoxCat.getItemCount();
-					while(index++<count) {
-						if(cat.equals(comboBoxCat.getItemAt(index)))
-							comboBoxCat.setSelectedIndex(index);
-					}
-					index=0; count=comboBoxClassi.getItemCount();
-					while(index++<count) {
-						if(classe.equals(comboBoxClassi.getItemAt(index)))
-							comboBoxClassi.setSelectedIndex(index);
-					}
-					index=0; count=comboBoxDis.getItemCount();
-					while(index++<count) {
-						if(dis.equals(comboBoxDis.getItemAt(index)))
-							comboBoxDis.setSelectedIndex(index);
-					}
-					
-					//carica dati in tabella
-					List<Valutazione> valutazioni=compController.caricaValutazioni(f);
-					for(Valutazione v: valutazioni) {
-						model.addRow(new Object[] {String.valueOf(v.getNumero()),v.getId(),String.valueOf(v.getTecnico()),String.valueOf(v.getCoreografico())});
+					try {
+						//pulisci tabella
+						while(model.getRowCount()>0)
+							model.removeRow(0);
+						
+						String name=f.getName();
+						String cat=name.substring(0, name.indexOf("_"));
+						
+						name=name.substring(name.indexOf("_")+1);
+						String dis=name.substring(0, name.indexOf("_"));
+						
+						name=name.substring(name.indexOf("_")+1);
+						String classe=name.substring(0, name.length()-4);
+						
+						//ricerca e seleziona categoria, disciplina e classe
+						int index=0,count=comboBoxCat.getItemCount();
+						while(index++<count) {
+							if(cat.equals(comboBoxCat.getItemAt(index)))
+								comboBoxCat.setSelectedIndex(index);
+						}
+						index=0; count=comboBoxClassi.getItemCount();
+						while(index++<count) {
+							if(classe.equals(comboBoxClassi.getItemAt(index)))
+								comboBoxClassi.setSelectedIndex(index);
+						}
+						index=0; count=comboBoxDis.getItemCount();
+						while(index++<count) {
+							if(dis.equals(comboBoxDis.getItemAt(index)))
+								comboBoxDis.setSelectedIndex(index);
+						}
+						
+						//carica dati in tabella
+						List<Valutazione> valutazioni=compController.caricaValutazioni(f);
+						for(Valutazione v: valutazioni) {
+							model.addRow(new Object[] {String.valueOf(v.getNumero()),v.getId(),String.valueOf(v.getTecnico()),String.valueOf(v.getCoreografico())});
+						}
+					} catch (Exception e1) {
+						
+						JOptionPane.showMessageDialog(null, e.toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}});
 		
-		btnCaricaDaFile.setBounds(302, 192, 90, 28);
+		btnCaricaDaFile.setBounds(267, 192, 76, 28);
 		frmNuovaCompetizione.getContentPane().add(btnCaricaDaFile);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
-		scrollPane.setBounds(246, 32, 397, 138);
+		scrollPane.setBorder(UIManager.getBorder("TitledBorder.border"));
+		scrollPane.setBounds(485, 224, 397, 320);
 		frmNuovaCompetizione.getContentPane().add(scrollPane);
 
 		String column_names_giudici[]= {"ID","Nome","Cognome"};
 		DefaultTableModel modelGiudici=new DefaultTableModel(column_names_giudici,0);
-		table_1 = new JTable(modelGiudici);
-		table_1.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
-		scrollPane.setViewportView(table_1);
+		tableGiudici = new JTable(modelGiudici);
+		tableGiudici.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				if(arg0.getKeyChar()=='+') { //alla pressione del tasto '+'
+					String NumeroGruppo=JOptionPane.showInputDialog("Numero Gruppo"); //acquisisce da input il numero del gruppo da valutare
+					int[] rows=tableGiudici.getSelectedRows(); //giudici selezionati
+					for(int index=0;index<rows.length;index++) { //per ciascun giudice selezionato aggiunge una riga per inserire i voti
+						model.addRow(new Object[]{NumeroGruppo,modelGiudici.getValueAt(rows[index], 0)});
+					}
+				}
+			}
+		});
+		tableGiudici.setBorder(null);
+		scrollPane.setViewportView(tableGiudici);
 		
 		JLabel lblGiudiciDiGara = new JLabel("Giudici di Gara");
 		lblGiudiciDiGara.setOpaque(true);
@@ -310,7 +339,7 @@ public class NuovaCompetizione {
 		lblGiudiciDiGara.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGiudiciDiGara.setFont(new Font("SansSerif", Font.BOLD, 12));
 		lblGiudiciDiGara.setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
-		lblGiudiciDiGara.setBounds(251, 11, 387, 25);
+		lblGiudiciDiGara.setBounds(490, 192, 387, 25);
 		frmNuovaCompetizione.getContentPane().add(lblGiudiciDiGara);
 		
 		try {
