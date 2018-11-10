@@ -54,7 +54,7 @@ public class NuovaCompetizione {
 		frmNuovaCompetizione = new JFrame();
 		frmNuovaCompetizione.setResizable(false);
 		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Nuova Competizione");
-		frmNuovaCompetizione.setBounds(100, 100, 904, 589);
+		frmNuovaCompetizione.setBounds(10, 10, 904, 589);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		
@@ -202,7 +202,10 @@ public class NuovaCompetizione {
 						List<Gruppo> gruppi=compController.generaGruppiConValutazioni(valutazioni,numeroGiudici);
 						
 						//genera csv con la classifica dei gruppi in competizione
-						compController.generaCsvGruppi(gruppi);					
+						String categoria=comboBoxCat.getItemAt(comboBoxCat.getSelectedIndex());
+						String classe=comboBoxClassi.getItemAt(comboBoxClassi.getSelectedIndex());
+						String disciplina=comboBoxDis.getItemAt(comboBoxDis.getSelectedIndex());
+						compController.generaCsvGruppi(gruppi,categoria,classe,disciplina);					
 					}					
 				}
 			}

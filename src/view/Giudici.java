@@ -39,7 +39,7 @@ public class Giudici {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setTitle("Skating Software 1.0 - Giudici");
-		frame.setBounds(100, 100, 659, 464);
+		frame.setBounds(10, 10, 659, 464);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		

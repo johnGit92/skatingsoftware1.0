@@ -29,7 +29,7 @@ public class MainMenu {
 	private void initialize() {
 		frmSkatingsoftware = new JFrame();
 		frmSkatingsoftware.setTitle("Skating Software 1.0");
-		frmSkatingsoftware.setBounds(100, 100, 308, 260);
+		frmSkatingsoftware.setBounds(10, 10, 308, 260);
 		frmSkatingsoftware.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSkatingsoftware.getContentPane().setLayout(null);
 		

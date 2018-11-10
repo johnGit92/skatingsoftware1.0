@@ -99,15 +99,18 @@ public class CompetitionController {
 	/**
 	 * Genera file csv dalla lista di gruppi già ordinata secondo classifica.
 	 * @param gruppi lista di gruppi ordinata secondo classifica.
+	 * @param disciplina disciplina competizione 
+	 * @param classe classe competizione
+	 * @param categoria categoria competizione
 	 */
-	public void generaCsvGruppi(List<Gruppo> gruppi) {
+	public void generaCsvGruppi(List<Gruppo> gruppi, String categoria, String classe, String disciplina) {
 		try {
 			final String dir = System.getProperty("user.home");
-			String path=dir+"/classifica.csv";
+			String path=dir+"/"+categoria+"_"+disciplina+"_"+classe+"_CLASSIFICA.csv";
 			FileWriter file=new FileWriter(path);
 			file.append("Numero,Tecnico,Coreografico\n");
 			for(Gruppo g: gruppi) {
-				file.append(g.getNumero()+","+g.getTecnico()+","+g.getCoreografico()+"\n");
+				file.append(g.getNumero()+","+Math.floor(g.getTecnico()*100)/100+","+Math.floor(g.getCoreografico()*100)/100+"\n");
 			}
 			file.close();
 			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
@@ -250,7 +253,7 @@ public class CompetitionController {
 	public void salvaGiudici(List<Giudice> giudici) {
 		try {
 			final String dir = System.getProperty("user.home");
-			String path=dir+"/giudici.csv";
+			String path=dir+"/GIUDICI.csv";
 			FileWriter file=new FileWriter(path);
 			String header="ID,Nome,Cognome";
 			file.append(header);
