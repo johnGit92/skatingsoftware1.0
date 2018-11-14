@@ -18,40 +18,6 @@ import model.Gruppo;
 import model.Valutazione;
 
 public class CompetitionController {
-
-//	Testing method
-//	public List<Valutazione> generaValutazioni() {
-//		List<Valutazione> valutazioni=new ArrayList<Valutazione>();
-//		valutazioni.add(new Valutazione(1, "A", 5.6, 5.9));
-//		valutazioni.add(new Valutazione(1, "B", 6, 6));
-//		valutazioni.add(new Valutazione(1, "C", 5.7, 5.8));
-//		valutazioni.add(new Valutazione(1, "E", 6.0, 6.0));
-//			
-//		valutazioni.add(new Valutazione(2, "A", 5.7, 5.7));
-//		valutazioni.add(new Valutazione(2, "B", 5.5, 5.5));
-//		valutazioni.add(new Valutazione(2, "C", 5.6, 5.5));
-//		valutazioni.add(new Valutazione(2, "D", 5.8, 5.6));
-//		valutazioni.add(new Valutazione(2, "E", 6.0, 6.0));
-//		valutazioni.add(new Valutazione(1, "D", 5.6, 6.0));			
-//		
-//		valutazioni.add(new Valutazione(3, "A", 5.5, 5.9));
-//		valutazioni.add(new Valutazione(3, "B", 5.7, 5.6));
-//		valutazioni.add(new Valutazione(3, "C", 5.8, 5.9));
-//		valutazioni.add(new Valutazione(3, "D", 5.9, 5.9));
-//		valutazioni.add(new Valutazione(3, "E", 6.0, 5.9));
-//		
-////		System.out.println("Before Sorting");
-////		for(Valutazione v: valutazioni) {
-////			System.out.println(v);
-////		}
-//		
-////		System.out.println("\nAfter Sorting");
-////		for(Valutazione v: valutazioni) {
-////			System.out.println(v);
-////		}
-//		
-//		return valutazioni;
-//	}
 	
 	/**
 	 * Genera la lista dei gruppi in competizione con le relative valutazioni.
@@ -110,7 +76,10 @@ public class CompetitionController {
 			FileWriter file=new FileWriter(path);
 			file.append("Numero,Tecnico,Coreografico\n");
 			for(Gruppo g: gruppi) {
-				file.append(g.getNumero()+","+Math.floor(g.getTecnico()*100)/100+","+Math.floor(g.getCoreografico()*100)/100+"\n");
+				file.append(g.getNumero()+","+Math.floor(g.getTecnico()*100)/100+","+Math.floor(g.getCoreografico()*100)/100);
+				if(g.isPari())
+					file.append(" (PARI)");
+				file.append("\n");
 			}
 			file.close();
 			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);

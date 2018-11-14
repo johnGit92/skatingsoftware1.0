@@ -14,6 +14,8 @@ public class Gruppo implements Comparable<Gruppo>{
 	private double tecnico; //complessivo tecnico
 	private double coreografico; //complessivo coreografico
 	
+	private boolean pari; //campo temporaneo pe indicare un pari merito
+	
 	public Gruppo(int numero, String nominativo, String categoria, String classe, String disciplina) {
 		super();
 		this.numero = numero;
@@ -33,6 +35,8 @@ public class Gruppo implements Comparable<Gruppo>{
 		valutazioni=new ArrayList<Valutazione>();
 		tecnico=0;
 		coreografico=0;
+		
+		pari=false;
 	}
 
 
@@ -147,7 +151,19 @@ public class Gruppo implements Comparable<Gruppo>{
 				return -1;
 			else if(tecnico<o.getTecnico())
 				return 1;
+			else //caso pari merito
+				pari=true;
 		}
 		return 0;
+	}
+
+
+	public boolean isPari() {
+		return pari;
+	}
+
+
+	public void setPari(boolean pari) {
+		this.pari = pari;
 	}
 }

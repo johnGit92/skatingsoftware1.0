@@ -155,7 +155,7 @@ public class Giudici {
 						}
 					} catch (Exception e1) {
 						
-						JOptionPane.showMessageDialog(null, e1.toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Formato File non valido!", "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

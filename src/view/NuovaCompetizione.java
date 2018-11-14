@@ -174,7 +174,7 @@ public class NuovaCompetizione {
 
 				//numero di giudici selezionati per la competizione
 				int numeroGiudici=tableGiudici.getSelectedRowCount();
-				if(numeroGiudici==0) {
+				if(numeroGiudici==0) { //nessun giudice selezionato
 					JOptionPane.showMessageDialog(null, "Selezionare giudici competizione", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
@@ -304,7 +304,7 @@ public class NuovaCompetizione {
 						}
 					} catch (Exception e1) {
 						
-						JOptionPane.showMessageDialog(null, e.toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Formato File non valido!", "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}});
