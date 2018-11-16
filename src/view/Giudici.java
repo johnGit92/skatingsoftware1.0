@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -20,6 +21,7 @@ import controller.CompetitionController;
 import controller.GUIController;
 import model.Giudice;
 import javax.swing.UIManager;
+import javax.swing.JPanel;
 
 public class Giudici {
 
@@ -39,9 +41,10 @@ public class Giudici {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setTitle("Skating Software 1.0 - Giudici");
-		frame.setBounds(10, 10, 659, 464);
+		frame.setBounds(10, 10, 659, 502);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setBackground(new Color(37, 61, 105));
 		
 		JButton button = new JButton("Indietro");
 		button.addMouseListener(new MouseAdapter() {
@@ -51,7 +54,7 @@ public class Giudici {
 				frame.setVisible(false);
 			}
 		});
-		button.setBounds(10, 11, 89, 28);
+		button.setBounds(10, 11, 89, 30);
 		frame.getContentPane().add(button);
 		
 		String column_names[]= {"ID","Nome","Cognome"};
@@ -62,7 +65,7 @@ public class Giudici {
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBorder(UIManager.getBorder("TitledBorder.border"));
-		scrollPane.setBounds(10, 113, 633, 316);
+		scrollPane.setBounds(10, 151, 633, 316);
 		frame.getContentPane().add(scrollPane);
 		
 		try {
@@ -76,65 +79,28 @@ public class Giudici {
 			JOptionPane.showMessageDialog(null, e1.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
 		}
 		
+		JPanel panel = new JPanel();
+		panel.setBorder(UIManager.getBorder("TitledBorder.border"));
+		panel.setOpaque(false);
+		panel.setBounds(10, 116, 382, 38);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
 		JButton button_1 = new JButton("Aggiungi");
-		button_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				model.addRow(new Object[]{"Nuova riga"});
-			}
-		});
-		button_1.setBounds(10, 81, 83, 28);
-		frame.getContentPane().add(button_1);
+		button_1.setBounds(7, 5, 83, 28);
+		panel.add(button_1);
 		
 		JButton button_2 = new JButton("Elimina");
-		button_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ListSelectionModel sm = table.getSelectionModel();
-				int index0 = sm.getMinSelectionIndex();
-				if(index0!=-1) {
-					int index1=sm.getMaxSelectionIndex();
-					if(index1!=-1) {
-						if(index1==index0) {
-							model.removeRow(index0);
-						}
-						else {
-							int count=index1-index0+1;
-							while(count-->0)
-								model.removeRow(sm.getMaxSelectionIndex());
-						}
-					}
-				}
-			}
-		});
-		button_2.setBounds(105, 81, 83, 28);
-		frame.getContentPane().add(button_2);
+		button_2.setBounds(97, 5, 83, 28);
+		panel.add(button_2);
 		
 		JButton button_3 = new JButton("Salva");
-		button_3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				//genera lista valutazioni dai dati inseriti in tabella.
-				TableModel model=table.getModel();
-				int rows=model.getRowCount(), index=0;
-				List<Giudice> giudici=new ArrayList<Giudice>();
-				String id,nome,cognome;
-				while(index<rows) {
-					id=(String)model.getValueAt(index, 0);
-					nome=(String)model.getValueAt(index, 1);
-					cognome=(String)model.getValueAt(index, 2);
-					giudici.add(new Giudice(id, nome, cognome));
-					index++;
-				}
-				
-				compController.salvaGiudici(giudici);
-			}
-		});
-		button_3.setBounds(200, 81, 90, 28);
-		frame.getContentPane().add(button_3);
+		button_3.setBounds(187, 5, 90, 28);
+		panel.add(button_3);
 		
 		JButton button_4 = new JButton("Carica");
+		button_4.setBounds(284, 5, 90, 28);
+		panel.add(button_4);
 		button_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -160,8 +126,54 @@ public class Giudici {
 				}
 			}
 		});
-		button_4.setBounds(302, 81, 90, 28);
-		frame.getContentPane().add(button_4);
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				//genera lista valutazioni dai dati inseriti in tabella.
+				TableModel model=table.getModel();
+				int rows=model.getRowCount(), index=0;
+				List<Giudice> giudici=new ArrayList<Giudice>();
+				String id,nome,cognome;
+				while(index<rows) {
+					id=(String)model.getValueAt(index, 0);
+					nome=(String)model.getValueAt(index, 1);
+					cognome=(String)model.getValueAt(index, 2);
+					giudici.add(new Giudice(id, nome, cognome));
+					index++;
+				}
+				
+				compController.salvaGiudici(giudici);
+			}
+		});
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ListSelectionModel sm = table.getSelectionModel();
+				int index0 = sm.getMinSelectionIndex();
+				if(index0!=-1) {
+					int index1=sm.getMaxSelectionIndex();
+					if(index1!=-1) {
+						if(index1==index0) {
+							model.removeRow(index0);
+						}
+						else {
+							int count=index1-index0+1;
+							while(count-->0)
+								model.removeRow(sm.getMaxSelectionIndex());
+						}
+					}
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Nessuna riga selezionata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+			}
+		});
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				model.addRow(new Object[]{"Nuova riga"});
+			}
+		});
 	}
 
 	public JFrame getFrame() {

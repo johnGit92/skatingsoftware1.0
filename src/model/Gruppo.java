@@ -151,8 +151,10 @@ public class Gruppo implements Comparable<Gruppo>{
 				return -1;
 			else if(tecnico<o.getTecnico())
 				return 1;
-			else //caso pari merito
+			else { //caso pari merito
 				pari=true;
+				o.setPari(true);
+			}
 		}
 		return 0;
 	}
