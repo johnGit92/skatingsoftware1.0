@@ -5,6 +5,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import view.Giudici;
 import view.MainMenu;
+import view.Votazioni;
 import view.Competizione;
 
 public class GUIController {
@@ -38,5 +39,12 @@ public class GUIController {
 	public void showGiudici() {
 		new Giudici(this, compController).getFrame().setVisible(true);;
 		
+	}
+	
+	public void showVotazioni(String numero, String asd) {
+		Votazioni v=new Votazioni();
+		v.setAsd(asd); v.setNumero(numero);
+		v.getFrmVotazioni().repaint();
+		v.getFrmVotazioni().setVisible(true);
 	}
 }
