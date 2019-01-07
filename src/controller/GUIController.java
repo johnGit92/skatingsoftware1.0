@@ -5,7 +5,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import view.Giudici;
 import view.MainMenu;
-import view.NuovaCompetizione;
+import view.Competizione;
 
 public class GUIController {
 	
@@ -32,7 +32,7 @@ public class GUIController {
 	}
 	
 	public void showNuovaCompetizione() {
-		new NuovaCompetizione(this,compController).getFrame().setVisible(true);
+		new Competizione(this,compController).getFrame().setVisible(true);
 	}
 
 	public void showGiudici() {

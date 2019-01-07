@@ -36,7 +36,7 @@ public class MainMenu {
 		frmSkatingsoftware.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSkatingsoftware.getContentPane().setLayout(null);
 		
-		JButton btnNuovaCompetizione = new JButton("Nuova Competizione");
+		JButton btnNuovaCompetizione = new JButton("Competizione");
 		btnNuovaCompetizione.setBounds(6, 6, 150, 40);
 		frmSkatingsoftware.getContentPane().add(btnNuovaCompetizione);
 		

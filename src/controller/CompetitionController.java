@@ -22,6 +22,7 @@ public class CompetitionController {
 	/**
 	 * Genera la lista dei gruppi in competizione con le relative valutazioni.
 	 * @param valutazioni lista di valutazioni ricavate dalla tabella.
+	 * @param numeroGiudici numero giudici competizione.
 	 * @return lista dei gruppi in competizione con relative valutazioni.
 	 */
 	public List<Gruppo> generaGruppiConValutazioni(List<Valutazione> valutazioni, int numeroGiudici) {

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -9,11 +10,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -27,21 +31,24 @@ import controller.GUIController;
 import model.Giudice;
 import model.Gruppo;
 import model.Valutazione;
-import java.awt.SystemColor;
-import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class NuovaCompetizione {
+public class Competizione {
 
 	private JFrame frmNuovaCompetizione;
 	private GUIController guiController;
 	private CompetitionController compController;
 	private JTable table;
-	private JTable tableGiudici;
+	private JTextField txtCategoria;
+	private JTextField txtSpecialit;
+	private JTextField txtDisciplina;
+	private JTextField txtClasse;
+	private JTextField txtUnit;
 
 	/**
 	 * Create the application.
 	 */
-	public NuovaCompetizione(GUIController controller, CompetitionController compCtrl) {
+	public Competizione(GUIController controller, CompetitionController compCtrl) {
 		guiController=controller;
 		compController=compCtrl;
 		initialize();
@@ -53,61 +60,11 @@ public class NuovaCompetizione {
 	private void initialize() {
 		frmNuovaCompetizione = new JFrame();
 		frmNuovaCompetizione.setResizable(false);
-		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Nuova Competizione");
-		frmNuovaCompetizione.setBounds(10, 10, 904, 587);
+		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Competizione");
+		frmNuovaCompetizione.setBounds(10, 10, 1102, 744);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		frmNuovaCompetizione.getContentPane().setBackground(new Color(37, 61, 105));
-		
-		JComboBox<String> comboBoxCat = new JComboBox<String>();
-		comboBoxCat.setBounds(233, 116, 211, 30);
-		frmNuovaCompetizione.getContentPane().add(comboBoxCat);
-		comboBoxCat.addItem("Seleziona Categoria...");
-		comboBoxCat.addItem("UNDER 5");
-		comboBoxCat.addItem("UNDER 7");
-		comboBoxCat.addItem("UNDER 9");
-		comboBoxCat.addItem("UNDER 11");
-		comboBoxCat.addItem("UNDER 13");
-		comboBoxCat.addItem("UNDER 16");
-		comboBoxCat.addItem("UNDER 21");
-		comboBoxCat.addItem("OVER 16");
-		comboBoxCat.addItem("OVER 35");
-		comboBoxCat.addItem("OVER 50 OPEN");
-		comboBoxCat.addItem("OPEN DA ANNI 4 IN POI");
-		comboBoxCat.addItem("ASSOLUTA");
-		
-		JComboBox<String> comboBoxClassi = new JComboBox<String>();
-		comboBoxClassi.setBounds(10, 116, 211, 30);
-		frmNuovaCompetizione.getContentPane().add(comboBoxClassi);
-		comboBoxClassi.addItem("Seleziona Classe...");
-		comboBoxClassi.addItem("ESORDIENTI");
-		comboBoxClassi.addItem("DIVULGATIVA");
-		comboBoxClassi.addItem("RISING STARS");
-		comboBoxClassi.addItem("GOLD STARS");
-		comboBoxClassi.addItem("OPEN");
-				
-		JComboBox<String> comboBoxDis = new JComboBox<String>();
-		comboBoxDis.setBounds(456, 116, 211, 30);
-		frmNuovaCompetizione.getContentPane().add(comboBoxDis);
-		comboBoxDis.addItem("Seleziona Disciplina...");
-		comboBoxDis.addItem("HOBBY DANCE A");
-		comboBoxDis.addItem("HOBBY DANCE B");
-		comboBoxDis.addItem("SINCRONIZZATO A");
-		comboBoxDis.addItem("SINCRONIZZATO B");
-		comboBoxDis.addItem("COREOGRAFICO A");
-		comboBoxDis.addItem("COREOGRAFICO B");
-		comboBoxDis.addItem("SHOW DANCE A");
-		comboBoxDis.addItem("SHOW DANCE B");
-		comboBoxDis.addItem("DANZE ETNICHE");
-		comboBoxDis.addItem("FOLK");
-		comboBoxDis.addItem("ORIENTALE");
-		comboBoxDis.addItem("FLAMENCO");
-		comboBoxDis.addItem("COUNTRY");
-		comboBoxDis.addItem("SOLO");
-		comboBoxDis.addItem("DUO");
-		comboBoxDis.addItem("PICCOLO GRUPPO");
-		comboBoxDis.addItem("GRANDE GRUPPO");
-		comboBoxDis.addItem("PRODUCTION");
 		
 		JButton btnIndietro = new JButton("Indietro");
 		btnIndietro.addMouseListener(new MouseAdapter() {
@@ -129,13 +86,13 @@ public class NuovaCompetizione {
 		
 		JScrollPane scrollPaneVal = new JScrollPane(table);
 		scrollPaneVal.setBorder(UIManager.getBorder("TitledBorder.border"));
-		scrollPaneVal.setBounds(10, 224, 463, 320);
+		scrollPaneVal.setBounds(10, 389, 947, 320);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBorder(UIManager.getBorder("TitledBorder.border"));
-		panel.setBounds(10, 186, 463, 45);
+		panel.setBounds(10, 351, 463, 45);
 		frmNuovaCompetizione.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -318,31 +275,50 @@ public class NuovaCompetizione {
 				model.addRow(new Object[]{"Nuova riga"});
 			}
 		});
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new TitledBorder(null, "Giudici di Gara", TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.text));
-		scrollPane.setBounds(485, 219, 397, 325);
-		frmNuovaCompetizione.getContentPane().add(scrollPane);
 
 		String column_names_giudici[]= {"ID","Nome","Cognome"};
 		DefaultTableModel modelGiudici=new DefaultTableModel(column_names_giudici,0);
-		tableGiudici = new JTable(modelGiudici);
-		tableGiudici.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				if(arg0.getKeyChar()=='+') { //alla pressione del tasto '+'
-					String NumeroGruppo=JOptionPane.showInputDialog("Numero Gruppo"); //acquisisce da input il numero del gruppo da valutare
-					int[] rows=tableGiudici.getSelectedRows(); //giudici selezionati
-					for(int index=0;index<rows.length;index++) { //per ciascun giudice selezionato aggiunge una riga per inserire i voti
-						model.addRow(new Object[]{NumeroGruppo,modelGiudici.getValueAt(rows[index], 0)});
-					}
-				}
-			}
-		});
-		tableGiudici.setBorder(null);
-		scrollPane.setViewportView(tableGiudici);
 		
-		try {
+		JLabel label = new JLabel(new ImageIcon(System.getProperty("user.home")+"/icon_resized.png"));
+		label.setBounds(996, 11, 80, 103);
+		frmNuovaCompetizione.getContentPane().add(label);
+		
+		txtCategoria = new JTextField();
+		txtCategoria.setText("Categoria");
+		txtCategoria.setToolTipText("Categoria");
+		txtCategoria.setBounds(10, 86, 383, 28);
+		frmNuovaCompetizione.getContentPane().add(txtCategoria);
+		txtCategoria.setColumns(10);
+		
+		txtSpecialit = new JTextField();
+		txtSpecialit.setText("Specialit\u00E0");
+		txtSpecialit.setBounds(10, 126, 383, 28);
+		frmNuovaCompetizione.getContentPane().add(txtSpecialit);
+		txtSpecialit.setColumns(10);
+		
+		txtDisciplina = new JTextField();
+		txtDisciplina.setText("Disciplina");
+		txtDisciplina.setColumns(10);
+		txtDisciplina.setBounds(10, 166, 383, 28);
+		frmNuovaCompetizione.getContentPane().add(txtDisciplina);
+		
+		txtClasse = new JTextField();
+		txtClasse.setText("Classe");
+		txtClasse.setColumns(10);
+		txtClasse.setBounds(10, 206, 383, 28);
+		frmNuovaCompetizione.getContentPane().add(txtClasse);
+		
+		txtUnit = new JTextField();
+		txtUnit.setText("Unit\u00E0");
+		txtUnit.setColumns(10);
+		txtUnit.setBounds(10, 246, 383, 28);
+		frmNuovaCompetizione.getContentPane().add(txtUnit);
+		
+		JButton btnVota = new JButton("Vota");
+		btnVota.setBounds(969, 395, 90, 28);
+		frmNuovaCompetizione.getContentPane().add(btnVota);
+		
+			try {
 			//carica dati in tabella giudici
 			final String dir=System.getProperty("user.home");
 			List<Giudice> giudici=compController.caricaGiudici(new File(dir+"/giudici.csv"));

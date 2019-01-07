@@ -7,21 +7,23 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controller.CompetitionController;
 import controller.GUIController;
 import model.Giudice;
-import javax.swing.UIManager;
-import javax.swing.JPanel;
 
 public class Giudici {
 
@@ -101,6 +103,10 @@ public class Giudici {
 		JButton button_4 = new JButton("Carica");
 		button_4.setBounds(284, 5, 90, 28);
 		panel.add(button_4);
+		
+		JLabel label = new JLabel(new ImageIcon(System.getProperty("user.home")+"/icon_resized.png"));
+		label.setBounds(563, 6, 80, 103);
+		frame.getContentPane().add(label);
 		button_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
