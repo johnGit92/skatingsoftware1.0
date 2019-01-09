@@ -73,7 +73,7 @@ public class IscrizioneHibernateDao implements IscrizioneDao{
 		List<Iscrizione> list;
 		try {
 			session.beginTransaction();
-			Query<Iscrizione> query=session.createQuery("from Iscrizione"); //use the name of the mapped pojo
+			Query<Iscrizione> query=session.createQuery("from Iscrizione order by numero"); //use the name of the mapped pojo
 			list=query.list();			
 			session.getTransaction().commit();
 			

@@ -1,11 +1,16 @@
 package controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import model.Iscrizione;
 import view.Giudici;
 import view.MainMenu;
 import view.Votazioni;
+import view.Classifica;
 import view.Competizione;
 
 public class GUIController {
@@ -42,9 +47,12 @@ public class GUIController {
 	}
 	
 	public void showVotazioni(String numero, String asd) {
-		Votazioni v=new Votazioni();
-		v.setAsd(asd); v.setNumero(numero);
-		v.getFrmVotazioni().repaint();
+		Votazioni v=new Votazioni(numero,asd);
 		v.getFrmVotazioni().setVisible(true);
+	}
+	
+	public void showClassifica(Map<String,String> iscrittiInCompetizione) {
+		Classifica c=new Classifica(iscrittiInCompetizione);
+		c.getFrmClassifica().setVisible(true);
 	}
 }

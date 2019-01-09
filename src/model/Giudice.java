@@ -1,7 +1,17 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Giudice")
 public class Giudice {
 
+	private int pk;
 	private String id;
 	private String nome;
 	private String cognome;
@@ -35,6 +45,17 @@ public class Giudice {
 
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="pk")
+	public int getPk() {
+		return pk;
+	}
+
+	public void setPk(int pk) {
+		this.pk = pk;
 	}
 	
 }

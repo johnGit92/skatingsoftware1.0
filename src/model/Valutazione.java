@@ -1,7 +1,17 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Valutazioni")
 public class Valutazione implements Comparable<Valutazione>{
 
+	private int pk;
 	/**
 	 * numero gruppo.
 	 */
@@ -84,5 +94,16 @@ public class Valutazione implements Comparable<Valutazione>{
 			}
 		}
 		return false;
+	}
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="pk")
+	public int getPk() {
+		return pk;
+	}
+
+	public void setPk(int pk) {
+		this.pk = pk;
 	}
 }

@@ -3,7 +3,9 @@ package view;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +22,8 @@ import controller.GUIController;
 import dao.IscrizioneDao;
 import dao.Service;
 import model.Iscrizione;
+import java.awt.Font;
+import javax.swing.border.TitledBorder;
 
 public class Competizione {
 
@@ -27,11 +31,6 @@ public class Competizione {
 	private GUIController guiController;
 	private CompetitionController compController;
 	private JTable tableIscrizioni;
-	private JTextField txtCategoria;
-	private JTextField txtSpecialit;
-	private JTextField txtDisciplina;
-	private JTextField txtClasse;
-	private JTextField txtUnit;
 
 	/**
 	 * Create the application.
@@ -49,12 +48,13 @@ public class Competizione {
 		frmNuovaCompetizione = new JFrame();
 		frmNuovaCompetizione.setResizable(false);
 		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Competizione");
-		frmNuovaCompetizione.setBounds(10, 10, 1102, 744);
+		frmNuovaCompetizione.setBounds(10, 10, 1102, 618);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		frmNuovaCompetizione.getContentPane().setBackground(new Color(37, 61, 105));
 
 		JButton btnIndietro = new JButton("Indietro");
+		btnIndietro.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnIndietro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -68,13 +68,14 @@ public class Competizione {
 		String column_names[]= {"Numero","ASD","Categoria","Specialità","Disciplina","Classe","Unità"};
 		DefaultTableModel modelIscrizioni=new DefaultTableModel(column_names,0);
 		tableIscrizioni = new JTable(modelIscrizioni);
+		tableIscrizioni.setFont(new Font("Corbel", Font.PLAIN, 12));
 		tableIscrizioni.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		tableIscrizioni.setBounds(10, 170, 234, 89);
 		frmNuovaCompetizione.getContentPane().add(tableIscrizioni);
 
 		JScrollPane scrollPaneVal = new JScrollPane(tableIscrizioni);
-		scrollPaneVal.setBorder(UIManager.getBorder("TitledBorder.border"));
-		scrollPaneVal.setBounds(10, 331, 947, 320);
+		scrollPaneVal.setBorder(new TitledBorder(null, "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		scrollPaneVal.setBounds(10, 75, 947, 504);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 
 		String column_names_giudici[]= {"ID","Nome","Cognome"};
@@ -84,38 +85,8 @@ public class Competizione {
 		label.setBounds(996, 11, 80, 103);
 		frmNuovaCompetizione.getContentPane().add(label);
 
-		txtCategoria = new JTextField();
-		txtCategoria.setText("Categoria");
-		txtCategoria.setToolTipText("Categoria");
-		txtCategoria.setBounds(10, 86, 383, 28);
-		frmNuovaCompetizione.getContentPane().add(txtCategoria);
-		txtCategoria.setColumns(10);
-
-		txtSpecialit = new JTextField();
-		txtSpecialit.setText("Specialit\u00E0");
-		txtSpecialit.setBounds(10, 126, 383, 28);
-		frmNuovaCompetizione.getContentPane().add(txtSpecialit);
-		txtSpecialit.setColumns(10);
-
-		txtDisciplina = new JTextField();
-		txtDisciplina.setText("Disciplina");
-		txtDisciplina.setColumns(10);
-		txtDisciplina.setBounds(10, 166, 383, 28);
-		frmNuovaCompetizione.getContentPane().add(txtDisciplina);
-
-		txtClasse = new JTextField();
-		txtClasse.setText("Classe");
-		txtClasse.setColumns(10);
-		txtClasse.setBounds(10, 206, 383, 28);
-		frmNuovaCompetizione.getContentPane().add(txtClasse);
-
-		txtUnit = new JTextField();
-		txtUnit.setText("Unit\u00E0");
-		txtUnit.setColumns(10);
-		txtUnit.setBounds(10, 246, 383, 28);
-		frmNuovaCompetizione.getContentPane().add(txtUnit);
-
 		JButton btnVota = new JButton("Vota");
+		btnVota.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnVota.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -125,8 +96,28 @@ public class Competizione {
 				guiController.showVotazioni(numero, asd);
 			}
 		});
-		btnVota.setBounds(969, 337, 90, 28);
+		btnVota.setBounds(969, 75, 90, 28);
 		frmNuovaCompetizione.getContentPane().add(btnVota);
+		
+		JButton btnClassifica = new JButton("Classifica");
+		btnClassifica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Map<String,String> iscrittiInCompetizione=new HashMap<String,String>();
+				int[] rows=tableIscrizioni.getSelectedRows();
+				int i=0;
+				String numero,asd;
+				for(i=0;i<rows.length;i++) {
+					numero=(String) modelIscrizioni.getValueAt(rows[i], 0);
+					asd=(String) modelIscrizioni.getValueAt(rows[i], 1);
+					iscrittiInCompetizione.put(numero, asd);
+				}
+				guiController.showClassifica(iscrittiInCompetizione);
+			}
+		});
+		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
+		btnClassifica.setBounds(969, 115, 90, 28);
+		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		IscrizioneDao dao=Service.getIscrizioneDao();
 		List<Iscrizione> iscrizioni=dao.getAll();

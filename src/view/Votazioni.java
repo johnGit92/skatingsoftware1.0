@@ -1,14 +1,14 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import java.awt.Font;
 
 public class Votazioni {
 
@@ -20,17 +20,17 @@ public class Votazioni {
 	private JComboBox comboGiudice4;
 	private JComboBox comboGiudice5;
 	private JComboBox comboTecnico1;
-	private JComboBox comboCoreografico;
+	private JComboBox comboCoreo1;
 	private JPanel panel;
-	private JComboBox comboBox;
-	private JComboBox comboBox_1;
+	private JComboBox comboTecnico2;
+	private JComboBox comboCoreo2;
 	private JPanel panel_1;
-	private JComboBox comboBox_2;
-	private JComboBox comboBox_3;
-	private JComboBox comboBox_4;
-	private JComboBox comboBox_5;
-	private JComboBox comboBox_6;
-	private JComboBox comboBox_7;
+	private JComboBox comboTecnico3;
+	private JComboBox comboCoreo3;
+	private JComboBox comboTecnico4;
+	private JComboBox comboCoreo4;
+	private JComboBox comboTecnico5;
+	private JComboBox comboCoreo5;
 	private JPanel panel_2;
 	private JPanel panel_3;
 	private JPanel panel_4;
@@ -39,25 +39,13 @@ public class Votazioni {
 	private String numero,asd;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Votazioni window = new Votazioni();
-					window.frmVotazioni.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
+	 * @param numero numero gruppo iscritto.
+	 * @param asd club/scuola gruppo iscritto.
 	 */
-	public Votazioni() {
+	public Votazioni(String numero, String asd) {
+		this.numero=numero;
+		this.asd=asd;
 		initialize();
 	}
 
@@ -76,19 +64,22 @@ public class Votazioni {
 		frmVotazioni = new JFrame();
 		frmVotazioni.setTitle("Votazioni");
 		frmVotazioni.setBounds(100, 100, 804, 365);
-		frmVotazioni.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmVotazioni.getContentPane().setBackground(new Color(37, 61, 105));
 		frmVotazioni.getContentPane().setLayout(null);
 		
 		txtNumero = new JTextField();
-		txtNumero.setText("Numero");
-		txtNumero.setBounds(28, 26, 96, 20);
+		txtNumero.setFont(new Font("Corbel", Font.PLAIN, 12));
+		txtNumero.setEditable(false);
+		txtNumero.setText(numero);
+		txtNumero.setBounds(28, 26, 150, 30);
 		frmVotazioni.getContentPane().add(txtNumero);
 		txtNumero.setColumns(10);
 		
 		txtAsd = new JTextField();
-		txtAsd.setText("ASD");
-		txtAsd.setBounds(28, 57, 96, 20);
+		txtAsd.setFont(new Font("Corbel", Font.PLAIN, 12));
+		txtAsd.setEditable(false);
+		txtAsd.setText(asd);
+		txtAsd.setBounds(28, 67, 150, 30);
 		frmVotazioni.getContentPane().add(txtAsd);
 		txtAsd.setColumns(10);
 		
@@ -99,19 +90,34 @@ public class Votazioni {
 		panel.setLayout(null);
 		
 		JComboBox comboGiudice1 = new JComboBox();
+		comboGiudice1.setFont(new Font("Corbel", Font.PLAIN, 12));
 		comboGiudice1.setBounds(0, 0, 134, 20);
 		panel.add(comboGiudice1);
 		comboGiudice1.addItem("Giudice 1");
 		
 		comboTecnico1 = new JComboBox();
+		comboTecnico1.setFont(new Font("Corbel", Font.PLAIN, 12));
 		comboTecnico1.setBounds(0, 45, 96, 20);
 		panel.add(comboTecnico1);
 		comboTecnico1.addItem("Tecnico");
+		comboTecnico1.addItem("5.5");
+		comboTecnico1.addItem("5.6");
+		comboTecnico1.addItem("5.7");
+		comboTecnico1.addItem("5.8");
+		comboTecnico1.addItem("5.9");
+		comboTecnico1.addItem("6.0");
 		
-		comboCoreografico = new JComboBox();
-		comboCoreografico.setBounds(0, 73, 96, 20);
-		panel.add(comboCoreografico);
-		comboCoreografico.addItem("Coreografico");
+		comboCoreo1 = new JComboBox();
+		comboCoreo1.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboCoreo1.setBounds(0, 73, 96, 20);
+		panel.add(comboCoreo1);
+		comboCoreo1.addItem("Coreografico");
+		comboCoreo1.addItem("5.5");
+		comboCoreo1.addItem("5.6");
+		comboCoreo1.addItem("5.7");
+		comboCoreo1.addItem("5.8");
+		comboCoreo1.addItem("5.9");
+		comboCoreo1.addItem("6.0");
 		
 		panel_1 = new JPanel();
 		panel_1.setBounds(172, 114, 134, 93);
@@ -119,17 +125,34 @@ public class Votazioni {
 		panel_1.setLayout(null);
 		
 		comboGiudice2 = new JComboBox();
+		comboGiudice2.setFont(new Font("Corbel", Font.PLAIN, 12));
 		comboGiudice2.setBounds(0, 0, 134, 20);
 		panel_1.add(comboGiudice2);
 		comboGiudice2.addItem("Giudice 2");
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(0, 45, 96, 20);
-		panel_1.add(comboBox);
+		comboTecnico2 = new JComboBox();
+		comboTecnico2.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboTecnico2.setBounds(0, 45, 96, 20);
+		panel_1.add(comboTecnico2);
+		comboTecnico2.addItem("Tecnico");
+		comboTecnico2.addItem("5.5");
+		comboTecnico2.addItem("5.6");
+		comboTecnico2.addItem("5.7");
+		comboTecnico2.addItem("5.8");
+		comboTecnico2.addItem("5.9");
+		comboTecnico2.addItem("6.0");
 		
-		comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(0, 73, 96, 20);
-		panel_1.add(comboBox_1);
+		comboCoreo2 = new JComboBox();
+		comboCoreo2.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboCoreo2.setBounds(0, 73, 96, 20);
+		panel_1.add(comboCoreo2);
+		comboCoreo2.addItem("Coreografico");
+		comboCoreo2.addItem("5.5");
+		comboCoreo2.addItem("5.6");
+		comboCoreo2.addItem("5.7");
+		comboCoreo2.addItem("5.8");
+		comboCoreo2.addItem("5.9");
+		comboCoreo2.addItem("6.0");
 		
 		panel_2 = new JPanel();
 		panel_2.setBounds(316, 113, 134, 94);
@@ -137,17 +160,34 @@ public class Votazioni {
 		panel_2.setLayout(null);
 		
 		comboGiudice3 = new JComboBox();
+		comboGiudice3.setFont(new Font("Corbel", Font.PLAIN, 12));
 		comboGiudice3.setBounds(0, 0, 134, 20);
 		panel_2.add(comboGiudice3);
 		comboGiudice3.addItem("Giudice 3");
 		
-		comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(0, 46, 96, 20);
-		panel_2.add(comboBox_2);
+		comboTecnico3 = new JComboBox();
+		comboTecnico3.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboTecnico3.setBounds(0, 46, 96, 20);
+		panel_2.add(comboTecnico3);
+		comboTecnico3.addItem("Tecnico");
+		comboTecnico3.addItem("5.5");
+		comboTecnico3.addItem("5.6");
+		comboTecnico3.addItem("5.7");
+		comboTecnico3.addItem("5.8");
+		comboTecnico3.addItem("5.9");
+		comboTecnico3.addItem("6.0");
 		
-		comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(0, 74, 96, 20);
-		panel_2.add(comboBox_3);
+		comboCoreo3 = new JComboBox();
+		comboCoreo3.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboCoreo3.setBounds(0, 74, 96, 20);
+		panel_2.add(comboCoreo3);
+		comboCoreo3.addItem("Coreografico");
+		comboCoreo3.addItem("5.5");
+		comboCoreo3.addItem("5.6");
+		comboCoreo3.addItem("5.7");
+		comboCoreo3.addItem("5.8");
+		comboCoreo3.addItem("5.9");
+		comboCoreo3.addItem("6.0");
 		
 		panel_3 = new JPanel();
 		panel_3.setBounds(460, 113, 134, 94);
@@ -155,17 +195,34 @@ public class Votazioni {
 		panel_3.setLayout(null);
 		
 		comboGiudice4 = new JComboBox();
+		comboGiudice4.setFont(new Font("Corbel", Font.PLAIN, 12));
 		comboGiudice4.setBounds(0, 0, 134, 20);
 		panel_3.add(comboGiudice4);
 		comboGiudice4.addItem("Giudice 4");
 		
-		comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(0, 46, 96, 20);
-		panel_3.add(comboBox_4);
+		comboTecnico4 = new JComboBox();
+		comboTecnico4.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboTecnico4.setBounds(0, 46, 96, 20);
+		panel_3.add(comboTecnico4);
+		comboTecnico4.addItem("Tecnico");
+		comboTecnico4.addItem("5.5");
+		comboTecnico4.addItem("5.6");
+		comboTecnico4.addItem("5.7");
+		comboTecnico4.addItem("5.8");
+		comboTecnico4.addItem("5.9");
+		comboTecnico4.addItem("6.0");
 		
-		comboBox_5 = new JComboBox();
-		comboBox_5.setBounds(0, 74, 96, 20);
-		panel_3.add(comboBox_5);
+		comboCoreo4 = new JComboBox();
+		comboCoreo4.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboCoreo4.setBounds(0, 74, 96, 20);
+		panel_3.add(comboCoreo4);
+		comboCoreo4.addItem("Coreografico");
+		comboCoreo4.addItem("5.5");
+		comboCoreo4.addItem("5.6");
+		comboCoreo4.addItem("5.7");
+		comboCoreo4.addItem("5.8");
+		comboCoreo4.addItem("5.9");
+		comboCoreo4.addItem("6.0");
 		
 		panel_4 = new JPanel();
 		panel_4.setBounds(604, 113, 134, 94);
@@ -173,19 +230,37 @@ public class Votazioni {
 		panel_4.setLayout(null);
 		
 		comboGiudice5 = new JComboBox();
+		comboGiudice5.setFont(new Font("Corbel", Font.PLAIN, 12));
 		comboGiudice5.setBounds(0, 0, 134, 20);
 		panel_4.add(comboGiudice5);
 		comboGiudice5.addItem("Giudice 5");
 		
-		comboBox_6 = new JComboBox();
-		comboBox_6.setBounds(0, 46, 96, 20);
-		panel_4.add(comboBox_6);
+		comboTecnico5 = new JComboBox();
+		comboTecnico5.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboTecnico5.setBounds(0, 46, 96, 20);
+		panel_4.add(comboTecnico5);
+		comboTecnico5.addItem("Tecnico");
+		comboTecnico5.addItem("5.5");
+		comboTecnico5.addItem("5.6");
+		comboTecnico5.addItem("5.7");
+		comboTecnico5.addItem("5.8");
+		comboTecnico5.addItem("5.9");
+		comboTecnico5.addItem("6.0");
 		
-		comboBox_7 = new JComboBox();
-		comboBox_7.setBounds(0, 74, 96, 20);
-		panel_4.add(comboBox_7);
+		comboCoreo5 = new JComboBox();
+		comboCoreo5.setFont(new Font("Corbel", Font.PLAIN, 12));
+		comboCoreo5.setBounds(0, 74, 96, 20);
+		panel_4.add(comboCoreo5);
+		comboCoreo5.addItem("Coreografico");
+		comboCoreo5.addItem("5.5");
+		comboCoreo5.addItem("5.6");
+		comboCoreo5.addItem("5.7");
+		comboCoreo5.addItem("5.8");
+		comboCoreo5.addItem("5.9");
+		comboCoreo5.addItem("6.0");
 		
 		btnSalva = new JButton("Salva");
+		btnSalva.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnSalva.setBounds(28, 266, 89, 23);
 		frmVotazioni.getContentPane().add(btnSalva);
 		
