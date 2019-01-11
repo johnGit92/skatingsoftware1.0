@@ -4,11 +4,20 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+
 import java.awt.Font;
 import java.util.Map;
+import java.util.Set;
+
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 import java.awt.Component;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EtchedBorder;
 
 public class Classifica {
 
@@ -18,13 +27,15 @@ public class Classifica {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTable table;
+	private Map<String,String> gruppi;
 
 	/**
 	 * Create the application.
 	 * @param iscrittiInCompetizione 
 	 */
 	public Classifica(Map<String, String> iscrittiInCompetizione) {
-		
+		gruppi=iscrittiInCompetizione;
 		initialize();
 	}
 
@@ -35,7 +46,6 @@ public class Classifica {
 		frmClassifica = new JFrame();
 		frmClassifica.setTitle("Classifica");
 		frmClassifica.setBounds(100, 100, 1100, 645);
-		frmClassifica.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmClassifica.getContentPane().setBackground(new Color(37, 61, 105));
 		frmClassifica.getContentPane().setLayout(null);
 		
@@ -75,8 +85,17 @@ public class Classifica {
 		textField_4.setBounds(10, 171, 383, 28);
 		frmClassifica.getContentPane().add(textField_4);
 		
-		JScrollPane scrollPane = new JScrollPane((Component) null);
-		scrollPane.setBorder(new TitledBorder(null, "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		String column_names[]= {"Numero","ASD"};
+		DefaultTableModel model=new DefaultTableModel(column_names,0);
+		table = new JTable(model);
+		table.setFont(new Font("Corbel", Font.PLAIN, 12));
+		table.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
+		Set<String> keys=gruppi.keySet();
+		for(String numero: keys) {
+			model.addRow(new Object[] {numero,gruppi.get(numero)});
+		}
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		scrollPane.setBounds(10, 273, 947, 327);
 		frmClassifica.getContentPane().add(scrollPane);
 	}
