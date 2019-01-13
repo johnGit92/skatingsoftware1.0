@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JButton;
 
 public class Classifica {
 
@@ -45,7 +46,7 @@ public class Classifica {
 	private void initialize() {
 		frmClassifica = new JFrame();
 		frmClassifica.setTitle("Classifica");
-		frmClassifica.setBounds(100, 100, 1100, 645);
+		frmClassifica.setBounds(100, 100, 1131, 645);
 		frmClassifica.getContentPane().setBackground(new Color(37, 61, 105));
 		frmClassifica.getContentPane().setLayout(null);
 		
@@ -98,6 +99,10 @@ public class Classifica {
 		scrollPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		scrollPane.setBounds(10, 273, 947, 327);
 		frmClassifica.getContentPane().add(scrollPane);
+		
+		JButton btnClassifica = new JButton("Classifica");
+		btnClassifica.setBounds(967, 273, 89, 23);
+		frmClassifica.getContentPane().add(btnClassifica);
 	}
 
 	public JFrame getFrmClassifica() {

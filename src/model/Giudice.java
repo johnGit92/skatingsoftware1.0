@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Giudice")
+@Table(name="giudici")
 public class Giudice {
 
 	private int pk;
@@ -16,6 +16,10 @@ public class Giudice {
 	private String nome;
 	private String cognome;
 	
+	public Giudice() {
+		super();
+	}
+
 	public Giudice(String id, String nome, String cognome) {
 		super();
 		this.id = id;

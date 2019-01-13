@@ -4,7 +4,7 @@ public class Service {
 	
 	private static IscrizioneDao iscrizioneDao;
 //	private static CompetizioneDao competizioneDao;
-//	private static GiudiceDao giudiceDao;
+	private static GiudiceDao giudiceDao;
 //	private static ValutazioneDao valutazioneDao;
 	
 	public static IscrizioneDao getIscrizioneDao(){
@@ -17,10 +17,10 @@ public class Service {
 //		return competizioneDao;
 //	}
 //	
-//	public static GiudiceDao getGiudiceDao() {
-//		if(giudiceDao==null) giudiceDao=new GiudiceHibernateDao();
-//		return giudiceDao;
-//	}
+	public static GiudiceDao getGiudiceDao() {
+		if(giudiceDao==null) giudiceDao=new GiudiceHibernateDao();
+		return giudiceDao;
+	}
 //
 //	public static ValutazioneDao getValutazioneDao() {
 //		if(valutazioneDao==null) valutazioneDao=new ValutazioneHibernateDao();

@@ -49,7 +49,7 @@ public class Competizione {
 		frmNuovaCompetizione = new JFrame();
 		frmNuovaCompetizione.setResizable(false);
 		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Competizione");
-		frmNuovaCompetizione.setBounds(10, 10, 1102, 618);
+		frmNuovaCompetizione.setBounds(10, 10, 1102, 674);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		frmNuovaCompetizione.getContentPane().setBackground(new Color(37, 61, 105));
@@ -76,7 +76,7 @@ public class Competizione {
 
 		JScrollPane scrollPaneVal = new JScrollPane(tableIscrizioni);
 		scrollPaneVal.setBorder(new TitledBorder(null, "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
-		scrollPaneVal.setBounds(10, 75, 947, 504);
+		scrollPaneVal.setBounds(10, 129, 947, 504);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 
 		String column_names_giudici[]= {"ID","Nome","Cognome"};
@@ -97,7 +97,7 @@ public class Competizione {
 				guiController.showVotazioni(numero, asd);
 			}
 		});
-		btnVota.setBounds(969, 75, 90, 28);
+		btnVota.setBounds(969, 129, 90, 28);
 		frmNuovaCompetizione.getContentPane().add(btnVota);
 		
 		JButton btnClassifica = new JButton("Classifica");
@@ -117,7 +117,7 @@ public class Competizione {
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(969, 115, 90, 28);
+		btnClassifica.setBounds(969, 169, 90, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		IscrizioneDao dao=Service.getIscrizioneDao();

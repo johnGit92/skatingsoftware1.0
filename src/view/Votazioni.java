@@ -8,7 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import dao.GiudiceDao;
+import dao.Service;
+import model.Giudice;
+
 import java.awt.Font;
+import java.util.List;
 
 public class Votazioni {
 
@@ -61,6 +67,7 @@ public class Votazioni {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frmVotazioni = new JFrame();
 		frmVotazioni.setTitle("Votazioni");
 		frmVotazioni.setBounds(100, 100, 804, 365);
@@ -265,6 +272,17 @@ public class Votazioni {
 		frmVotazioni.getContentPane().add(btnSalva);
 		
 		txtAsd.setText(asd); txtNumero.setText(numero);
+		
+		//Ottieni giudici e aggiorna comboGiudici
+		GiudiceDao dao=Service.getGiudiceDao();
+		List<Giudice> giudici=dao.getAll();
+		for(Giudice g:giudici) {
+			comboGiudice1.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+			comboGiudice2.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+			comboGiudice3.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+			comboGiudice4.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+			comboGiudice5.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+		}
 	}
 
 	public String getNumero() {
