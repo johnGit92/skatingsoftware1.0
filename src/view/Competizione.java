@@ -25,6 +25,9 @@ import dao.Service;
 import model.Iscrizione;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.SwingConstants;
 
 public class Competizione {
 
@@ -32,6 +35,7 @@ public class Competizione {
 	private GUIController guiController;
 	private CompetitionController compController;
 	private JTable tableIscrizioni;
+	private JTextField textSelezionati;
 
 	/**
 	 * Create the application.
@@ -72,6 +76,14 @@ public class Competizione {
 		tableIscrizioni.setFont(new Font("Corbel", Font.PLAIN, 12));
 		tableIscrizioni.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		tableIscrizioni.setBounds(10, 170, 234, 89);
+		tableIscrizioni.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+		    public void valueChanged(ListSelectionEvent lse) {
+		        if (!lse.getValueIsAdjusting()) {
+		        	textSelezionati.setText(String.valueOf(tableIscrizioni.getSelectedRowCount()));
+		        }
+		    }
+		});
 		frmNuovaCompetizione.getContentPane().add(tableIscrizioni);
 
 		JScrollPane scrollPaneVal = new JScrollPane(tableIscrizioni);
@@ -119,6 +131,20 @@ public class Competizione {
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnClassifica.setBounds(969, 169, 90, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
+		
+		JLabel lblSelezionati = new JLabel("Selezionati");
+		lblSelezionati.setFont(new Font("Corbel", Font.PLAIN, 12));
+		lblSelezionati.setForeground(Color.WHITE);
+		lblSelezionati.setBounds(30, 101, 69, 16);
+		frmNuovaCompetizione.getContentPane().add(lblSelezionati);
+		
+		textSelezionati = new JTextField();
+		textSelezionati.setEditable(false);
+		textSelezionati.setHorizontalAlignment(SwingConstants.CENTER);
+		textSelezionati.setFont(new Font("Corbel", Font.PLAIN, 12));
+		textSelezionati.setBounds(89, 94, 57, 25);
+		frmNuovaCompetizione.getContentPane().add(textSelezionati);
+		textSelezionati.setColumns(10);
 		
 		IscrizioneDao dao=Service.getIscrizioneDao();
 		List<Iscrizione> iscrizioni=dao.getAll();

@@ -11,7 +11,9 @@ import javax.swing.border.TitledBorder;
 
 import dao.GiudiceDao;
 import dao.Service;
+import dao.ValutazioneDao;
 import model.Giudice;
+import model.Valutazione;
 
 import java.awt.Font;
 import java.util.List;
@@ -282,6 +284,33 @@ public class Votazioni {
 			comboGiudice3.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
 			comboGiudice4.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
 			comboGiudice5.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+		}
+		
+		//ottieni valutazioni già inserite
+		ValutazioneDao valDao=Service.getValutazioneDao();
+		List<Valutazione> valutazioni=valDao.getValutazioni(Integer.parseInt(numero));
+		int count=valutazioni.size(),i=0;
+		JComboBox<String>[] comboGiudici=new JComboBox[5];
+		comboGiudici[0]=comboGiudice1;
+		comboGiudici[1]=comboGiudice2;
+		comboGiudici[2]=comboGiudice3;
+		comboGiudici[3]=comboGiudice4;
+		comboGiudici[4]=comboGiudice5;
+		JComboBox<String>[] comboTecnico=new JComboBox[5];
+		comboTecnico[0]=comboTecnico1;
+		comboTecnico[1]=comboTecnico2;
+		comboTecnico[2]=comboTecnico3;
+		comboTecnico[3]=comboTecnico4;
+		comboTecnico[4]=comboTecnico5;
+		JComboBox<String>[] comboCoreografico=new JComboBox[5];
+		comboCoreografico[0]=comboCoreo1;
+		comboCoreografico[1]=comboCoreo2;
+		comboCoreografico[2]=comboCoreo3;
+		comboCoreografico[3]=comboCoreo4;
+		comboCoreografico[4]=comboCoreo5;
+		Valutazione v;
+		for(i=0;i<count;i++) {
+			v=valutazioni.get(i);
 		}
 	}
 

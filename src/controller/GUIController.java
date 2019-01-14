@@ -1,12 +1,10 @@
 package controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import model.Iscrizione;
 import view.Giudici;
 import view.MainMenu;
 import view.Votazioni;

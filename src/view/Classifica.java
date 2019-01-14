@@ -101,7 +101,8 @@ public class Classifica {
 		frmClassifica.getContentPane().add(scrollPane);
 		
 		JButton btnClassifica = new JButton("Classifica");
-		btnClassifica.setBounds(967, 273, 89, 23);
+		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
+		btnClassifica.setBounds(967, 273, 89, 28);
 		frmClassifica.getContentPane().add(btnClassifica);
 	}
 
