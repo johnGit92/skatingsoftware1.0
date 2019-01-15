@@ -25,6 +25,8 @@ public class Valutazione implements Comparable<Valutazione>{
 	private double tecnico;
 	private double coreografico;
 	
+	public Valutazione() {}
+	
 	public Valutazione(int numero, String id, double tecnico, double coreografico) {
 		super();
 		this.numero = numero;

@@ -3,11 +3,11 @@ package view;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +22,10 @@ import controller.CompetitionController;
 import controller.GUIController;
 import dao.IscrizioneDao;
 import dao.Service;
+import dao.ValutazioneDao;
 import model.Iscrizione;
+import model.Valutazione;
+
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -69,10 +72,27 @@ public class Competizione {
 		});
 		btnIndietro.setBounds(10, 11, 89, 30);
 		frmNuovaCompetizione.getContentPane().add(btnIndietro);
+		
+		DefaultListModel<String> listModel=new DefaultListModel<>();
 
 		String column_names[]= {"Numero","ASD","Categoria","Specialità","Disciplina","Classe","Unità"};
 		DefaultTableModel modelIscrizioni=new DefaultTableModel(column_names,0);
 		tableIscrizioni = new JTable(modelIscrizioni);
+		tableIscrizioni.setShowVerticalLines(true);
+		tableIscrizioni.setShowHorizontalLines(true);
+		tableIscrizioni.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()>1) {
+		        	ValutazioneDao dao=Service.getValutazioneDao();
+		        	List<Valutazione> list=dao.getValutazioni(Integer.valueOf((String) modelIscrizioni.getValueAt(tableIscrizioni.getSelectedRow(), 0)));
+		        	listModel.clear();
+		        	for(Valutazione v:list) {
+		        		listModel.addElement(v.toString());
+		        	}
+				}
+			}
+		});
 		tableIscrizioni.setFont(new Font("Corbel", Font.PLAIN, 12));
 		tableIscrizioni.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		tableIscrizioni.setBounds(10, 170, 234, 89);
@@ -155,17 +175,6 @@ public class Competizione {
 					String.valueOf(i.getClasse().getVal()),String.valueOf(i.getGruppo().getVal())
 			});
 		}
-
-//		try {
-//			//carica dati in tabella giudici
-//			final String dir=System.getProperty("user.home");
-//			List<Giudice> giudici=compController.caricaGiudici(new File(dir+"/giudici.csv"));
-//			for(Giudice g: giudici) {
-//				modelGiudici.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
-//			}
-//		} catch (Exception e1) {
-//			JOptionPane.showMessageDialog(null, e1.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
-//		}
 
 	}
 

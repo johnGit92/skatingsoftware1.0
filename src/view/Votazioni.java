@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import dao.GiudiceDao;
 import dao.Service;
@@ -17,6 +18,10 @@ import model.Valutazione;
 
 import java.awt.Font;
 import java.util.List;
+import javax.swing.JList;
+import javax.swing.UIManager;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class Votazioni {
 
@@ -45,6 +50,7 @@ public class Votazioni {
 	private JButton btnSalva;
 	
 	private String numero,asd;
+	private JTable table;
 
 	/**
 	 * Create the application.
@@ -72,7 +78,7 @@ public class Votazioni {
 		
 		frmVotazioni = new JFrame();
 		frmVotazioni.setTitle("Votazioni");
-		frmVotazioni.setBounds(100, 100, 804, 365);
+		frmVotazioni.setBounds(100, 100, 1188, 365);
 		frmVotazioni.getContentPane().setBackground(new Color(37, 61, 105));
 		frmVotazioni.getContentPane().setLayout(null);
 		
@@ -275,10 +281,20 @@ public class Votazioni {
 		
 		txtAsd.setText(asd); txtNumero.setText(numero);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(new TitledBorder(null, "Giudici", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		scrollPane.setBounds(770, 26, 369, 289);
+		frmVotazioni.getContentPane().add(scrollPane);
+		
+		DefaultTableModel model=new DefaultTableModel();
+		table = new JTable(model);
+		scrollPane.setViewportView(table);
+		
 		//Ottieni giudici e aggiorna comboGiudici
 		GiudiceDao dao=Service.getGiudiceDao();
 		List<Giudice> giudici=dao.getAll();
 		for(Giudice g:giudici) {
+			model.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
 			comboGiudice1.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
 			comboGiudice2.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
 			comboGiudice3.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
@@ -311,6 +327,9 @@ public class Votazioni {
 		Valutazione v;
 		for(i=0;i<count;i++) {
 			v=valutazioni.get(i);
+			comboGiudici[i].setSelectedItem(v.getId());
+			comboTecnico[i].setSelectedItem(String.valueOf(v.getTecnico()));
+			comboCoreografico[i].setSelectedItem(String.valueOf(v.getCoreografico()));
 		}
 	}
 
