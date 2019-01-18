@@ -22,6 +22,7 @@ import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
 
 public class Votazioni {
 
@@ -282,11 +283,12 @@ public class Votazioni {
 		txtAsd.setText(asd); txtNumero.setText(numero);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new TitledBorder(null, "Giudici", TitledBorder.LEADING, TitledBorder.TOP, null, Color.DARK_GRAY));
+		scrollPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Giudici", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		scrollPane.setBounds(770, 26, 369, 289);
 		frmVotazioni.getContentPane().add(scrollPane);
 		
-		DefaultTableModel model=new DefaultTableModel();
+		String column_names[]= {"ID","Nome","Cognome"};
+		DefaultTableModel model=new DefaultTableModel(column_names,0);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 		
@@ -295,11 +297,11 @@ public class Votazioni {
 		List<Giudice> giudici=dao.getAll();
 		for(Giudice g:giudici) {
 			model.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
-			comboGiudice1.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
-			comboGiudice2.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
-			comboGiudice3.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
-			comboGiudice4.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
-			comboGiudice5.addItem(g.getId()+"-"+g.getNome()+","+g.getCognome());
+			comboGiudice1.addItem(g.getId());
+			comboGiudice2.addItem(g.getId());
+			comboGiudice3.addItem(g.getId());
+			comboGiudice4.addItem(g.getId());
+			comboGiudice5.addItem(g.getId());
 		}
 		
 		//ottieni valutazioni già inserite
