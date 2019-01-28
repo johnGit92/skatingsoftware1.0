@@ -7,9 +7,14 @@ import java.util.Random;
 
 public enum Disciplina {
 
-	LATIN(1),
-	POPDANCE(2),
-	HIPHOP(3);
+	LATINO(1),
+	POP(2),
+	HIPHOP(3),
+	CONTEMPORANEA(4),
+	MODERNA(5),
+	ORIENTALI(6),
+	ASSOLUTA(7),
+	ZUMBA(8);
 	
 	private final int val;
 	

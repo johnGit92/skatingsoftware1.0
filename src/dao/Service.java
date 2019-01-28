@@ -6,6 +6,7 @@ public class Service {
 //	private static CompetizioneDao competizioneDao;
 	private static GiudiceDao giudiceDao;
 	private static ValutazioneDao valutazioneDao;
+	private static ClassificaDao classificaDao;
 	
 	public static IscrizioneDao getIscrizioneDao(){
 		if(iscrizioneDao==null) iscrizioneDao = new IscrizioneHibernateDao();
@@ -25,5 +26,10 @@ public class Service {
 	public static ValutazioneDao getValutazioneDao() {
 		if(valutazioneDao==null) valutazioneDao=new ValutazioneHibernateDao();
 		return valutazioneDao;
+	}
+
+	public static ClassificaDao getClassificaDao() {
+		if(classificaDao==null)classificaDao=new ClassificaHibernateDao();
+		return classificaDao;
 	}
 }

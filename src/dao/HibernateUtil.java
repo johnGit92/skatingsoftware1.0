@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import model.Classifica;
 import model.Gara;
 import model.Giudice;
 import model.Iscrizione;
@@ -18,6 +19,7 @@ public class HibernateUtil {
 		config.addAnnotatedClass(Gara.class);
 		config.addAnnotatedClass(Giudice.class);
 		config.addAnnotatedClass(Valutazione.class);
+		config.addAnnotatedClass(Classifica.class);
 		factory = config.buildSessionFactory();
 	}
 	

@@ -8,8 +8,13 @@ import java.util.Random;
 public enum Specialita {
 	
 	SINCRO(1),
-	COREOGRAPHIC(2),
-	SHOW(3);
+	COREO(2),
+	SHOW(3),
+	CONTEMPORANEA(4),
+	MODERNA(5),
+	ORIENTALI(6),
+	ZUMBA(7),
+	ASSOLUTA(8);
 	
 	private final int val;
 	

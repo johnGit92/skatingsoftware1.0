@@ -172,7 +172,7 @@ public class Competizione {
 			modelIscrizioni.addRow(new Object[] {
 					String.valueOf(i.getNumero()),i.getAsd(),String.valueOf(i.getCategoria().getVal()),
 					String.valueOf(i.getSpecialita().getVal()),String.valueOf(i.getDisciplina().getVal()),
-					String.valueOf(i.getClasse().getVal()),String.valueOf(i.getGruppo().getVal())
+					String.valueOf(i.getClasse().getVal()),String.valueOf(i.getUnita().getVal())
 			});
 		}
 

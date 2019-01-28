@@ -17,7 +17,8 @@ public enum Categoria {
 	O16(8),
 	O35(9),
 	O50(10),
-	OPEN(11);
+	OPEN(11),
+	ASSOLUTA(12);
 
 	private final int val;
 

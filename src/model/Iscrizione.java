@@ -15,7 +15,7 @@ public class Iscrizione {
 	private Categoria categoria;
 	private Specialita specialita;
 	private Disciplina disciplina;
-	private Unita gruppo;
+	private Unita unita;
 	private int n;
 	private Classe classe;
 	private String ballerini;
@@ -24,7 +24,7 @@ public class Iscrizione {
 		super();
 	}
 
-	public Iscrizione(String asd, int numero, Categoria categoria, Specialita specialita, Disciplina disciplina, Unita gruppo,
+	public Iscrizione(String asd, int numero, Categoria categoria, Specialita specialita, Disciplina disciplina, Unita unita,
 			int n, Classe classe, String ballerini) {
 		super();
 		this.asd = asd;
@@ -32,7 +32,7 @@ public class Iscrizione {
 		this.categoria = categoria;
 		this.specialita = specialita;
 		this.disciplina = disciplina;
-		this.gruppo = gruppo;
+		this.unita = unita;
 		this.n = n;
 		this.classe = classe;
 		this.ballerini = ballerini;
@@ -83,12 +83,12 @@ public class Iscrizione {
 	}
 
 	@Enumerated(EnumType.STRING)
-	public Unita getGruppo() {
-		return gruppo;
+	public Unita getUnita() {
+		return unita;
 	}
 
-	public void setGruppo(Unita gruppo) {
-		this.gruppo = gruppo;
+	public void setUnita(Unita unita) {
+		this.unita = unita;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -119,7 +119,7 @@ public class Iscrizione {
 	@Override
 	public String toString() {
 		return "Iscrizioni [asd=" + asd + ", numero=" + numero + ", categoria=" + categoria + ", specialita="
-				+ specialita + ", disciplina=" + disciplina + ", gruppo=" + gruppo + ", n=" + n + ", classe=" + classe
+				+ specialita + ", disciplina=" + disciplina + ", unita=" + unita + ", n=" + n + ", classe=" + classe
 				+ ", ballerini=" + ballerini + "]";
 	}
 

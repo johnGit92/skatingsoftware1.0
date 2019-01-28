@@ -8,7 +8,9 @@ import java.util.Random;
 public enum Unita {
 
 	PG(1),
-	GG(2);
+	GG(2),
+	SOLO(3),
+	ASSOLUTA(4);
 	
 	private final int val;
 	

@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import java.awt.Font;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,9 +17,17 @@ import javax.swing.JTable;
 import java.awt.Component;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import dao.ClassificaDao;
+import dao.Service;
+import dao.ValutazioneDao;
+import model.Valutazione;
+
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Classifica {
 
@@ -101,6 +110,26 @@ public class Classifica {
 		frmClassifica.getContentPane().add(scrollPane);
 		
 		JButton btnClassifica = new JButton("Classifica");
+		btnClassifica.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ValutazioneDao dao=Service.getValutazioneDao();
+				int rows=table.getRowCount();
+				int numero; double tec,coreo; String id;
+				ClassificaDao daoClass=Service.getClassificaDao();
+				List<Valutazione> list;
+				int i=0;
+				for(i=0;i<rows;i++) {
+					numero=Integer.parseInt((String) model.getValueAt(i, 0));
+					list=dao.getValutazioni(numero);
+					for(Valutazione v:list) { //completare con creazione riga clasifica ogni 5 valutazioni
+//						model.Classifica c=new model.Classifica();
+//						c.setId1(v.getId());
+//						daoClass.create(c);
+					}
+				}
+			}
+		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnClassifica.setBounds(967, 273, 89, 28);
 		frmClassifica.getContentPane().add(btnClassifica);

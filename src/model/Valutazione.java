@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Valutazioni")
+@Table(name="valutazioni")
 public class Valutazione implements Comparable<Valutazione>{
 
 	private int pk;

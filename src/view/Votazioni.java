@@ -17,12 +17,15 @@ import model.Giudice;
 import model.Valutazione;
 
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Votazioni {
 
@@ -276,6 +279,42 @@ public class Votazioni {
 		comboCoreo5.addItem("6.0");
 		
 		btnSalva = new JButton("Salva");
+		btnSalva.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int numero=Integer.parseInt(txtNumero.getText());
+				
+				String id1,id2,id3,id4,id5;
+				id1=(String) comboGiudice1.getItemAt(comboGiudice1.getSelectedIndex()); System.out.println(id1);
+				id2=(String) comboGiudice2.getItemAt(comboGiudice2.getSelectedIndex()); System.out.println(id2);
+				id3=(String) comboGiudice3.getItemAt(comboGiudice3.getSelectedIndex()); System.out.println(id3);
+				id4=(String) comboGiudice4.getItemAt(comboGiudice4.getSelectedIndex()); System.out.println(id4);
+				id5=(String) comboGiudice5.getItemAt(comboGiudice5.getSelectedIndex()); System.out.println(id5);
+				
+				double t1,t2,t3,t4,t5;
+				t1=Double.parseDouble((String)comboTecnico1.getItemAt(comboTecnico1.getSelectedIndex())); System.out.println(t1);
+				t2=Double.parseDouble((String)comboTecnico2.getItemAt(comboTecnico2.getSelectedIndex())); System.out.println(t2);
+				t3=Double.parseDouble((String)comboTecnico3.getItemAt(comboTecnico3.getSelectedIndex())); System.out.println(t3);
+				t4=Double.parseDouble((String)comboTecnico4.getItemAt(comboTecnico4.getSelectedIndex())); System.out.println(t4);
+				t5=Double.parseDouble((String)comboTecnico5.getItemAt(comboTecnico5.getSelectedIndex())); System.out.println(t5);
+				
+				double c1,c2,c3,c4,c5;
+				c1=Double.parseDouble((String)comboCoreo1.getItemAt(comboCoreo1.getSelectedIndex())); System.out.println(c1);
+				c2=Double.parseDouble((String)comboCoreo2.getItemAt(comboCoreo2.getSelectedIndex())); System.out.println(c2);
+				c3=Double.parseDouble((String)comboCoreo3.getItemAt(comboCoreo3.getSelectedIndex())); System.out.println(c3);
+				c4=Double.parseDouble((String)comboCoreo4.getItemAt(comboCoreo4.getSelectedIndex())); System.out.println(c4);
+				c5=Double.parseDouble((String)comboCoreo5.getItemAt(comboCoreo5.getSelectedIndex())); System.out.println(c5);
+				
+				ValutazioneDao dao=Service.getValutazioneDao();
+				Valutazione v1,v2,v3,v4,v5;
+				v1=new Valutazione(numero, id1, t1, c1); dao.create(v1); System.out.println(v1);
+				v2=new Valutazione(numero, id2, t2, c2); dao.create(v2); System.out.println(v2);
+				v3=new Valutazione(numero, id3, t3, c3); dao.create(v3); System.out.println(v3);
+				v4=new Valutazione(numero, id4, t4, c4); dao.create(v4); System.out.println(v4);
+				v5=new Valutazione(numero, id5, t5, c5); dao.create(v5); System.out.println(v5);
+				
+			}
+		});
 		btnSalva.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnSalva.setBounds(28, 266, 89, 23);
 		frmVotazioni.getContentPane().add(btnSalva);

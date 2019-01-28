@@ -7,8 +7,10 @@ import java.util.Random;
 
 public enum Classe {
 
-	LS(1),
-	GS(2);
+	ED(1),
+	RS(2),
+	GS(3),
+	ASSOLUTA(4);
 	
 	private final int val;
 	
