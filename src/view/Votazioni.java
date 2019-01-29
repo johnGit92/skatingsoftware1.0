@@ -26,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class Votazioni {
 
@@ -87,18 +88,20 @@ public class Votazioni {
 		frmVotazioni.getContentPane().setLayout(null);
 		
 		txtNumero = new JTextField();
+		txtNumero.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNumero.setFont(new Font("Corbel", Font.PLAIN, 12));
 		txtNumero.setEditable(false);
 		txtNumero.setText(numero);
-		txtNumero.setBounds(28, 26, 150, 30);
+		txtNumero.setBounds(28, 26, 200, 30);
 		frmVotazioni.getContentPane().add(txtNumero);
 		txtNumero.setColumns(10);
 		
 		txtAsd = new JTextField();
+		txtAsd.setHorizontalAlignment(SwingConstants.CENTER);
 		txtAsd.setFont(new Font("Corbel", Font.PLAIN, 12));
 		txtAsd.setEditable(false);
 		txtAsd.setText(asd);
-		txtAsd.setBounds(28, 67, 150, 30);
+		txtAsd.setBounds(28, 67, 200, 30);
 		frmVotazioni.getContentPane().add(txtAsd);
 		txtAsd.setColumns(10);
 		

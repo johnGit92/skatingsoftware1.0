@@ -176,7 +176,13 @@ public class Classifica {
 	public void setPosFin(int posFin) {
 		this.posFin = posFin;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Classifica [pk=" + pk + ", numero=" + numero + ", id1=" + id1 + ", id2=" + id2 + ", id3=" + id3
+				+ ", id4=" + id4 + ", id5=" + id5 + ", tot1=" + tot1 + ", tot2=" + tot2 + ", tot3=" + tot3 + ", tot4="
+				+ tot4 + ", tot5=" + tot5 + ", pos1=" + pos1 + ", pos2=" + pos2 + ", pos3=" + pos3 + ", pos4=" + pos4
+				+ ", pos5=" + pos5 + ", pt=" + pt + ", posFin=" + posFin + "]";
+	}	
 	
 }

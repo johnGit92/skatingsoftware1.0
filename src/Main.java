@@ -13,7 +13,8 @@ public class Main {
 		CompetitionController controller=new CompetitionController();
 		GUIController guiController = new GUIController(controller);
 		
-		guiController.showMainMenu();
+		//guiController.showMainMenu();
+		guiController.showNuovaCompetizione();
 		
 	}
 }

@@ -20,8 +20,8 @@ public class ClassificaHibernateDao implements ClassificaDao {
 	}
 
 	@Override
-	public Classifica retrieve(int pk) {
-		// TODO Auto-generated method stub
+	public Classifica retrieve(int numero) {
+		//DA COMPLETARE
 		return null;
 	}
 
