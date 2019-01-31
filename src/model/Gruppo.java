@@ -79,6 +79,8 @@ public class Gruppo implements Comparable<Gruppo>{
 
 	public void setValutazioni(List<Valutazione> valutazioni) {
 		this.valutazioni = valutazioni;
+		for(Valutazione v: valutazioni)
+			tecnico+=v.getTecnico();
 	}
 
 	public double getCoreografico() {

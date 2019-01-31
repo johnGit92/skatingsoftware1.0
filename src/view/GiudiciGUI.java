@@ -25,14 +25,14 @@ import controller.CompetitionController;
 import controller.GUIController;
 import model.Giudice;
 
-public class Giudici {
+public class GiudiciGUI {
 
 	private JFrame frame;
 	private JTable table;
 	protected GUIController guiController;
 	private CompetitionController compController;
 
-	public Giudici(GUIController controller, CompetitionController compCtrl) {
+	public GiudiciGUI(GUIController controller, CompetitionController compCtrl) {
 		guiController=controller;
 		compController=compCtrl;
 		initialize();

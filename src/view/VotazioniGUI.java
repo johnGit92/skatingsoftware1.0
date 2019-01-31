@@ -28,7 +28,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
 
-public class Votazioni {
+public class VotazioniGUI {
 
 	private JFrame frmVotazioni;
 	private JTextField txtNumero;
@@ -62,7 +62,7 @@ public class Votazioni {
 	 * @param numero numero gruppo iscritto.
 	 * @param asd club/scuola gruppo iscritto.
 	 */
-	public Votazioni(String numero, String asd) {
+	public VotazioniGUI(String numero, String asd) {
 		this.numero=numero;
 		this.asd=asd;
 		initialize();

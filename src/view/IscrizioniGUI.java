@@ -32,7 +32,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 
-public class Competizione {
+public class IscrizioniGUI {
 
 	private JFrame frmNuovaCompetizione;
 	private GUIController guiController;
@@ -43,7 +43,7 @@ public class Competizione {
 	/**
 	 * Create the application.
 	 */
-	public Competizione(GUIController controller, CompetitionController compCtrl) {
+	public IscrizioniGUI(GUIController controller, CompetitionController compCtrl) {
 		guiController=controller;
 		compController=compCtrl;
 		initialize();
@@ -129,10 +129,10 @@ public class Competizione {
 				guiController.showVotazioni(numero, asd);
 			}
 		});
-		btnVota.setBounds(969, 129, 90, 28);
+		btnVota.setBounds(969, 129, 100, 28);
 		frmNuovaCompetizione.getContentPane().add(btnVota);
 		
-		JButton btnClassifica = new JButton("Classifica");
+		JButton btnClassifica = new JButton("Competizione");
 		btnClassifica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -149,7 +149,7 @@ public class Competizione {
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(969, 169, 90, 28);
+		btnClassifica.setBounds(969, 169, 100, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		JLabel lblSelezionati = new JLabel("Selezionati");

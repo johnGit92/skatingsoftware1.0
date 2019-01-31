@@ -5,11 +5,11 @@ import java.util.Map;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import view.Giudici;
-import view.MainMenu;
-import view.Votazioni;
-import view.Classifica;
-import view.Competizione;
+import view.GiudiciGUI;
+import view.MenuGUI;
+import view.VotazioniGUI;
+import view.CompetizioneGUI;
+import view.IscrizioniGUI;
 
 public class GUIController {
 	
@@ -32,25 +32,25 @@ public class GUIController {
 	}
 
 	public void showMainMenu() {		
-		new MainMenu(this).getFrmSkatingsoftware().setVisible(true);
+		new MenuGUI(this).getFrmSkatingsoftware().setVisible(true);
 	}
 	
 	public void showNuovaCompetizione() {
-		new Competizione(this,compController).getFrame().setVisible(true);
+		new IscrizioniGUI(this,compController).getFrame().setVisible(true);
 	}
 
 	public void showGiudici() {
-		new Giudici(this, compController).getFrame().setVisible(true);;
+		new GiudiciGUI(this, compController).getFrame().setVisible(true);;
 		
 	}
 	
 	public void showVotazioni(String numero, String asd) {
-		Votazioni v=new Votazioni(numero,asd);
+		VotazioniGUI v=new VotazioniGUI(numero,asd);
 		v.getFrmVotazioni().setVisible(true);
 	}
 	
 	public void showClassifica(Map<String,String> iscrittiInCompetizione) {
-		Classifica c=new Classifica(iscrittiInCompetizione);
+		CompetizioneGUI c=new CompetizioneGUI(iscrittiInCompetizione);
 		c.getFrmClassifica().setVisible(true);
 	}
 }

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="classifica")
-public class Classifica {
+public class Classifica implements Comparable<Classifica>{
 
 	private int pk;
 	private int numero;
@@ -17,9 +17,13 @@ public class Classifica {
 	private double tot1,tot2,tot3,tot4,tot5;
 	private int pos1,pos2,pos3,pos4,pos5;
 	private int pt,posFin;
+	private double totTecnico;
+	private boolean pari;
 	
 	public Classifica() {
 		super();
+		pari=false;
+		posFin=0;
 	}
 
 	public double getTot1() {
@@ -177,12 +181,41 @@ public class Classifica {
 		this.posFin = posFin;
 	}
 
+	public double getTotTecnico() {
+		return totTecnico;
+	}
+
+	public void setTotTecnico(double totTecnico) {
+		this.totTecnico = totTecnico;
+	}
+
+	public boolean isPari() {
+		return pari;
+	}
+
+	public void setPari(boolean pari) {
+		this.pari = pari;
+	}
+
 	@Override
 	public String toString() {
 		return "Classifica [pk=" + pk + ", numero=" + numero + ", id1=" + id1 + ", id2=" + id2 + ", id3=" + id3
 				+ ", id4=" + id4 + ", id5=" + id5 + ", tot1=" + tot1 + ", tot2=" + tot2 + ", tot3=" + tot3 + ", tot4="
 				+ tot4 + ", tot5=" + tot5 + ", pos1=" + pos1 + ", pos2=" + pos2 + ", pos3=" + pos3 + ", pos4=" + pos4
 				+ ", pos5=" + pos5 + ", pt=" + pt + ", posFin=" + posFin + "]";
+	}
+
+	@Override
+	public int compareTo(Classifica o) {
+		if(pt<o.getPt()) return 1;
+		else if(pt>o.getPt()) return -1;
+		else {
+			if(totTecnico<o.getTotTecnico()) return 1;
+			else if(totTecnico>o.getTotTecnico()) return -1;
+		}
+		pari=true;
+		o.setPari(true);
+		return 0;
 	}	
 	
 }

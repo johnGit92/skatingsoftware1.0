@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 import controller.GUIController;
 
-public class MainMenu {
+public class MenuGUI {
 
 	private JFrame frmSkatingsoftware;
 	private GUIController guiController;
@@ -20,7 +20,7 @@ public class MainMenu {
 	/**
 	 * Create the application.
 	 */
-	public MainMenu(GUIController controller) {
+	public MenuGUI(GUIController controller) {
 		guiController=controller;
 		initialize();
 	}
@@ -36,7 +36,7 @@ public class MainMenu {
 		frmSkatingsoftware.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSkatingsoftware.getContentPane().setLayout(null);
 		
-		JButton btnNuovaCompetizione = new JButton("Competizione");
+		JButton btnNuovaCompetizione = new JButton("Iscrizioni");
 		btnNuovaCompetizione.setBounds(6, 6, 150, 40);
 		frmSkatingsoftware.getContentPane().add(btnNuovaCompetizione);
 		
@@ -45,6 +45,7 @@ public class MainMenu {
 		frmSkatingsoftware.getContentPane().add(btnEsci);
 		
 		JButton btnGiudici = new JButton("Giudici");
+		btnGiudici.setEnabled(false);
 		btnGiudici.setBounds(6, 50, 150, 40);
 		frmSkatingsoftware.getContentPane().add(btnGiudici);
 		
@@ -53,13 +54,13 @@ public class MainMenu {
 		lblSkatingsoftware.setForeground(Color.WHITE);
 		lblSkatingsoftware.setBounds(239, 26, 291, 167);
 		frmSkatingsoftware.getContentPane().add(lblSkatingsoftware);
-		btnGiudici.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				guiController.showGiudici();
-				frmSkatingsoftware.setVisible(false);
-			}
-		});
+//		btnGiudici.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				guiController.showGiudici();
+//				frmSkatingsoftware.setVisible(false);
+//			}
+//		});
 		btnEsci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
