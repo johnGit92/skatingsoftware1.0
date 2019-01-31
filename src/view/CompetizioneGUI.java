@@ -55,7 +55,7 @@ public class CompetizioneGUI {
 	private void initialize() {
 		frmClassifica = new JFrame();
 		frmClassifica.setTitle("Classifica");
-		frmClassifica.setBounds(100, 100, 1131, 645);
+		frmClassifica.setBounds(100, 100, 1131, 620);
 		frmClassifica.getContentPane().setBackground(new Color(37, 61, 105));
 		frmClassifica.getContentPane().setLayout(null);
 		
@@ -106,7 +106,7 @@ public class CompetizioneGUI {
 		}
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
-		scrollPane.setBounds(10, 273, 947, 327);
+		scrollPane.setBounds(10, 243, 947, 327);
 		frmClassifica.getContentPane().add(scrollPane);
 		
 		JButton btnClassifica = new JButton("Classifica");
@@ -128,7 +128,6 @@ public class CompetizioneGUI {
 				
 				//ordina gruppi per numero
 				Collections.sort(gruppi, new Comparator<Gruppo>() {
-
 					@Override
 					public int compare(Gruppo o1, Gruppo o2) {
 						if(o1.getNumero()>o2.getNumero()) return 1;
@@ -216,12 +215,20 @@ public class CompetizioneGUI {
 				classifiche.add(c4);
 				classifiche.add(c5);
 				for(List<Parziale> cp : classifiche) {					
+					Iterator<Parziale> it=cp.iterator();
 					int pos=1;
-					for(Parziale p : cp) {
+					Parziale p=it.next();
+					while(p!=null) {
 						p.posizione=pos;
-						boolean increment=true;
-						if(p.pari) increment=false;
-						if(increment) pos++;
+						if(it.hasNext()) {
+							Parziale next=it.next();
+							if(p.tot!=next.tot) {
+								pos++;
+							}
+							p=next;
+						}
+						else
+							p=null;
 					}
 				}
 				
@@ -310,24 +317,32 @@ public class CompetizioneGUI {
 				Collections.sort(classifica);
 				
 				//aggiorna posizioni
+				Iterator<Classifica> it=classifica.iterator();
 				int pos=1;
-				for(Classifica c : classifica) {
+				Classifica c=it.next();
+				while(c!=null) {
 					c.setPosFin(pos);
-					boolean increment=true;
-					if(c.isPari()) increment=false;
-					if(increment) pos++;
+					if(it.hasNext()) {
+						Classifica next=it.next();
+						if(c.getPt()!=next.getPt() || c.getTotTecnico()!=next.getTotTecnico()) {
+							pos++;
+						}
+						c=next;			
+					}
+					else
+						c=null;	
 				}
 				
 				//memorizza classifica nel database
-				for(Classifica c : classifica) {
-					classDao.create(c);
+				for(Classifica cl : classifica) {
+					classDao.create(cl);
 				}
 				
 				
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(967, 273, 89, 28);
+		btnClassifica.setBounds(967, 243, 89, 28);
 		frmClassifica.getContentPane().add(btnClassifica);
 	}
 
