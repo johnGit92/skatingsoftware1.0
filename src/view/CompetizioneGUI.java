@@ -27,6 +27,7 @@ import dao.Service;
 import dao.ValutazioneDao;
 import model.Classifica;
 import model.Gruppo;
+import model.Iscrizione;
 import model.Valutazione;
 
 public class CompetizioneGUI {
@@ -54,8 +55,8 @@ public class CompetizioneGUI {
 	 */
 	private void initialize() {
 		frmClassifica = new JFrame();
-		frmClassifica.setTitle("Classifica");
-		frmClassifica.setBounds(100, 100, 1131, 620);
+		frmClassifica.setTitle("SkatingSoftware 1.0 - Competizione");
+		frmClassifica.setBounds(100, 100, 989, 620);
 		frmClassifica.getContentPane().setBackground(new Color(37, 61, 105));
 		frmClassifica.getContentPane().setLayout(null);
 		
@@ -106,8 +107,18 @@ public class CompetizioneGUI {
 		}
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "ISCRITTI", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(255, 255, 255)));
-		scrollPane.setBounds(10, 243, 947, 327);
+		scrollPane.setBounds(10, 243, 850, 327);
 		frmClassifica.getContentPane().add(scrollPane);
+		
+		//aggiorna textfield competizione
+		Iterator<String> it=keys.iterator();
+		int numero=Integer.valueOf(it.next());
+		Iscrizione g=Service.getIscrizioneDao().retrieve(numero);
+		textField.setText(g.getCategoria().name());
+		textField_1.setText(g.getSpecialita().name());
+		textField_2.setText(g.getDisciplina().name());
+		textField_3.setText(g.getClasse().name());
+		textField_4.setText(g.getUnita().name());
 		
 		JButton btnClassifica = new JButton("Classifica");
 		btnClassifica.addMouseListener(new MouseAdapter() {
@@ -342,7 +353,7 @@ public class CompetizioneGUI {
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(967, 243, 89, 28);
+		btnClassifica.setBounds(870, 243, 89, 28);
 		frmClassifica.getContentPane().add(btnClassifica);
 	}
 

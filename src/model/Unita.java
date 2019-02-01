@@ -10,7 +10,8 @@ public enum Unita {
 	PG(1),
 	GG(2),
 	SOLO(3),
-	ASSOLUTA(4);
+	ASSOLUTA(4),
+	DUO(5);
 	
 	private final int val;
 	
