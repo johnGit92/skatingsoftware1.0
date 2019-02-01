@@ -14,7 +14,9 @@ public enum Specialita {
 	MODERNA(5),
 	ORIENTALI(6),
 	ZUMBA(7),
-	ASSOLUTA(8);
+	ASSOLUTA(8),
+	SALSA(9),
+	LATINO(10);
 	
 	private final int val;
 	

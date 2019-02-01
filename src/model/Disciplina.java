@@ -14,7 +14,8 @@ public enum Disciplina {
 	MODERNA(5),
 	ORIENTALI(6),
 	ASSOLUTA(7),
-	ZUMBA(8);
+	ZUMBA(8),
+	SALSA(9);
 	
 	private final int val;
 	
