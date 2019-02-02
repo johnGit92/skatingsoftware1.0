@@ -15,7 +15,8 @@ public enum Disciplina {
 	ORIENTALI(6),
 	ASSOLUTA(7),
 	ZUMBA(8),
-	SALSA(9);
+	SALSA(9),
+	CARAIBICHE(10);
 	
 	private final int val;
 	

@@ -210,8 +210,8 @@ public class Classifica implements Comparable<Classifica>{
 		if(pt<o.getPt()) return -1;
 		else if(pt>o.getPt()) return 1;
 		else {
-			if(totTecnico<o.getTotTecnico()) return -1;
-			else if(totTecnico>o.getTotTecnico()) return 1;
+			if(totTecnico<o.getTotTecnico()) return 1;
+			else if(totTecnico>o.getTotTecnico()) return -1;
 		}
 		pari=true;
 		o.setPari(true);

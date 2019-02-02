@@ -16,7 +16,8 @@ public enum Specialita {
 	ZUMBA(7),
 	ASSOLUTA(8),
 	SALSA(9),
-	LATINO(10);
+	LATINO(10),
+	CARAIBICHE(11);
 	
 	private final int val;
 	
