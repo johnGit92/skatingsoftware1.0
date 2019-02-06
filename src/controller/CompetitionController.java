@@ -13,6 +13,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import dao.Service;
+import dao.ValutazioneDao;
 import model.Giudice;
 import model.Gruppo;
 import model.Valutazione;
@@ -25,43 +27,43 @@ public class CompetitionController {
 	 * @param numeroGiudici numero giudici competizione.
 	 * @return lista dei gruppi in competizione con relative valutazioni.
 	 */
-	public List<Gruppo> generaGruppiConValutazioni(List<Valutazione> valutazioni, int numeroGiudici) {
-		
-		//ordina lista valutazioni per numero gruppo e id giudice.
-		Collections.sort(valutazioni,new Comparator<Valutazione>() {
-			@Override
-			public int compare(Valutazione arg0, Valutazione arg1) {
-				if(arg0.getNumero()<arg1.getNumero())return -1;
-				else if(arg0.getNumero()>arg1.getNumero())return 1;
-				else
-					return arg0.getId().compareTo(arg1.getId());
-			}
-		});
-		
-		//genera gruppi con valutazioni
-		int count=0; 
-		List<Gruppo> lista=new ArrayList<Gruppo>();
-		Gruppo g=null;
-		for(Valutazione v: valutazioni) {
-			
-			if(count%numeroGiudici==0) {
-				g=new Gruppo(v.getNumero()); //crea nuovo gruppo una volta inserite le valutazioni di tutti i giudici
-				lista.add(g); //aggiungi gruppo alla lista per la classifica
-			}
-			
-			g.getValutazioni().add(v); //aggiungi voti al gruppo
-			g.setCoreografico(g.getCoreografico()+v.getCoreografico()); //aggiorna complessivo coreografico
-			g.setTecnico(g.getTecnico()+v.getTecnico()); //aggiorna complessivo tecnico
-			
-			count++;
-		}
-		
-		//ordina lista gruppi secondo classifica
-		Collections.sort(lista);
-		
-		return lista;
-		
-	}
+//	public List<Gruppo> generaGruppiConValutazioni(List<Valutazione> valutazioni, int numeroGiudici) {
+//		
+//		//ordina lista valutazioni per numero gruppo e id giudice.
+//		Collections.sort(valutazioni,new Comparator<Valutazione>() {
+//			@Override
+//			public int compare(Valutazione arg0, Valutazione arg1) {
+//				if(arg0.getNumero()<arg1.getNumero())return -1;
+//				else if(arg0.getNumero()>arg1.getNumero())return 1;
+//				else
+//					return arg0.getId().compareTo(arg1.getId());
+//			}
+//		});
+//		
+//		//genera gruppi con valutazioni
+//		int count=0; 
+//		List<Gruppo> lista=new ArrayList<Gruppo>();
+//		Gruppo g=null;
+//		for(Valutazione v: valutazioni) {
+//			
+//			if(count%numeroGiudici==0) {
+//				g=new Gruppo(v.getNumero()); //crea nuovo gruppo una volta inserite le valutazioni di tutti i giudici
+//				lista.add(g); //aggiungi gruppo alla lista per la classifica
+//			}
+//			
+//			g.getValutazioni().add(v); //aggiungi voti al gruppo
+//			g.setCoreografico(g.getCoreografico()+v.getCoreografico()); //aggiorna complessivo coreografico
+//			g.setTecnico(g.getTecnico()+v.getTecnico()); //aggiorna complessivo tecnico
+//			
+//			count++;
+//		}
+//		
+//		//ordina lista gruppi secondo classifica
+//		Collections.sort(lista);
+//		
+//		return lista;
+//		
+//	}
 
 	/**
 	 * Genera file csv dalla lista di gruppi già ordinata secondo classifica.
@@ -96,26 +98,26 @@ public class CompetitionController {
 	 * @param disciplina disciplina competizione.
 	 * @param valutazioni lista di valutazioni inserite in tabella.
 	 */
-	public void salvaValutazioni(String categoria, String disciplina, String classe, List<Valutazione> valutazioni) {
-		try {
-			final String dir = System.getProperty("user.home");
-			String path=dir+"/"+categoria+"_"+disciplina+"_"+classe+".csv";
-			FileWriter file=new FileWriter(path);
-			String header="Numero,Giudice,Tecnico,Coreografico";
-			file.append(header);
-			for(Valutazione v: valutazioni) {
-				file.append("\n"+v.getNumero()+",");
-				file.append(v.getId()+",");
-				file.append(v.getTecnico()+",");
-				file.append(String.valueOf(v.getCoreografico()));
-			}
-			file.close();
-			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-			Desktop.getDesktop().open(new File(dir));
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
-		}		
-	}
+//	public void salvaValutazioni(String categoria, String disciplina, String classe, List<Valutazione> valutazioni) {
+//		try {
+//			final String dir = System.getProperty("user.home");
+//			String path=dir+"/"+categoria+"_"+disciplina+"_"+classe+".csv";
+//			FileWriter file=new FileWriter(path);
+//			String header="Numero,Giudice,Tecnico,Coreografico";
+//			file.append(header);
+//			for(Valutazione v: valutazioni) {
+//				file.append("\n"+v.getNumero()+",");
+//				file.append(v.getId()+",");
+//				file.append(v.getTecnico()+",");
+//				file.append(String.valueOf(v.getCoreografico()));
+//			}
+//			file.close();
+//			JOptionPane.showMessageDialog(null, "CSV File created: "+path, "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+//			Desktop.getDesktop().open(new File(dir));
+//		} catch (IOException e) {
+//			JOptionPane.showMessageDialog(null, e.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
+//		}		
+//	}
 
 	/**
 	 * Genera una lista di valutazioni da un file csv.
@@ -238,6 +240,14 @@ public class CompetitionController {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.toString(), "ERROR MESSAGE", JOptionPane.ERROR_MESSAGE);
 		}		
+	}
+
+	public void salvaValutazioni(List<Valutazione> valutazioni) {
+		ValutazioneDao dao=Service.getValutazioneDao();
+		for(Valutazione v: valutazioni) {
+			dao.create(v); System.out.println(v);
+		}
+		
 	}
 	
 }

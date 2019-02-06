@@ -126,7 +126,7 @@ public class IscrizioniGUI {
 				int row=tableIscrizioni.getSelectedRow();
 				String numero=(String) modelIscrizioni.getValueAt(row, 0);
 				String asd=(String) modelIscrizioni.getValueAt(row, 1);
-				guiController.showVotazioni(numero, asd);
+				guiController.showVotazioni(numero, asd, compController);
 			}
 		});
 		btnVota.setBounds(969, 129, 100, 28);

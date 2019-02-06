@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.CompetitionController;
 import dao.GiudiceDao;
 import dao.Service;
 import dao.ValutazioneDao;
@@ -56,15 +57,18 @@ public class VotazioniGUI {
 	
 	private String numero,asd;
 	private JTable table;
+	private CompetitionController compController;
 
 	/**
 	 * Create the application.
 	 * @param numero numero gruppo iscritto.
 	 * @param asd club/scuola gruppo iscritto.
+	 * @param compController controller competizioni.
 	 */
-	public VotazioniGUI(String numero, String asd) {
+	public VotazioniGUI(String numero, String asd, CompetitionController compController) {
 		this.numero=numero;
 		this.asd=asd;
+		this.compController=compController;
 		initialize();
 	}
 
@@ -287,6 +291,7 @@ public class VotazioniGUI {
 			public void mouseClicked(MouseEvent e) {
 				int numero=Integer.parseInt(txtNumero.getText());
 				
+				//Id 5 giudici
 				String id1,id2,id3,id4,id5;
 				id1=(String) comboGiudice1.getItemAt(comboGiudice1.getSelectedIndex()); System.out.println(id1);
 				id2=(String) comboGiudice2.getItemAt(comboGiudice2.getSelectedIndex()); System.out.println(id2);
@@ -294,6 +299,7 @@ public class VotazioniGUI {
 				id4=(String) comboGiudice4.getItemAt(comboGiudice4.getSelectedIndex()); System.out.println(id4);
 				id5=(String) comboGiudice5.getItemAt(comboGiudice5.getSelectedIndex()); System.out.println(id5);
 				
+				//giudizio tecnico 5 giudici
 				double t1,t2,t3,t4,t5;
 				t1=Double.parseDouble((String)comboTecnico1.getItemAt(comboTecnico1.getSelectedIndex())); System.out.println(t1);
 				t2=Double.parseDouble((String)comboTecnico2.getItemAt(comboTecnico2.getSelectedIndex())); System.out.println(t2);
@@ -301,6 +307,7 @@ public class VotazioniGUI {
 				t4=Double.parseDouble((String)comboTecnico4.getItemAt(comboTecnico4.getSelectedIndex())); System.out.println(t4);
 				t5=Double.parseDouble((String)comboTecnico5.getItemAt(comboTecnico5.getSelectedIndex())); System.out.println(t5);
 				
+				//coreografico 5 giudici
 				double c1,c2,c3,c4,c5;
 				c1=Double.parseDouble((String)comboCoreo1.getItemAt(comboCoreo1.getSelectedIndex())); System.out.println(c1);
 				c2=Double.parseDouble((String)comboCoreo2.getItemAt(comboCoreo2.getSelectedIndex())); System.out.println(c2);
@@ -308,13 +315,17 @@ public class VotazioniGUI {
 				c4=Double.parseDouble((String)comboCoreo4.getItemAt(comboCoreo4.getSelectedIndex())); System.out.println(c4);
 				c5=Double.parseDouble((String)comboCoreo5.getItemAt(comboCoreo5.getSelectedIndex())); System.out.println(c5);
 				
-				ValutazioneDao dao=Service.getValutazioneDao();
+				//valutazioni 5 giudici
 				Valutazione v1,v2,v3,v4,v5;
-				v1=new Valutazione(numero, id1, t1, c1); dao.create(v1); System.out.println(v1);
-				v2=new Valutazione(numero, id2, t2, c2); dao.create(v2); System.out.println(v2);
-				v3=new Valutazione(numero, id3, t3, c3); dao.create(v3); System.out.println(v3);
-				v4=new Valutazione(numero, id4, t4, c4); dao.create(v4); System.out.println(v4);
-				v5=new Valutazione(numero, id5, t5, c5); dao.create(v5); System.out.println(v5);
+				v1=new Valutazione(numero, id1, t1, c1); 
+				v2=new Valutazione(numero, id2, t2, c2);
+				v3=new Valutazione(numero, id3, t3, c3);
+				v4=new Valutazione(numero, id4, t4, c4);
+				v5=new Valutazione(numero, id5, t5, c5);
+				
+				List<Valutazione> valutazioni=new ArrayList<Valutazione>();
+				valutazioni.add(v1); valutazioni.add(v2); valutazioni.add(v3); valutazioni.add(v4); valutazioni.add(v5);
+				compController.salvaValutazioni(valutazioni);
 				
 			}
 		});

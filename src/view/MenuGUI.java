@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import controller.CompetitionController;
 import controller.GUIController;
 
 public class MenuGUI {
@@ -19,8 +20,9 @@ public class MenuGUI {
 
 	/**
 	 * Create the application.
+	 * @param compController controller competizioni.
 	 */
-	public MenuGUI(GUIController controller) {
+	public MenuGUI(GUIController controller, CompetitionController compController) {
 		guiController=controller;
 		initialize();
 	}

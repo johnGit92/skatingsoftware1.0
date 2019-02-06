@@ -32,7 +32,7 @@ public class GUIController {
 	}
 
 	public void showMainMenu() {		
-		new MenuGUI(this).getFrmSkatingsoftware().setVisible(true);
+		new MenuGUI(this,compController).getFrmSkatingsoftware().setVisible(true);
 	}
 	
 	public void showNuovaCompetizione() {
@@ -44,9 +44,8 @@ public class GUIController {
 		
 	}
 	
-	public void showVotazioni(String numero, String asd) {
-		VotazioniGUI v=new VotazioniGUI(numero,asd);
-		v.getFrmVotazioni().setVisible(true);
+	public void showVotazioni(String numero, String asd, CompetitionController compController) {
+		new VotazioniGUI(numero,asd, compController).getFrmVotazioni().setVisible(true);;
 	}
 	
 	public void showClassifica(Map<String,String> iscrittiInCompetizione) {
