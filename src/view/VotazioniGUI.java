@@ -346,8 +346,7 @@ public class VotazioniGUI {
 		scrollPane.setViewportView(table);
 		
 		//Ottieni giudici e aggiorna comboGiudici
-		GiudiceDao dao=Service.getGiudiceDao();
-		List<Giudice> giudici=dao.getAll();
+		List<Giudice> giudici=compController.getAllGiudici();
 		for(Giudice g:giudici) {
 			model.addRow(new Object[] {g.getId(),g.getNome(),g.getCognome()});
 			comboGiudice1.addItem(g.getId());
@@ -358,9 +357,7 @@ public class VotazioniGUI {
 		}
 		
 		//ottieni valutazioni già inserite
-		ValutazioneDao valDao=Service.getValutazioneDao();
-		List<Valutazione> valutazioni=valDao.getValutazioni(Integer.parseInt(numero));
-		int count=valutazioni.size(),i=0;
+		List<Valutazione> valutazioni=compController.getValutazioni(Integer.parseInt(numero));
 		JComboBox<String>[] comboGiudici=new JComboBox[5];
 		comboGiudici[0]=comboGiudice1;
 		comboGiudici[1]=comboGiudice2;
@@ -379,9 +376,9 @@ public class VotazioniGUI {
 		comboCoreografico[2]=comboCoreo3;
 		comboCoreografico[3]=comboCoreo4;
 		comboCoreografico[4]=comboCoreo5;
-		Valutazione v;
+		int count=valutazioni.size(),i=0;
 		for(i=0;i<count;i++) {
-			v=valutazioni.get(i);
+			Valutazione v=valutazioni.get(i);
 			comboGiudici[i].setSelectedItem(v.getId());
 			comboTecnico[i].setSelectedItem(String.valueOf(v.getTecnico()));
 			comboCoreografico[i].setSelectedItem(String.valueOf(v.getCoreografico()));

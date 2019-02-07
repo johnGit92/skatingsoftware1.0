@@ -249,5 +249,13 @@ public class CompetitionController {
 		}
 		
 	}
+
+	public List<Giudice> getAllGiudici() {
+		return Service.getGiudiceDao().getAll();
+	}
+
+	public List<Valutazione> getValutazioni(int numero) {
+		return Service.getValutazioneDao().getValutazioni(numero);
+	}
 	
 }

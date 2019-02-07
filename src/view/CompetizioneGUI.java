@@ -202,11 +202,20 @@ public class CompetizioneGUI {
 					v5=it.next();
 					
 					Parziale p1,p2,p3,p4,p5;
-					p1=new Parziale(v1.getId(),g.getNumero(),v1.getCoreografico()+v1.getTecnico(),0);
-					p2=new Parziale(v2.getId(),g.getNumero(),v2.getCoreografico()+v2.getTecnico(),0);
-					p3=new Parziale(v3.getId(),g.getNumero(),v3.getCoreografico()+v3.getTecnico(),0);
-					p4=new Parziale(v4.getId(),g.getNumero(),v4.getCoreografico()+v4.getTecnico(),0);
-					p5=new Parziale(v5.getId(),g.getNumero(),v5.getCoreografico()+v5.getTecnico(),0);
+					double tot=v1.getCoreografico()+v1.getTecnico();
+					p1=new Parziale(v1.getId(),g.getNumero(),(double) Math.round(tot * 10) / 10,0);
+					
+					tot=v2.getCoreografico()+v2.getTecnico();
+					p2=new Parziale(v2.getId(),g.getNumero(),(double) Math.round(tot * 10) / 10,0);
+					
+					tot=v3.getCoreografico()+v3.getTecnico();
+					p3=new Parziale(v3.getId(),g.getNumero(),(double) Math.round(tot * 10) / 10,0);
+					
+					tot=v4.getCoreografico()+v4.getTecnico();
+					p4=new Parziale(v4.getId(),g.getNumero(),(double) Math.round(tot * 10) / 10,0);
+					
+					tot=v5.getCoreografico()+v5.getTecnico();
+					p5=new Parziale(v5.getId(),g.getNumero(),(double) Math.round(tot * 10) / 10,0);
 					
 					c1.add(p1); c2.add(p2); c3.add(p3); c4.add(p4); c5.add(p5);
 				}
