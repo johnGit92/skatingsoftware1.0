@@ -10,7 +10,8 @@ public enum Classe {
 	ED(1),
 	RS(2),
 	GS(3),
-	ASSOLUTA(4);
+	ASSOLUTA(4),
+	LS(5);
 	
 	private final int val;
 	

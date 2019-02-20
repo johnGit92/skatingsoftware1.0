@@ -23,6 +23,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.ClassificaDao;
+import dao.IscrizioneDao;
 import dao.Service;
 import dao.ValutazioneDao;
 import model.Classifica;
@@ -291,7 +292,7 @@ public class CompetizioneGUI {
 				for(Gruppo g: gruppi) {
 					Classifica row=new Classifica();
 					row.setNumero(g.getNumero());
-					row.setTotTecnico(g.getTecnico());
+					row.setTotTecnico((double) Math.round(g.getTecnico() * 10) / 10);
 					
 					//Parziale 1
 					Parziale p1=it1.next();
@@ -354,7 +355,9 @@ public class CompetizioneGUI {
 				}
 				
 				//memorizza classifica nel database
+				IscrizioneDao daoIscrizione=Service.getIscrizioneDao();
 				for(Classifica cl : classifica) {
+					cl.setAsd(daoIscrizione.retrieve(cl.getNumero()).getAsd());
 					classDao.create(cl);
 				}
 				

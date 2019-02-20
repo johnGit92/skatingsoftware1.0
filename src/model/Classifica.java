@@ -13,6 +13,7 @@ public class Classifica implements Comparable<Classifica>{
 
 	private int pk;
 	private int numero;
+	private String asd;
 	private String id1,id2,id3,id4,id5;
 	private double tot1,tot2,tot3,tot4,tot5;
 	private int pos1,pos2,pos3,pos4,pos5;
@@ -83,6 +84,14 @@ public class Classifica implements Comparable<Classifica>{
 
 	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+
+	public String getAsd() {
+		return asd;
+	}
+
+	public void setAsd(String asd) {
+		this.asd = asd;
 	}
 
 	public String getId1() {
