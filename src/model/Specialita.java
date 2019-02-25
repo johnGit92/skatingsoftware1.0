@@ -9,15 +9,7 @@ public enum Specialita {
 	
 	SINCRO(1),
 	COREO(2),
-	SHOW(3),
-	CONTEMPORANEA(4),
-	MODERNA(5),
-	ORIENTALI(6),
-	ZUMBA(7),
-	ASSOLUTA(8),
-	SALSA(9),
-	LATINO(10),
-	CARAIBICHE(11);
+	SHOW(3);
 	
 	private final int val;
 	

@@ -7,6 +7,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import view.GiudiciGUI;
 import view.MenuGUI;
+import view.NuovaIscrizioneGUI;
 import view.VotazioniGUI;
 import view.CompetizioneGUI;
 import view.IscrizioniGUI;
@@ -48,8 +49,12 @@ public class GUIController {
 		new VotazioniGUI(numero,asd, compController).getFrmVotazioni().setVisible(true);;
 	}
 	
-	public void showClassifica(Map<String,String> iscrittiInCompetizione) {
+	public void showCompetizione(Map<String,String> iscrittiInCompetizione) {
 		CompetizioneGUI c=new CompetizioneGUI(iscrittiInCompetizione);
 		c.getFrmClassifica().setVisible(true);
+	}
+
+	public void showNuovaIscrizione() {
+		new NuovaIscrizioneGUI(compController).setVisible(true);
 	}
 }

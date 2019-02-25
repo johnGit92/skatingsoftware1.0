@@ -17,6 +17,7 @@ import dao.Service;
 import dao.ValutazioneDao;
 import model.Giudice;
 import model.Gruppo;
+import model.Iscrizione;
 import model.Valutazione;
 
 public class CompetitionController {
@@ -256,6 +257,10 @@ public class CompetitionController {
 
 	public List<Valutazione> getValutazioni(int numero) {
 		return Service.getValutazioneDao().getValutazioni(numero);
+	}
+	
+	public void salvaIscrizione(Iscrizione iscrizione) {
+		Service.getIscrizioneDao().create(iscrizione);
 	}
 	
 }

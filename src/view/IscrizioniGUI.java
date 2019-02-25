@@ -129,7 +129,7 @@ public class IscrizioniGUI {
 				guiController.showVotazioni(numero, asd, compController);
 			}
 		});
-		btnVota.setBounds(969, 129, 100, 28);
+		btnVota.setBounds(967, 221, 100, 28);
 		frmNuovaCompetizione.getContentPane().add(btnVota);
 		
 		JButton btnClassifica = new JButton("Competizione");
@@ -145,11 +145,11 @@ public class IscrizioniGUI {
 					asd=(String) modelIscrizioni.getValueAt(rows[i], 1);
 					iscrittiInCompetizione.put(numero, asd);
 				}
-				guiController.showClassifica(iscrittiInCompetizione);
+				guiController.showCompetizione(iscrittiInCompetizione);
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(969, 169, 100, 28);
+		btnClassifica.setBounds(967, 261, 100, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		JLabel lblSelezionati = new JLabel("Selezionati");
@@ -165,6 +165,17 @@ public class IscrizioniGUI {
 		textSelezionati.setBounds(89, 94, 57, 25);
 		frmNuovaCompetizione.getContentPane().add(textSelezionati);
 		textSelezionati.setColumns(10);
+		
+		JButton btnNuovo = new JButton("Nuovo");
+		btnNuovo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				guiController.showNuovaIscrizione();
+			}
+		});
+		btnNuovo.setFont(new Font("Corbel", Font.PLAIN, 12));
+		btnNuovo.setBounds(967, 146, 100, 28);
+		frmNuovaCompetizione.getContentPane().add(btnNuovo);
 		
 		IscrizioneDao dao=Service.getIscrizioneDao();
 		List<Iscrizione> iscrizioni=dao.getAll();
