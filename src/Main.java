@@ -1,12 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-
 import controller.CompetitionController;
 import controller.GUIController;
-import dao.GiudiceDao;
-import dao.Service;
-import model.Giudice;
-import model.Valutazione;
 
 /**
  * Main class used to launch the application.

@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import dao.IscrizioneDao;
 import dao.Service;
 import dao.ValutazioneDao;
 import model.Giudice;
@@ -261,6 +262,12 @@ public class CompetitionController {
 	
 	public void salvaIscrizione(Iscrizione iscrizione) {
 		Service.getIscrizioneDao().create(iscrizione);
+	}
+
+	public List<Iscrizione> getIscrizioni() {
+		IscrizioneDao dao=Service.getIscrizioneDao();
+		List<Iscrizione> iscrizioni=dao.getAll();
+		return iscrizioni;
 	}
 	
 }

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 
 import controller.CompetitionController;
 import controller.GUIController;
+import java.awt.Insets;
 
 public class MenuGUI {
 
@@ -43,7 +44,10 @@ public class MenuGUI {
 		frmSkatingsoftware.getContentPane().add(btnNuovaCompetizione);
 		
 		JButton btnEsci = new JButton("Esci");
+		btnEsci.setMargin(new Insets(2, 5, 2, 14));
+		btnEsci.setIconTextGap(10);
 		btnEsci.setBounds(6, 175, 150, 40);
+		btnEsci.setIcon(new ImageIcon("icons/close.png"));
 		frmSkatingsoftware.getContentPane().add(btnEsci);
 		
 		JButton btnGiudici = new JButton("Giudici");
