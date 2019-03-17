@@ -1,8 +1,10 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,22 +18,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import controller.CompetitionController;
 import controller.GUIController;
-import dao.IscrizioneDao;
 import dao.Service;
 import dao.ValutazioneDao;
+import model.Categoria;
 import model.Iscrizione;
 import model.Valutazione;
-
-import java.awt.Font;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.SwingConstants;
 
 public class IscrizioniGUI {
 
@@ -40,6 +40,7 @@ public class IscrizioniGUI {
 	private CompetitionController compController;
 	private JTable tableIscrizioni;
 	private JTextField textSelezionati;
+	private static JButton btnAggiorna;
 
 	/**
 	 * Create the application.
@@ -139,7 +140,7 @@ public class IscrizioniGUI {
 				}
 			}
 		});
-		btnVota.setBounds(957, 338, 100, 28);
+		btnVota.setBounds(957, 400, 100, 28);
 		frmNuovaCompetizione.getContentPane().add(btnVota);
 		
 		JButton btnClassifica = new JButton("Competizione");
@@ -159,7 +160,7 @@ public class IscrizioniGUI {
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(957, 378, 100, 28);
+		btnClassifica.setBounds(957, 440, 100, 28);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
 		
 		JLabel lblSelezionati = new JLabel("Selezionati");
@@ -176,19 +177,7 @@ public class IscrizioniGUI {
 		frmNuovaCompetizione.getContentPane().add(textSelezionati);
 		textSelezionati.setColumns(10);
 		
-		JButton btnNuovo = new JButton("");
-		btnNuovo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				guiController.showNuovaIscrizione();
-			}
-		});
-		btnNuovo.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnNuovo.setBounds(957, 263, 40, 40);
-		btnNuovo.setIcon(new ImageIcon("icons/plus.png"));
-		frmNuovaCompetizione.getContentPane().add(btnNuovo);
-		
-		JButton btnAggiorna = new JButton("");
+		btnAggiorna = new JButton("");
 		btnAggiorna.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -212,6 +201,36 @@ public class IscrizioniGUI {
 		btnAggiorna.setIcon(new ImageIcon("icons/refresh.png"));
 		frmNuovaCompetizione.getContentPane().add(btnAggiorna);
 		
+		JButton btnNuovo = new JButton("");
+		btnNuovo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				guiController.showNuovaIscrizione();
+			}
+		});
+		btnNuovo.setFont(new Font("Corbel", Font.PLAIN, 12));
+		btnNuovo.setBounds(957, 263, 40, 40);
+		btnNuovo.setIcon(new ImageIcon("icons/plus.png"));
+		frmNuovaCompetizione.getContentPane().add(btnNuovo);
+		
+		JButton deleteButton = new JButton("");
+		deleteButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int[] selectedRows=tableIscrizioni.getSelectedRows();
+				int i=0;
+				for(i=0;i<selectedRows.length;i++) {
+					int numero=Integer.valueOf(((String)tableIscrizioni.getValueAt(selectedRows[i], 0)).trim());					
+					compController.deleteIscrizione(numero);
+				}
+				
+				IscrizioniGUI.update(e);
+			}
+		});
+		deleteButton.setBounds(957, 314, 40, 40);
+		deleteButton.setIcon(new ImageIcon("icons/delete.png"));
+		frmNuovaCompetizione.getContentPane().add(deleteButton);
+		
 		//ottieni lista iscrizioni e riempi tabella
 		List<Iscrizione> iscrizioni=compController.getIscrizioni();
 		for(Iscrizione i:iscrizioni) {
@@ -230,5 +249,18 @@ public class IscrizioniGUI {
 
 	public void setFrame(JFrame frame) {
 		this.frmNuovaCompetizione = frame;
+	}
+
+	/**
+	 * Aggiorna tabella iscrizioni tramite il pulsante aggiorna.
+	 * @param e click event.
+	 */
+	public static void update(MouseEvent e) {
+
+		//click pulsante aggiorna
+		MouseListener[] aggiornaListeners=btnAggiorna.getMouseListeners();
+		for(MouseListener m: aggiornaListeners) {
+			m.mouseClicked(e);
+		}				
 	}
 }

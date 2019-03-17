@@ -269,5 +269,11 @@ public class CompetitionController {
 		List<Iscrizione> iscrizioni=dao.getAll();
 		return iscrizioni;
 	}
+
+	public void deleteIscrizione(int numero) {
+		IscrizioneDao dao=Service.getIscrizioneDao();
+		dao.delete(numero);
+		
+	}
 	
 }

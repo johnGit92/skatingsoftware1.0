@@ -129,6 +129,7 @@ public class NuovaIscrizioneGUI extends JFrame {
 					
 					int numero=Integer.parseInt(textNumero.getText().trim());
 					String asd=textASD.getText().trim();
+					
 					Categoria categoria=Categoria.valueOf(String.valueOf(comboCategoria.getSelectedItem()).trim());
 					Specialita specialita=Specialita.valueOf(String.valueOf(comboSpecialita.getSelectedItem()).trim());
 					Disciplina disciplina=Disciplina.valueOf(String.valueOf(comboDisciplina.getSelectedItem()).trim());
@@ -143,6 +144,8 @@ public class NuovaIscrizioneGUI extends JFrame {
 					textNumero.setText("");
 					textASD.setText("");
 					
+					IscrizioniGUI.update(e);
+
 					
 				}catch(Exception exc) {
 					JOptionPane.showMessageDialog(null, exc.toString(), "ERRORE", JOptionPane.ERROR_MESSAGE);
