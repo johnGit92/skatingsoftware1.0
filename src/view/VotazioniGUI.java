@@ -1,33 +1,28 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.CompetitionController;
-import dao.GiudiceDao;
-import dao.Service;
-import dao.ValutazioneDao;
 import model.Giudice;
 import model.Valutazione;
-
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JList;
-import javax.swing.UIManager;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.EtchedBorder;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.SwingConstants;
 
 public class VotazioniGUI {
 
@@ -289,43 +284,52 @@ public class VotazioniGUI {
 		btnSalva.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int numero=Integer.parseInt(txtNumero.getText());
 				
-				//Id 5 giudici
-				String id1,id2,id3,id4,id5;
-				id1=(String) comboGiudice1.getItemAt(comboGiudice1.getSelectedIndex()); System.out.println(id1);
-				id2=(String) comboGiudice2.getItemAt(comboGiudice2.getSelectedIndex()); System.out.println(id2);
-				id3=(String) comboGiudice3.getItemAt(comboGiudice3.getSelectedIndex()); System.out.println(id3);
-				id4=(String) comboGiudice4.getItemAt(comboGiudice4.getSelectedIndex()); System.out.println(id4);
-				id5=(String) comboGiudice5.getItemAt(comboGiudice5.getSelectedIndex()); System.out.println(id5);
-				
-				//giudizio tecnico 5 giudici
-				double t1,t2,t3,t4,t5;
-				t1=Double.parseDouble((String)comboTecnico1.getItemAt(comboTecnico1.getSelectedIndex())); System.out.println(t1);
-				t2=Double.parseDouble((String)comboTecnico2.getItemAt(comboTecnico2.getSelectedIndex())); System.out.println(t2);
-				t3=Double.parseDouble((String)comboTecnico3.getItemAt(comboTecnico3.getSelectedIndex())); System.out.println(t3);
-				t4=Double.parseDouble((String)comboTecnico4.getItemAt(comboTecnico4.getSelectedIndex())); System.out.println(t4);
-				t5=Double.parseDouble((String)comboTecnico5.getItemAt(comboTecnico5.getSelectedIndex())); System.out.println(t5);
-				
-				//coreografico 5 giudici
-				double c1,c2,c3,c4,c5;
-				c1=Double.parseDouble((String)comboCoreo1.getItemAt(comboCoreo1.getSelectedIndex())); System.out.println(c1);
-				c2=Double.parseDouble((String)comboCoreo2.getItemAt(comboCoreo2.getSelectedIndex())); System.out.println(c2);
-				c3=Double.parseDouble((String)comboCoreo3.getItemAt(comboCoreo3.getSelectedIndex())); System.out.println(c3);
-				c4=Double.parseDouble((String)comboCoreo4.getItemAt(comboCoreo4.getSelectedIndex())); System.out.println(c4);
-				c5=Double.parseDouble((String)comboCoreo5.getItemAt(comboCoreo5.getSelectedIndex())); System.out.println(c5);
-				
-				//valutazioni 5 giudici
-				Valutazione v1,v2,v3,v4,v5;
-				v1=new Valutazione(numero, id1, t1, c1); 
-				v2=new Valutazione(numero, id2, t2, c2);
-				v3=new Valutazione(numero, id3, t3, c3);
-				v4=new Valutazione(numero, id4, t4, c4);
-				v5=new Valutazione(numero, id5, t5, c5);
-				
-				List<Valutazione> valutazioni=new ArrayList<Valutazione>();
-				valutazioni.add(v1); valutazioni.add(v2); valutazioni.add(v3); valutazioni.add(v4); valutazioni.add(v5);
-				compController.salvaValutazioni(valutazioni);
+				try {
+					
+					int numero=Integer.parseInt(txtNumero.getText());
+					
+					//Id 5 giudici
+					String id1,id2,id3,id4,id5;
+					id1=(String) comboGiudice1.getItemAt(comboGiudice1.getSelectedIndex()); System.out.println(id1);
+					id2=(String) comboGiudice2.getItemAt(comboGiudice2.getSelectedIndex()); System.out.println(id2);
+					id3=(String) comboGiudice3.getItemAt(comboGiudice3.getSelectedIndex()); System.out.println(id3);
+					id4=(String) comboGiudice4.getItemAt(comboGiudice4.getSelectedIndex()); System.out.println(id4);
+					id5=(String) comboGiudice5.getItemAt(comboGiudice5.getSelectedIndex()); System.out.println(id5);
+					
+					//giudizio tecnico 5 giudici
+					double t1,t2,t3,t4,t5;
+					t1=Double.parseDouble((String)comboTecnico1.getItemAt(comboTecnico1.getSelectedIndex())); System.out.println(t1);
+					t2=Double.parseDouble((String)comboTecnico2.getItemAt(comboTecnico2.getSelectedIndex())); System.out.println(t2);
+					t3=Double.parseDouble((String)comboTecnico3.getItemAt(comboTecnico3.getSelectedIndex())); System.out.println(t3);
+					t4=Double.parseDouble((String)comboTecnico4.getItemAt(comboTecnico4.getSelectedIndex())); System.out.println(t4);
+					t5=Double.parseDouble((String)comboTecnico5.getItemAt(comboTecnico5.getSelectedIndex())); System.out.println(t5);
+					
+					//coreografico 5 giudici
+					double c1,c2,c3,c4,c5;
+					c1=Double.parseDouble((String)comboCoreo1.getItemAt(comboCoreo1.getSelectedIndex())); System.out.println(c1);
+					c2=Double.parseDouble((String)comboCoreo2.getItemAt(comboCoreo2.getSelectedIndex())); System.out.println(c2);
+					c3=Double.parseDouble((String)comboCoreo3.getItemAt(comboCoreo3.getSelectedIndex())); System.out.println(c3);
+					c4=Double.parseDouble((String)comboCoreo4.getItemAt(comboCoreo4.getSelectedIndex())); System.out.println(c4);
+					c5=Double.parseDouble((String)comboCoreo5.getItemAt(comboCoreo5.getSelectedIndex())); System.out.println(c5);
+					
+					//valutazioni 5 giudici
+					Valutazione v1,v2,v3,v4,v5;
+					v1=new Valutazione(numero, id1, t1, c1); 
+					v2=new Valutazione(numero, id2, t2, c2);
+					v3=new Valutazione(numero, id3, t3, c3);
+					v4=new Valutazione(numero, id4, t4, c4);
+					v5=new Valutazione(numero, id5, t5, c5);
+					
+					List<Valutazione> valutazioni=new ArrayList<Valutazione>();
+					valutazioni.add(v1); valutazioni.add(v2); valutazioni.add(v3); valutazioni.add(v4); valutazioni.add(v5);
+					compController.salvaValutazioni(valutazioni);
+					
+					JOptionPane.showMessageDialog(null, "Voti memorizzati correttamente!", "Messaggio", JOptionPane.INFORMATION_MESSAGE);
+					
+				}catch(Exception exc) {
+					exc.printStackTrace();
+				}
 				
 			}
 		});

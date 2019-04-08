@@ -5,8 +5,10 @@ import java.util.Map;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import model.Iscrizione;
 import view.GiudiciGUI;
 import view.MenuGUI;
+import view.ModificaIscrizioneGUI;
 import view.NuovaIscrizioneGUI;
 import view.VotazioniGUI;
 import view.CompetizioneGUI;
@@ -56,5 +58,10 @@ public class GUIController {
 
 	public void showNuovaIscrizione() {
 		new NuovaIscrizioneGUI(compController).setVisible(true);
+	}
+
+	public void showModificaIscrizione(Iscrizione iscrizione) {
+		new ModificaIscrizioneGUI(iscrizione,compController).setVisible(true);;
+		
 	}
 }

@@ -30,7 +30,11 @@ import controller.GUIController;
 import dao.Service;
 import dao.ValutazioneDao;
 import model.Categoria;
+import model.Classe;
+import model.Disciplina;
 import model.Iscrizione;
+import model.Specialita;
+import model.Unita;
 import model.Valutazione;
 
 public class IscrizioniGUI {
@@ -75,7 +79,7 @@ public class IscrizioniGUI {
 		btnIndietro.setBounds(10, 11, 40, 40);
 		btnIndietro.setIcon(new ImageIcon("icons/leftArrow.png"));		
 		frmNuovaCompetizione.getContentPane().add(btnIndietro);
-		
+
 		DefaultListModel<String> listModel=new DefaultListModel<>();
 
 		String column_names[]= {"Numero","ASD","Categoria","Specialità","Disciplina","Classe","Unità"};
@@ -87,12 +91,12 @@ public class IscrizioniGUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount()>1) {
-		        	ValutazioneDao dao=Service.getValutazioneDao();
-		        	List<Valutazione> list=dao.getValutazioni(Integer.valueOf((String) modelIscrizioni.getValueAt(tableIscrizioni.getSelectedRow(), 0)));
-		        	listModel.clear();
-		        	for(Valutazione v:list) {
-		        		listModel.addElement(v.toString());
-		        	}
+					ValutazioneDao dao=Service.getValutazioneDao();
+					List<Valutazione> list=dao.getValutazioni(Integer.valueOf((String) modelIscrizioni.getValueAt(tableIscrizioni.getSelectedRow(), 0)));
+					listModel.clear();
+					for(Valutazione v:list) {
+						listModel.addElement(v.toString());
+					}
 				}
 			}
 		});
@@ -101,11 +105,11 @@ public class IscrizioniGUI {
 		tableIscrizioni.setBounds(10, 170, 234, 89);
 		tableIscrizioni.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-		    public void valueChanged(ListSelectionEvent lse) {
-		        if (!lse.getValueIsAdjusting()) {
-		        	textSelezionati.setText(String.valueOf(tableIscrizioni.getSelectedRowCount()));
-		        }
-		    }
+			public void valueChanged(ListSelectionEvent lse) {
+				if (!lse.getValueIsAdjusting()) {
+					textSelezionati.setText(String.valueOf(tableIscrizioni.getSelectedRowCount()));
+				}
+			}
 		});
 		frmNuovaCompetizione.getContentPane().add(tableIscrizioni);
 
@@ -114,15 +118,14 @@ public class IscrizioniGUI {
 		scrollPaneVal.setBounds(10, 129, 947, 504);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 
-		String column_names_giudici[]= {"ID","Nome","Cognome"};
-		DefaultTableModel modelGiudici=new DefaultTableModel(column_names_giudici,0);
-
 		JLabel label = new JLabel(new ImageIcon(System.getProperty("user.home")+"/icon_resized.png"));
 		label.setBounds(996, 11, 80, 103);
 		frmNuovaCompetizione.getContentPane().add(label);
 
-		JButton btnVota = new JButton("Vota");
+		JButton btnVota = new JButton("");
+		btnVota.setToolTipText("Inserisci Voti");
 		btnVota.setFont(new Font("Corbel", Font.PLAIN, 12));
+		btnVota.setIcon(new ImageIcon("icons/vote.png"));
 		btnVota.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -140,10 +143,12 @@ public class IscrizioniGUI {
 				}
 			}
 		});
-		btnVota.setBounds(957, 400, 100, 28);
+		btnVota.setBounds(957, 440, 40, 40);
 		frmNuovaCompetizione.getContentPane().add(btnVota);
-		
-		JButton btnClassifica = new JButton("Competizione");
+
+		JButton btnClassifica = new JButton("");
+		btnClassifica.setToolTipText("Competizione");
+		btnClassifica.setIcon(new ImageIcon("icons/competition.png"));
 		btnClassifica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -160,15 +165,15 @@ public class IscrizioniGUI {
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnClassifica.setBounds(957, 440, 100, 28);
+		btnClassifica.setBounds(957, 494, 40, 40);
 		frmNuovaCompetizione.getContentPane().add(btnClassifica);
-		
+
 		JLabel lblSelezionati = new JLabel("Selezionati");
 		lblSelezionati.setFont(new Font("Corbel", Font.PLAIN, 12));
 		lblSelezionati.setForeground(Color.WHITE);
 		lblSelezionati.setBounds(30, 101, 69, 16);
 		frmNuovaCompetizione.getContentPane().add(lblSelezionati);
-		
+
 		textSelezionati = new JTextField();
 		textSelezionati.setEditable(false);
 		textSelezionati.setHorizontalAlignment(SwingConstants.CENTER);
@@ -176,8 +181,9 @@ public class IscrizioniGUI {
 		textSelezionati.setBounds(89, 94, 57, 25);
 		frmNuovaCompetizione.getContentPane().add(textSelezionati);
 		textSelezionati.setColumns(10);
-		
+
 		btnAggiorna = new JButton("");
+		btnAggiorna.setToolTipText("Aggiorna");
 		btnAggiorna.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -188,20 +194,20 @@ public class IscrizioniGUI {
 				List<Iscrizione> iscrizioni=compController.getIscrizioni();
 				for(Iscrizione i:iscrizioni) {
 					modelIscrizioni.addRow(new Object[] {
-							String.valueOf(i.getNumero()),i.getAsd(),String.valueOf(i.getCategoria().getVal()),
-							String.valueOf(i.getSpecialita().getVal()),String.valueOf(i.getDisciplina().getVal()),
-							String.valueOf(i.getClasse().getVal()),String.valueOf(i.getUnita().getVal())
+							String.valueOf(i.getNumero()),i.getAsd(),i.getCategoria().name(),i.getSpecialita().name(),i.getDisciplina().name(),
+							i.getClasse().name(),i.getUnita().name()
 					});
 				}
-				
+
 				JOptionPane.showMessageDialog(null, iscrizioni.size()+" iscrizioni trovate!", "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnAggiorna.setBounds(957, 178, 40, 40);
 		btnAggiorna.setIcon(new ImageIcon("icons/refresh.png"));
 		frmNuovaCompetizione.getContentPane().add(btnAggiorna);
-		
+
 		JButton btnNuovo = new JButton("");
+		btnNuovo.setToolTipText("Nuova Iscrizione");
 		btnNuovo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -209,11 +215,12 @@ public class IscrizioniGUI {
 			}
 		});
 		btnNuovo.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnNuovo.setBounds(957, 263, 40, 40);
+		btnNuovo.setBounds(957, 303, 40, 40);
 		btnNuovo.setIcon(new ImageIcon("icons/plus.png"));
 		frmNuovaCompetizione.getContentPane().add(btnNuovo);
-		
+
 		JButton deleteButton = new JButton("");
+		deleteButton.setToolTipText("Cancella Iscrizione");
 		deleteButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -223,21 +230,44 @@ public class IscrizioniGUI {
 					int numero=Integer.valueOf(((String)tableIscrizioni.getValueAt(selectedRows[i], 0)).trim());					
 					compController.deleteIscrizione(numero);
 				}
-				
+
 				IscrizioniGUI.update(e);
 			}
 		});
-		deleteButton.setBounds(957, 314, 40, 40);
+		deleteButton.setBounds(957, 354, 40, 40);
 		deleteButton.setIcon(new ImageIcon("icons/delete.png"));
 		frmNuovaCompetizione.getContentPane().add(deleteButton);
-		
+
+		JButton editButton = new JButton("");
+		editButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row=tableIscrizioni.getSelectedRow();
+				int numero=Integer.valueOf(String.valueOf(modelIscrizioni.getValueAt(row, 0)));
+				String asd=String.valueOf(modelIscrizioni.getValueAt(row, 1));
+				String categoria=String.valueOf(modelIscrizioni.getValueAt(row, 2));
+				String specialita=String.valueOf(modelIscrizioni.getValueAt(row, 3));
+				String disciplina=String.valueOf(modelIscrizioni.getValueAt(row, 4));
+				String classe=String.valueOf(modelIscrizioni.getValueAt(row, 5));
+				String unita=String.valueOf(modelIscrizioni.getValueAt(row, 6));
+
+				Iscrizione iscrizione=new Iscrizione(asd, numero, Categoria.valueOf(categoria), Specialita.valueOf(specialita), 
+						Disciplina.valueOf(disciplina), Unita.valueOf(unita), 0, Classe.valueOf(classe), null);
+
+				guiController.showModificaIscrizione(iscrizione);
+			}
+		});
+		editButton.setToolTipText("Modifica Iscrizione");
+		editButton.setIcon(new ImageIcon("icons/edit.png"));
+		editButton.setBounds(957, 253, 40, 40);
+		frmNuovaCompetizione.getContentPane().add(editButton);
+
 		//ottieni lista iscrizioni e riempi tabella
 		List<Iscrizione> iscrizioni=compController.getIscrizioni();
 		for(Iscrizione i:iscrizioni) {
 			modelIscrizioni.addRow(new Object[] {
-					String.valueOf(i.getNumero()),i.getAsd(),String.valueOf(i.getCategoria().getVal()),
-					String.valueOf(i.getSpecialita().getVal()),String.valueOf(i.getDisciplina().getVal()),
-					String.valueOf(i.getClasse().getVal()),String.valueOf(i.getUnita().getVal())
+					String.valueOf(i.getNumero()),i.getAsd(),i.getCategoria().name(),i.getSpecialita().name(),
+					i.getDisciplina().name(),i.getClasse().name(),i.getUnita().name()
 			});
 		}
 

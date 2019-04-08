@@ -275,5 +275,9 @@ public class CompetitionController {
 		dao.delete(numero);
 		
 	}
+
+	public void update(Iscrizione iscrizione) {
+		Service.getIscrizioneDao().update(iscrizione);		
+	}
 	
 }

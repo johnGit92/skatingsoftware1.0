@@ -23,26 +23,23 @@ import model.Iscrizione;
 import model.Specialita;
 import model.Unita;
 
-public class NuovaIscrizioneGUI extends JFrame {
+public class ModificaIscrizioneGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private CompetitionController controller;
 	private JTextField textNumero;
 	private JTextField textASD;
-	private CompetitionController compController;
 
-	/**
-	 * Create the frame.
-	 */
-	public NuovaIscrizioneGUI(CompetitionController compController) {
-		this.compController=compController;		
-		initialize();
+	public ModificaIscrizioneGUI(Iscrizione iscrizione, CompetitionController controller) {
+		this.controller=controller;
+		initialize(iscrizione);
 	}
 
-	public void initialize() {
+	public void initialize(Iscrizione iscrizione) {
 		setBackground(SystemColor.desktop);
 
-		setTitle("SkatingSoftware 1.0 - Nuova Iscrizione");
+		setTitle("SkatingSoftware 1.0 - Modifica Iscrizione");
 		setBounds(100, 100, 1175, 203);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,11 +51,13 @@ public class NuovaIscrizioneGUI extends JFrame {
 		textNumero.setBounds(8, 40, 74, 28);
 		contentPane.add(textNumero);
 		textNumero.setColumns(10);
+		textNumero.setText(String.valueOf(iscrizione.getNumero()));
 
 		textASD = new JTextField();
 		textASD.setBounds(94, 40, 186, 28);
 		contentPane.add(textASD);
 		textASD.setColumns(10);
+		textASD.setText(iscrizione.getAsd());
 
 		JLabel lblNumero = new JLabel("Numero");
 		lblNumero.setFont(new Font("Corbel", Font.PLAIN, 12));
@@ -122,8 +121,8 @@ public class NuovaIscrizioneGUI extends JFrame {
 		comboUnita.setBounds(993, 40, 121, 28);
 		contentPane.add(comboUnita);
 
-		JButton btnAggiungi = new JButton("Aggiungi");
-		btnAggiungi.addMouseListener(new MouseAdapter() {
+		JButton btnConferma = new JButton("Conferma");
+		btnConferma.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
@@ -139,7 +138,7 @@ public class NuovaIscrizioneGUI extends JFrame {
 					Unita unita=Unita.valueOf(String.valueOf(comboUnita.getSelectedItem()).trim());
 
 					Iscrizione iscrizione=new Iscrizione(asd, numero, categoria, specialita, disciplina, unita, 0, classe, null);
-					compController.salvaIscrizione(iscrizione);
+					controller.update(iscrizione);
 
 					JOptionPane.showMessageDialog(null, "Operazione effettuata con Successo!","CONFERMA",JOptionPane.INFORMATION_MESSAGE);
 
@@ -154,9 +153,9 @@ public class NuovaIscrizioneGUI extends JFrame {
 				}
 			}
 		});
-		btnAggiungi.setFont(new Font("Corbel", Font.PLAIN, 12));
-		btnAggiungi.setBounds(1025, 103, 89, 28);
-		contentPane.add(btnAggiungi);
+		btnConferma.setFont(new Font("Corbel", Font.PLAIN, 12));
+		btnConferma.setBounds(1025, 103, 89, 28);
+		contentPane.add(btnConferma);
 
 		comboCategoria.addItem("U5");
 		comboCategoria.addItem("U7");
@@ -202,6 +201,6 @@ public class NuovaIscrizioneGUI extends JFrame {
 		comboUnita.addItem("ASSOLUTA");
 		comboUnita.addItem("ALTRO");
 
-	}
-
+	}		
 }
+
