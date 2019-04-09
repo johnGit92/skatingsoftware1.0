@@ -224,14 +224,17 @@ public class IscrizioniGUI {
 		deleteButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int[] selectedRows=tableIscrizioni.getSelectedRows();
-				int i=0;
-				for(i=0;i<selectedRows.length;i++) {
-					int numero=Integer.valueOf(((String)tableIscrizioni.getValueAt(selectedRows[i], 0)).trim());					
-					compController.deleteIscrizione(numero);
-				}
+				int opt=JOptionPane.showConfirmDialog(null, "Sei sicuro di voler procedere con l'eliminazione?", "Attenzione", JOptionPane.YES_NO_CANCEL_OPTION);
+				if(opt==JOptionPane.YES_OPTION) {
+					int[] selectedRows=tableIscrizioni.getSelectedRows();
+					int i=0;
+					for(i=0;i<selectedRows.length;i++) {
+						int numero=Integer.valueOf(((String)tableIscrizioni.getValueAt(selectedRows[i], 0)).trim());					
+						compController.deleteIscrizione(numero);
+					}
 
-				IscrizioniGUI.update(e);
+					IscrizioniGUI.update(e);					
+				}			
 			}
 		});
 		deleteButton.setBounds(957, 354, 40, 40);
