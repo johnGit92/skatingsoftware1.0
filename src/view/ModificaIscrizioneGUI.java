@@ -74,6 +74,20 @@ public class ModificaIscrizioneGUI extends JFrame {
 		JComboBox<String> comboCategoria = new JComboBox<String>();
 		comboCategoria.setBounds(290, 40, 121, 28);
 		contentPane.add(comboCategoria);
+		comboCategoria.addItem("U5");
+		comboCategoria.addItem("U7");
+		comboCategoria.addItem("U9");
+		comboCategoria.addItem("U11");
+		comboCategoria.addItem("U13");
+		comboCategoria.addItem("U16");
+		comboCategoria.addItem("U21");
+		comboCategoria.addItem("O16");
+		comboCategoria.addItem("O35");
+		comboCategoria.addItem("O50");
+		comboCategoria.addItem("OPEN");
+		comboCategoria.addItem("ASSOLUTA");
+		comboCategoria.addItem("ALTRO");
+		comboCategoria.setSelectedItem(iscrizione.getCategoria().name());
 
 		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Corbel", Font.PLAIN, 12));
@@ -84,6 +98,11 @@ public class ModificaIscrizioneGUI extends JFrame {
 		JComboBox<String> comboSpecialita = new JComboBox<String>();
 		comboSpecialita.setBounds(418, 40, 212, 28);
 		contentPane.add(comboSpecialita);
+		comboSpecialita.addItem("SINCRO");
+		comboSpecialita.addItem("COREO");
+		comboSpecialita.addItem("SHOW");
+		comboSpecialita.addItem("ALTRO");
+		comboSpecialita.setSelectedItem(iscrizione.getSpecialita().name());
 
 		JLabel lblSpecialit = new JLabel("Specialit\u00E0");
 		lblSpecialit.setFont(new Font("Corbel", Font.PLAIN, 12));
@@ -94,6 +113,18 @@ public class ModificaIscrizioneGUI extends JFrame {
 		JComboBox<String> comboDisciplina = new JComboBox<String>();
 		comboDisciplina.setBounds(640, 40, 212, 28);
 		contentPane.add(comboDisciplina);
+		comboDisciplina.addItem("LATINO");
+		comboDisciplina.addItem("POP");
+		comboDisciplina.addItem("HIPHOP");
+		comboDisciplina.addItem("CONTEMPORANEA");
+		comboDisciplina.addItem("MODERNA");
+		comboDisciplina.addItem("ORIENTALI");
+		comboDisciplina.addItem("ASSOLUTA");
+		comboDisciplina.addItem("ZUMBA");
+		comboDisciplina.addItem("SALSA");
+		comboDisciplina.addItem("CARAIBICHE");
+		comboDisciplina.addItem("ALTRO");
+		comboDisciplina.setSelectedItem(iscrizione.getDisciplina().name());
 
 		JLabel lblDisciplina = new JLabel("Disciplina");
 		lblDisciplina.setFont(new Font("Corbel", Font.PLAIN, 12));
@@ -110,6 +141,12 @@ public class ModificaIscrizioneGUI extends JFrame {
 		JComboBox<String> comboClasse = new JComboBox<String>();
 		comboClasse.setBounds(862, 40, 121, 28);
 		contentPane.add(comboClasse);
+		comboClasse.addItem("ED");
+		comboClasse.addItem("RS");
+		comboClasse.addItem("GS");
+		comboClasse.addItem("ASSOLUTA");
+		comboClasse.addItem("ALTRO");
+		comboClasse.setSelectedItem(iscrizione.getClasse().name());
 
 		JLabel lblUnita = new JLabel("Unita");
 		lblUnita.setForeground(Color.WHITE);
@@ -120,6 +157,13 @@ public class ModificaIscrizioneGUI extends JFrame {
 		JComboBox<String> comboUnita = new JComboBox<String>();
 		comboUnita.setBounds(993, 40, 121, 28);
 		contentPane.add(comboUnita);
+		comboUnita.addItem("PG");
+		comboUnita.addItem("GG");
+		comboUnita.addItem("SOLO");
+		comboUnita.addItem("DUO");
+		comboUnita.addItem("ASSOLUTA");
+		comboUnita.addItem("ALTRO");
+		comboUnita.setSelectedItem(iscrizione.getUnita().name());
 
 		JButton btnConferma = new JButton("Conferma");
 		btnConferma.addMouseListener(new MouseAdapter() {
@@ -142,8 +186,7 @@ public class ModificaIscrizioneGUI extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "Operazione effettuata con Successo!","CONFERMA",JOptionPane.INFORMATION_MESSAGE);
 
-					textNumero.setText("");
-					textASD.setText("");
+					ModificaIscrizioneGUI.this.dispose();
 
 					IscrizioniGUI.update(e);
 
@@ -156,50 +199,6 @@ public class ModificaIscrizioneGUI extends JFrame {
 		btnConferma.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnConferma.setBounds(1025, 103, 89, 28);
 		contentPane.add(btnConferma);
-
-		comboCategoria.addItem("U5");
-		comboCategoria.addItem("U7");
-		comboCategoria.addItem("U9");
-		comboCategoria.addItem("U11");
-		comboCategoria.addItem("U13");
-		comboCategoria.addItem("U16");
-		comboCategoria.addItem("U21");
-		comboCategoria.addItem("O16");
-		comboCategoria.addItem("O35");
-		comboCategoria.addItem("O50");
-		comboCategoria.addItem("OPEN");
-		comboCategoria.addItem("ASSOLUTA");
-		comboCategoria.addItem("ALTRO");
-
-		comboSpecialita.addItem("SINCRO");
-		comboSpecialita.addItem("COREO");
-		comboSpecialita.addItem("SHOW");
-		comboSpecialita.addItem("ALTRO");
-
-		comboDisciplina.addItem("LATINO");
-		comboDisciplina.addItem("POP");
-		comboDisciplina.addItem("HIPHOP");
-		comboDisciplina.addItem("CONTEMPORANEA");
-		comboDisciplina.addItem("MODERNA");
-		comboDisciplina.addItem("ORIENTALI");
-		comboDisciplina.addItem("ASSOLUTA");
-		comboDisciplina.addItem("ZUMBA");
-		comboDisciplina.addItem("SALSA");
-		comboDisciplina.addItem("CARAIBICHE");
-		comboDisciplina.addItem("ALTRO");
-
-		comboClasse.addItem("ED");
-		comboClasse.addItem("RS");
-		comboClasse.addItem("GS");
-		comboClasse.addItem("ASSOLUTA");
-		comboClasse.addItem("ALTRO");
-
-		comboUnita.addItem("PG");
-		comboUnita.addItem("GG");
-		comboUnita.addItem("SOLO");
-		comboUnita.addItem("DUO");
-		comboUnita.addItem("ASSOLUTA");
-		comboUnita.addItem("ALTRO");
 
 	}		
 }

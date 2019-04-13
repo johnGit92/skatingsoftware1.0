@@ -242,6 +242,8 @@ public class IscrizioniGUI {
 		editButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				//wrap subscription information
 				int row=tableIscrizioni.getSelectedRow();
 				int numero=Integer.valueOf(String.valueOf(modelIscrizioni.getValueAt(row, 0)));
 				String asd=String.valueOf(modelIscrizioni.getValueAt(row, 1));
@@ -250,7 +252,6 @@ public class IscrizioniGUI {
 				String disciplina=String.valueOf(modelIscrizioni.getValueAt(row, 4));
 				String classe=String.valueOf(modelIscrizioni.getValueAt(row, 5));
 				String unita=String.valueOf(modelIscrizioni.getValueAt(row, 6));
-
 				Iscrizione iscrizione=new Iscrizione(asd, numero, Categoria.valueOf(categoria), Specialita.valueOf(specialita), 
 						Disciplina.valueOf(disciplina), Unita.valueOf(unita), 0, Classe.valueOf(classe), null);
 
