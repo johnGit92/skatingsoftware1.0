@@ -83,27 +83,4 @@ public class IscrizioneHibernateDao implements IscrizioneDao{
 		return list;
 	}
 
-//	@Override
-//	public List<Competizione> getCompetizioni() {
-//		Session session=HibernateUtil.getSession();
-//		List<Object[]> list;
-//		String queryString="select categoria,classe,disciplina,specialita,gruppo from Iscrizione group by categoria,classe,disciplina,specialita,gruppo";
-//		try {
-//			session.beginTransaction();
-//			Query<Object[]> query=session.createQuery(queryString);
-//			list=query.list();
-//			session.getTransaction().commit();
-//		}finally {
-//			session.close();
-//		}
-//		
-//		List<Competizione> competizioni=new LinkedList<Competizione>();
-//		for(Object[] tuple: list) {
-//			competizioni.add(new Competizione((Categoria)tuple[0], (Specialita)tuple[3], 
-//					(Disciplina)tuple[2], (Classe)tuple[1], (Unita)tuple[4]));
-//		}
-//		
-//		return competizioni;
-//	}
-
 }

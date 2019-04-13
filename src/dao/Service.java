@@ -3,7 +3,7 @@ package dao;
 public class Service {
 	
 	private static IscrizioneDao iscrizioneDao;
-//	private static CompetizioneDao competizioneDao;
+	private static CompetizioneDao competizioneDao;
 	private static GiudiceDao giudiceDao;
 	private static ValutazioneDao valutazioneDao;
 	private static ClassificaDao classificaDao;
@@ -13,11 +13,11 @@ public class Service {
 		return iscrizioneDao;
 	}
 	
-//	public static CompetizioneDao getCompetizioneDao() {
-//		if(competizioneDao==null) competizioneDao=new CompetizioneHibernateDao();
-//		return competizioneDao;
-//	}
-//	
+	public static CompetizioneDao getCompetizioneDao() {
+		if(competizioneDao==null) competizioneDao=new CompetizioneHibernateDao();
+		return competizioneDao;
+	}
+	
 	public static GiudiceDao getGiudiceDao() {
 		if(giudiceDao==null) giudiceDao=new GiudiceHibernateDao();
 		return giudiceDao;
@@ -32,4 +32,5 @@ public class Service {
 		if(classificaDao==null)classificaDao=new ClassificaHibernateDao();
 		return classificaDao;
 	}
+	
 }

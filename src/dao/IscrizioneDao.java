@@ -15,5 +15,4 @@ public interface IscrizioneDao {
 	Iscrizione retrieve(int numero);
 	void delete(int numero);
 	List<Iscrizione> getAll();
-	//List<Competizione> getCompetizioni();
 }

@@ -189,6 +189,7 @@ public class ModificaIscrizioneGUI extends JFrame {
 					ModificaIscrizioneGUI.this.dispose();
 
 					IscrizioniGUI.update(e);
+					controller.aggiornaCompetizioni();
 
 
 				}catch(Exception exc) {
