@@ -13,9 +13,11 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import dao.CompetizioneDao;
 import dao.IscrizioneDao;
 import dao.Service;
 import dao.ValutazioneDao;
+import model.Competizione;
 import model.Giudice;
 import model.Gruppo;
 import model.Iscrizione;
@@ -278,6 +280,89 @@ public class CompetitionController {
 
 	public void update(Iscrizione iscrizione) {
 		Service.getIscrizioneDao().update(iscrizione);		
+	}
+
+	public void aggiornaCompetizioni() {
+		
+		//ottieni lista competizioni
+		List<Competizione>competizioni=getCompetizioni();
+		
+		//nel caso in cui non esistono competizioni vanno generate e ordinate		
+		if(competizioni!=null) 
+			deleteCompetizioni(competizioni);
+		
+		//genera e memorizza competizioni ordinate
+		competizioni=generateCompetizioni();
+		
+		JOptionPane.showMessageDialog(null, competizioni.size()+" competizioni trovate!", "INFORMATION MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+		
+	}
+
+	private List<Competizione> generateCompetizioni() {
+		List<Competizione> competizioni=Service.getCompetizioneDao().generateCompetizioni();
+		competizioni=ordinaCompetizioni(competizioni);
+		for(Competizione c:competizioni)
+			Service.getCompetizioneDao().create(c);
+		
+		return competizioni;
+	}
+
+	public void deleteCompetizioni(List<Competizione> competizioni) {
+		Service.getCompetizioneDao().deleteAll(competizioni);
+		
+	}
+
+	public List<Competizione> getCompetizioni() {
+		return Service.getCompetizioneDao().getCompetizioni();
+	}
+	
+	public List<Competizione> ordinaCompetizioni(List<Competizione> competizioni){
+		Comparator<Competizione> comparator=new Comparator<Competizione>() {
+
+			@Override
+			public int compare(Competizione o1, Competizione o2) {
+				
+				//primo livello di ordinamento (categoria)
+				if(o1.getCategoria().getVal()<o2.getCategoria().getVal())
+					return -1;
+				else if(o1.getCategoria().getVal()>o2.getCategoria().getVal())
+					return 1;
+				else {
+					//secondo livello di ordinamento (disciplina)
+					if(o1.getDisciplina().getVal()<o2.getDisciplina().getVal())
+						return -1;
+					else if(o1.getDisciplina().getVal()>o2.getDisciplina().getVal())
+						return 1;
+					else {
+						//terzo livello di ordinamento (specialità)
+						if(o1.getSpecialita().getVal()<o2.getSpecialita().getVal())
+							return -1;
+						else if(o1.getSpecialita().getVal()>o2.getSpecialita().getVal())
+							return 1;
+						else {
+							//quarto livello di ordinamento (classe)
+							if(o1.getClasse().getVal()<o2.getClasse().getVal())
+								return -1;
+							else if(o1.getClasse().getVal()>o2.getClasse().getVal())
+								return 1;
+							else {
+								//quinto livello di ordinamento (piccolo/grande gruppo)
+								if(o1.getUnita().getVal()<o2.getUnita().getVal())
+									return -1;
+								else if(o1.getUnita().getVal()>o2.getUnita().getVal())
+									return 1;								
+							}
+						}
+					}
+					
+				}
+				return 0;
+			}
+			
+		};
+		Collections.sort(competizioni,comparator);
+		
+		return competizioni;
 	}
 	
 }

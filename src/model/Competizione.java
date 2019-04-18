@@ -20,6 +20,8 @@ public class Competizione {
 	private Classe classe;
 	private Unita unita;
 
+	public Competizione() {}
+	
 	public Competizione(Categoria categoria, Specialita specialita, Disciplina disciplina, Classe classe,
 			Unita unita) {
 		super();
