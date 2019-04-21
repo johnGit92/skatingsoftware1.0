@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.CompetitionController;
 import controller.GUIController;
+import controller.ReportController;
 import dao.Service;
 import dao.ValutazioneDao;
 import model.Categoria;
@@ -82,7 +83,7 @@ public class IscrizioniGUI {
 
 		DefaultListModel<String> listModel=new DefaultListModel<>();
 
-		String column_names[]= {"Numero","ASD","Categoria","Specialità","Disciplina","Classe","Unità"};
+		String column_names[]= {"Numero","ASD","Categoria","Specialitï¿½","Disciplina","Classe","Unitï¿½"};
 		DefaultTableModel modelIscrizioni=new DefaultTableModel(column_names,0);
 		tableIscrizioni = new JTable(modelIscrizioni);
 		tableIscrizioni.setShowVerticalLines(true);
@@ -265,6 +266,17 @@ public class IscrizioniGUI {
 		editButton.setIcon(new ImageIcon("icons/edit.png"));
 		editButton.setBounds(957, 253, 40, 40);
 		frmNuovaCompetizione.getContentPane().add(editButton);
+		
+		JButton printButton = new JButton("");
+		printButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ReportController.showReports();
+			}
+		});
+		printButton.setToolTipText("Stampa Cedolini");
+		printButton.setBounds(957, 561, 40, 40);
+		frmNuovaCompetizione.getContentPane().add(printButton);
 
 		//ottieni lista iscrizioni e riempi tabella
 		List<Iscrizione> iscrizioni=compController.getIscrizioni();
