@@ -83,7 +83,7 @@ public class IscrizioniGUI {
 
 		DefaultListModel<String> listModel=new DefaultListModel<>();
 
-		String column_names[]= {"Numero","ASD","Categoria","Specialit�","Disciplina","Classe","Unit�"};
+		String column_names[]= {"Numero","ASD","Categoria","Specialita","Disciplina","Classe","Unita"};
 		DefaultTableModel modelIscrizioni=new DefaultTableModel(column_names,0);
 		tableIscrizioni = new JTable(modelIscrizioni);
 		tableIscrizioni.setShowVerticalLines(true);

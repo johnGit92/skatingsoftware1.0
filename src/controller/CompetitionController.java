@@ -8,12 +8,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
-import dao.CompetizioneDao;
 import dao.IscrizioneDao;
 import dao.Service;
 import dao.ValutazioneDao;
@@ -70,7 +72,7 @@ public class CompetitionController {
 //	}
 
 	/**
-	 * Genera file csv dalla lista di gruppi già ordinata secondo classifica.
+	 * Genera file csv dalla lista di gruppi giï¿½ ordinata secondo classifica.
 	 * @param gruppi lista di gruppi ordinata secondo classifica.
 	 * @param disciplina disciplina competizione 
 	 * @param classe classe competizione
@@ -298,7 +300,11 @@ public class CompetitionController {
 		
 	}
 
-	private List<Competizione> generateCompetizioni() {
+	/**
+	 * Genera e ordina le competizioni.
+	 * @return
+	 */
+	public List<Competizione> generateCompetizioni() {
 		List<Competizione> competizioni=Service.getCompetizioneDao().generateCompetizioni();
 		competizioni=ordinaCompetizioni(competizioni);
 		for(Competizione c:competizioni)
@@ -334,7 +340,7 @@ public class CompetitionController {
 					else if(o1.getDisciplina().getVal()>o2.getDisciplina().getVal())
 						return 1;
 					else {
-						//terzo livello di ordinamento (specialità)
+						//terzo livello di ordinamento (specialitï¿½)
 						if(o1.getSpecialita().getVal()<o2.getSpecialita().getVal())
 							return -1;
 						else if(o1.getSpecialita().getVal()>o2.getSpecialita().getVal())
@@ -363,6 +369,51 @@ public class CompetitionController {
 		Collections.sort(competizioni,comparator);
 		
 		return competizioni;
+	}
+	
+	/**
+	 * Genera classifica dei gruppi in competizione ricevuti in input.
+	 * @param gruppi gruppi in competizione.
+	 * @return 
+	 */
+	public Map<String, List<Valutazione>> generaClassifica(List<Integer> gruppi) {
+		
+		//genera mappa numero gruppo-lista voti
+		Map<Integer,List<Valutazione>> gruppiInCompetizione=new HashMap<Integer,List<Valutazione>>();
+		for(Integer numero: gruppi) {
+			gruppiInCompetizione.put(numero, Service.getValutazioneDao().getValutazioni(numero));
+		}
+		
+		//ottieni giuria competizione
+		List<String> giuria=new ArrayList<String>();
+		Integer numero=gruppi.iterator().next();
+		List<Valutazione> valutazioniGruppo=gruppiInCompetizione.get(numero);
+		for(Valutazione v: valutazioniGruppo) {
+			giuria.add(v.getId());
+		}
+		
+		//genera mappa id giudice-lista voti ordinata (classifica per ogni giudice)
+		Map<String,List<Valutazione>> classifiche=new HashMap<String,List<Valutazione>>();
+		for(String id: giuria) {
+			List<Valutazione> valutazioniGiudice=new ArrayList<Valutazione>();
+			Set<Integer> keySet=gruppiInCompetizione.keySet();
+			for(Integer key: keySet) {
+				List<Valutazione> valutazioni=gruppiInCompetizione.get(key);
+				for(Valutazione v: valutazioni) {
+					if(v.getId().equals(id)) {
+						valutazioniGiudice.add(v);
+						break;
+					}
+				}
+			}
+			classifiche.put(id, valutazioniGiudice);
+		}
+		Set<String> keySet=classifiche.keySet();
+		for(String id : keySet) {
+			Collections.sort(classifiche.get(id));
+		}
+		
+		return classifiche;
 	}
 	
 }

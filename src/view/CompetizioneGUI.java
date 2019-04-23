@@ -23,6 +23,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.CompetitionController;
 import dao.ClassificaDao;
 import dao.IscrizioneDao;
 import dao.Service;
@@ -42,13 +43,15 @@ public class CompetizioneGUI {
 	private JTextField textField_4;
 	private JTable table;
 	private Map<String,String> gruppi;
+	private CompetitionController compController;
 
 	/**
 	 * Create the application.
 	 * @param iscrittiInCompetizione 
 	 */
-	public CompetizioneGUI(Map<String, String> iscrittiInCompetizione) {
+	public CompetizioneGUI(Map<String, String> iscrittiInCompetizione, CompetitionController compController) {
 		gruppi=iscrittiInCompetizione;
+		this.compController=compController;
 		initialize();
 	}
 
@@ -128,6 +131,12 @@ public class CompetizioneGUI {
 			public void mouseClicked(MouseEvent e) {
 				
 				try {
+					
+					List<Integer> list=new ArrayList<Integer>();
+					for(String key : gruppi.keySet()) {
+						list.add(Integer.parseInt(key));
+					}
+					Map<String,List<Valutazione>> map=compController.generaClassifica(list);
 					
 					//ottieni lista gruppi con valutazioni
 					List<Gruppo> gruppi=new ArrayList<Gruppo>();

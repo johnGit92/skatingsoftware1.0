@@ -70,10 +70,10 @@ public class Valutazione implements Comparable<Valutazione>{
 	@Override
 	public int compareTo(Valutazione o) {
 		if((tecnico+coreografico)>(o.getTecnico()+o.getCoreografico())) {
-			return 1;
+			return -1;
 		}
 		else if((tecnico+coreografico)<(o.getTecnico()+o.getCoreografico())) {
-			return -1;
+			return 1;
 		}
 		return 0;		
 	}
@@ -99,7 +99,7 @@ public class Valutazione implements Comparable<Valutazione>{
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="pk")
 	public int getPk() {
 		return pk;

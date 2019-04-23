@@ -52,7 +52,7 @@ public class GUIController {
 	}
 	
 	public void showCompetizione(Map<String,String> iscrittiInCompetizione) {
-		CompetizioneGUI c=new CompetizioneGUI(iscrittiInCompetizione);
+		CompetizioneGUI c=new CompetizioneGUI(iscrittiInCompetizione, compController);
 		c.getFrmClassifica().setVisible(true);
 	}
 
