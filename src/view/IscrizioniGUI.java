@@ -84,7 +84,7 @@ public class IscrizioniGUI {
 		DefaultListModel<String> listModel=new DefaultListModel<>();
 
 		String column_names[]= {"Numero","ASD","Categoria","Specialita","Disciplina","Classe","Unita"};
-		DefaultTableModel modelIscrizioni=new DefaultTableModel(column_names,0);
+		final DefaultTableModel modelIscrizioni=new DefaultTableModel(column_names,0);
 		tableIscrizioni = new JTable(modelIscrizioni);
 		tableIscrizioni.setShowVerticalLines(true);
 		tableIscrizioni.setShowHorizontalLines(true);
@@ -276,6 +276,7 @@ public class IscrizioniGUI {
 		});
 		printButton.setToolTipText("Stampa Cedolini");
 		printButton.setBounds(957, 561, 40, 40);
+		printButton.setIcon(new ImageIcon("icons/print.png"));
 		frmNuovaCompetizione.getContentPane().add(printButton);
 
 		//ottieni lista iscrizioni e riempi tabella
