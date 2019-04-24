@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import dao.IscrizioneDao;
 import dao.Service;
 import dao.ValutazioneDao;
+import model.ClassificaComplessiva;
 import model.ClassificaParzialeGiudice;
 import model.Competizione;
 import model.Giudice;
@@ -348,7 +349,7 @@ public class CompetitionController {
 			test.add(new ClassificaParzialeGiudice(id, classifiche.get(id)));
 		}
 		for(ClassificaParzialeGiudice c : test) System.out.println(c);
-		
+		System.out.println(new ClassificaComplessiva(test));
 		return classifiche;
 	}
 	
