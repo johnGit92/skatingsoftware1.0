@@ -36,8 +36,8 @@ public class ClassificaComplessiva {
 
 		@Override
 		public int compareTo(Util o) {
-			if(this.pt<o.pt) return 1;
-			else if(this.pt>o.pt) return -1;
+			if(this.pt<o.pt) return -1;
+			else if(this.pt>o.pt) return 1;
 			else {
 				if(this.tecnico<o.tecnico) return 1;
 				else if(this.tecnico>o.tecnico) return -1;
@@ -174,7 +174,7 @@ public class ClassificaComplessiva {
 	public String toString() {
 		String out="CLASSIFICA\n"+
 		"---------------------------------------------------------------------------------\n"+
-		"POS\tNUMERO\t\tASD\t\t\t\t\tPT\tTECNICO\n"+
+		"POS\tNUMERO\t\tASD\t\t\t\tPT\tTECNICO\n"+
 		"---------------------------------------------------------------------------------\n";
 		for(Util u : utilList) {
 			out+=u.pos+"°\t"+u.numero+"\t\t"+u.asd+"\t\t\t"+u.pt+"\t"+u.tecnico+"\n";

@@ -84,7 +84,7 @@ public class ClassificaParzialeGiudice {
 	public String toString() {
 		String out="GIUDICE : "+id+"\n"+
 		"---------------------------------------------------------------------------------\n"+
-		"POS\tNUMERO\t\tASD\t\t\t\t\tCOMPLESSIVO\n"+
+		"POS\tNUMERO\t\tASD\t\t\t\tCOMPLESSIVO\n"+
 		"---------------------------------------------------------------------------------\n";;
 		Iterator<Integer> itPos=classifica.iterator();
 		Iterator<Double> itComp=complessivo.iterator();
