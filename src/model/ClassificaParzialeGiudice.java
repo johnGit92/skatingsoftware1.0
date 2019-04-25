@@ -22,25 +22,30 @@ public class ClassificaParzialeGiudice {
 		this();
 		this.id = id;
 		this.voti = voti;
+		
+		//ottieni lista complessivo (t+c)
 		for(Valutazione v : voti) {
 			double sum=v.getTecnico()+v.getCoreografico();
 			complessivo.add((double)Math.round(sum*10)/10);
 			//((double) Math.round(g.getTecnico() * 10) / 10)
 		}
+		
+		//ottieni lista piazzamenti
 		Iterator<Valutazione> it=voti.iterator();
 		int pos=1;
-		while(it.hasNext()) {
-			Valutazione curr=it.next();
-			double currTot=curr.getCoreografico()+curr.getTecnico();
+		Valutazione curr=null;
+		if(it.hasNext()) {
+			curr=it.next();
 			classifica.add(pos);
-			if(it.hasNext()) {
-				Valutazione next=it.next();
-				double nextTot=next.getCoreografico()+next.getTecnico();
-				if(currTot!=nextTot) pos++;
-			}
-			classifica.add(pos);
-			
 		}
+		while(it.hasNext()) {
+			Valutazione next=it.next();
+			double currTot=curr.getCoreografico()+curr.getTecnico();
+			double nextTot=next.getCoreografico()+next.getTecnico();
+			if(currTot!=nextTot) pos++;
+			classifica.add(pos);
+			curr=next;
+		}System.out.println("");
 	}
 
 	public String getId() {
@@ -78,14 +83,16 @@ public class ClassificaParzialeGiudice {
 	@Override
 	public String toString() {
 		String out="GIUDICE : "+id+"\n"+
-				"-------------------------------------------------------\n";
+		"---------------------------------------------------------------------------------\n"+
+		"POS\tNUMERO\t\tASD\t\t\t\t\tCOMPLESSIVO\n"+
+		"---------------------------------------------------------------------------------\n";;
 		Iterator<Integer> itPos=classifica.iterator();
 		Iterator<Double> itComp=complessivo.iterator();
 		Iterator<Valutazione> itVoti=voti.iterator();
 		while(itPos.hasNext() && itComp.hasNext() && itVoti.hasNext()) {
 			int numero=itVoti.next().getNumero();
 			String asd=Service.getIscrizioneDao().retrieve(numero).getAsd();
-			out+=itPos.next()+"°\t"+numero+"\t"+asd+"\t"+itComp.next()+"\n";
+			out+=itPos.next()+"°\t"+numero+"\t\t"+asd+"\t\t\t"+itComp.next()+"\n";
 		}
 		
 		return out;

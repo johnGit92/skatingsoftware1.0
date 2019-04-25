@@ -344,12 +344,12 @@ public class CompetitionController {
 			Collections.sort(classifiche.get(id));
 		}
 		
-		List<ClassificaParzialeGiudice> test=new ArrayList<ClassificaParzialeGiudice>();
+		List<ClassificaParzialeGiudice> parziali=new ArrayList<ClassificaParzialeGiudice>();
 		for(String id : keySet) {
-			test.add(new ClassificaParzialeGiudice(id, classifiche.get(id)));
+			parziali.add(new ClassificaParzialeGiudice(id, classifiche.get(id)));
 		}
-		for(ClassificaParzialeGiudice c : test) System.out.println(c);
-		System.out.println(new ClassificaComplessiva(test));
+		System.out.println(new ClassificaComplessiva(parziali));
+		for(ClassificaParzialeGiudice c : parziali) System.out.println(c);
 		return classifiche;
 	}
 	

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -17,13 +18,48 @@ public class ClassificaComplessiva {
 	private List<Integer> numeri;
 	private Map<Integer,Integer> punti;
 	private Map<Integer,Double> tecnico;
-	private Map<Integer,Integer> classifica;
+	
+	//classe utility usata per generare la classifica finale
+	private class Util implements Comparable<Util>{
+		Integer pos;
+		Integer numero;
+		String asd;
+		Integer pt;
+		Double tecnico;
+		
+		Util(Integer numero, Integer pt, Double tecnico) {
+			super();
+			this.numero = numero;
+			this.pt = pt;
+			this.tecnico = tecnico;
+		}
+
+		@Override
+		public int compareTo(Util o) {
+			if(this.pt<o.pt) return 1;
+			else if(this.pt>o.pt) return -1;
+			else {
+				if(this.tecnico<o.tecnico) return 1;
+				else if(this.tecnico>o.tecnico) return -1;
+			}
+			return 0;
+		}
+
+		@Override
+		public String toString() {
+			return "Util [pos=" + pos + ", numero=" + numero + ", asd=" + asd + ", pt=" + pt + ", tecnico=" + tecnico
+					+ "]";
+		}
+		
+	}
+	
+	private List<Util> utilList;
 	
 	private ClassificaComplessiva() {
 		numeri=new ArrayList<Integer>();
 		punti=new HashMap<Integer,Integer>();
-		classifica=new HashMap<Integer,Integer>();
 		tecnico=new HashMap<Integer,Double>();
+		utilList=new ArrayList<Util>();
 	}
 
 	public ClassificaComplessiva(List<ClassificaParzialeGiudice> parziali) {
@@ -68,28 +104,38 @@ public class ClassificaComplessiva {
 				    (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 		punti=puntiOrdered;
 		
-		//genera classifica
+		//genera lista utility da ordinare secondo classifica
 		Set<Integer> keys=punti.keySet();
+		for(Integer key : keys) {
+			Util u=new Util(key, punti.get(key), (double)Math.round(tecnico.get(key)*10)/10);
+			u.asd=Service.getIscrizioneDao().retrieve(u.numero).getAsd();
+			utilList.add(u);
+		}
+		Collections.sort(utilList);
+		
+		//calcola posizioni
 		int pos=1;
-		Iterator<Integer> it=keys.iterator();
+		Iterator<Util> it=utilList.iterator();
+		Util curr=null;
+		if(it.hasNext()) {
+			curr=it.next();
+			curr.pos=pos;
+		}
 		while(it.hasNext()) {
-			Integer curr=it.next();
-			classifica.put(curr, pos);
-			if(it.hasNext()) {
-				Integer next=it.next();
-				if(punti.get(curr)!=punti.get(next)) {
+			Util next=it.next();
+			if(!curr.pt.equals(next.pt)) {
+				pos++;
+			}
+			else {
+				if(!curr.tecnico.equals(next.tecnico)) {
 					pos++;
 				}
-				else {
-					if(tecnico.get(curr)!=tecnico.get(next)) {
-						pos++;
-					}
-				}
-				classifica.put(next, pos);	
 			}
+			next.pos=pos;
+			curr=next;
 		}
 		
-		System.out.println("");
+		System.out.println(" ");
 	}
 
 	public List<ClassificaParzialeGiudice> getParziali() {
@@ -124,25 +170,17 @@ public class ClassificaComplessiva {
 		this.tecnico = tecnico;
 	}
 
-	public Map<Integer, Integer> getClassifica() {
-		return classifica;
-	}
-
-	public void setClassifica(Map<Integer, Integer> classifica) {
-		this.classifica = classifica;
-	}
-
 	@Override
 	public String toString() {
 		String out="CLASSIFICA\n"+
-				"------------------------------------------------------------\n";
-		Set<Integer> keys=punti.keySet();
-		for(Integer key : keys) {
-			out+=classifica.get(key)+"°\t"+key+"\t"+Service.getIscrizioneDao().retrieve(key).getAsd()+"\t"+punti.get(key)+"\t"+(double)Math.round(tecnico.get(key)*10)/10+"\n";
+		"---------------------------------------------------------------------------------\n"+
+		"POS\tNUMERO\t\tASD\t\t\t\t\tPT\tTECNICO\n"+
+		"---------------------------------------------------------------------------------\n";
+		for(Util u : utilList) {
+			out+=u.pos+"°\t"+u.numero+"\t\t"+u.asd+"\t\t\t"+u.pt+"\t"+u.tecnico+"\n";
 		}
+		out+="---------------------------------------------------------------------------------\n";
 		return out;
 	}
-	
-	
 
 }
