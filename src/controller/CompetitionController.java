@@ -307,7 +307,7 @@ public class CompetitionController {
 	 * @param gruppi gruppi in competizione.
 	 * @return 
 	 */
-	public Map<String, List<Valutazione>> generaClassifica(List<Integer> gruppi) {
+	public void generaClassifica(List<Integer> gruppi) {
 		
 		//genera mappa numero gruppo-lista voti
 		Map<Integer,List<Valutazione>> gruppiInCompetizione=new HashMap<Integer,List<Valutazione>>();
@@ -350,7 +350,6 @@ public class CompetitionController {
 		}
 		System.out.println(new ClassificaComplessiva(parziali));
 		for(ClassificaParzialeGiudice c : parziali) System.out.println(c);
-		return classifiche;
 	}
 	
 }

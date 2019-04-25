@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,14 +134,17 @@ public class IscrizioniGUI {
 				if(tableIscrizioni.getSelectedRowCount()<1) {
 					JOptionPane.showMessageDialog(null, "Nessun iscritto selezionato!", "ATTENZIONE", JOptionPane.WARNING_MESSAGE);
 				}
-				else if(tableIscrizioni.getSelectedRowCount()>1) {
-					JOptionPane.showMessageDialog(null, "E' possibile valutare un iscritto per volta!", "ATTENZIONE", JOptionPane.WARNING_MESSAGE);
-				}
 				else {
-					int row=tableIscrizioni.getSelectedRow();
-					String numero=(String) modelIscrizioni.getValueAt(row, 0);
-					String asd=(String) modelIscrizioni.getValueAt(row, 1);
-					guiController.showVotazioni(numero, asd, compController);					
+					List<Iscrizione> selezionati=new ArrayList<Iscrizione>();
+					int[] rows=tableIscrizioni.getSelectedRows();
+					int i=0;
+					for(i=0;i<rows.length;i++) {
+						Iscrizione selezione=new Iscrizione();
+						selezione.setNumero(Integer.parseInt((String)modelIscrizioni.getValueAt(i, 0)));
+						selezione.setAsd((String)modelIscrizioni.getValueAt(i, 1));
+						selezionati.add(selezione);
+					}
+					guiController.showVotazioni(selezionati, compController,guiController);					
 				}
 			}
 		});

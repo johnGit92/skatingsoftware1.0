@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 import controller.CompetitionController;
 import dao.Service;
 import model.Iscrizione;
-import model.Valutazione;
 
 public class CompetizioneGUI {
 
@@ -129,7 +128,7 @@ public class CompetizioneGUI {
 					for(String key : gruppi.keySet()) {
 						list.add(Integer.parseInt(key));
 					}
-					Map<String,List<Valutazione>> map=compController.generaClassifica(list);
+					compController.generaClassifica(list);
 					
 					JOptionPane.showMessageDialog(null, "Classifica generata correttamente!","CONFERMA",JOptionPane.INFORMATION_MESSAGE);
 					
