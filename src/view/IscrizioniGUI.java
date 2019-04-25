@@ -119,7 +119,7 @@ public class IscrizioniGUI {
 		scrollPaneVal.setBounds(10, 129, 947, 504);
 		frmNuovaCompetizione.getContentPane().add(scrollPaneVal);
 
-		JLabel label = new JLabel(new ImageIcon(System.getProperty("user.home")+"/icon_resized.png"));
+		JLabel label = new JLabel(new ImageIcon("icons/icon_resized.png"));
 		label.setBounds(996, 11, 80, 103);
 		frmNuovaCompetizione.getContentPane().add(label);
 
@@ -257,7 +257,7 @@ public class IscrizioniGUI {
 				String classe=String.valueOf(modelIscrizioni.getValueAt(row, 5));
 				String unita=String.valueOf(modelIscrizioni.getValueAt(row, 6));
 				Iscrizione iscrizione=new Iscrizione(asd, numero, Categoria.valueOf(categoria), Specialita.valueOf(specialita), 
-						Disciplina.valueOf(disciplina), Unita.valueOf(unita), 0, Classe.valueOf(classe), null);
+						Disciplina.valueOf(disciplina), Unita.valueOf(unita), Classe.valueOf(classe));
 
 				guiController.showModificaIscrizione(iscrizione);
 			}

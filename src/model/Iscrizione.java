@@ -16,16 +16,14 @@ public class Iscrizione {
 	private Specialita specialita;
 	private Disciplina disciplina;
 	private Unita unita;
-	private int n;
 	private Classe classe;
-	private String ballerini;
 	
 	public Iscrizione() {
 		super();
 	}
 
-	public Iscrizione(String asd, int numero, Categoria categoria, Specialita specialita, Disciplina disciplina, Unita unita,
-			int n, Classe classe, String ballerini) {
+	public Iscrizione(String asd, int numero, Categoria categoria, Specialita specialita, Disciplina disciplina, 
+			Unita unita, Classe classe) {
 		super();
 		this.asd = asd;
 		this.numero = numero;
@@ -33,9 +31,7 @@ public class Iscrizione {
 		this.specialita = specialita;
 		this.disciplina = disciplina;
 		this.unita = unita;
-		this.n = n;
 		this.classe = classe;
-		this.ballerini = ballerini;
 	}
 
 	public String getAsd() {
@@ -100,27 +96,11 @@ public class Iscrizione {
 		this.classe = classe;
 	}
 
-	public String getBallerini() {
-		return ballerini;
-	}
-
-	public void setBallerini(String ballerini) {
-		this.ballerini = ballerini;
-	}
-
-	public int getN() {
-		return n;
-	}
-
-	public void setN(int n) {
-		this.n = n;
-	}
-
 	@Override
 	public String toString() {
-		return "Iscrizioni [asd=" + asd + ", numero=" + numero + ", categoria=" + categoria + ", specialita="
-				+ specialita + ", disciplina=" + disciplina + ", unita=" + unita + ", n=" + n + ", classe=" + classe
-				+ ", ballerini=" + ballerini + "]";
+		return "Iscrizione [asd=" + asd + ", numero=" + numero + ", categoria=" + categoria + ", specialita="
+				+ specialita + ", disciplina=" + disciplina + ", unita=" + unita + ", classe=" + classe + "]";
 	}
+	
 
 }

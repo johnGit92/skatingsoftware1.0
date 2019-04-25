@@ -11,7 +11,8 @@ public enum Unita {
 	GG(2),
 	SOLO(3),
 	ASSOLUTA(4),
-	DUO(5);
+	DUO(5),
+	COPPIA(6);
 	
 	private final int val;
 	

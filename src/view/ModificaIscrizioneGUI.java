@@ -161,6 +161,7 @@ public class ModificaIscrizioneGUI extends JFrame {
 		comboUnita.addItem("GG");
 		comboUnita.addItem("SOLO");
 		comboUnita.addItem("DUO");
+		comboUnita.addItem("COPPIA");
 		comboUnita.addItem("ASSOLUTA");
 		comboUnita.addItem("ALTRO");
 		comboUnita.setSelectedItem(iscrizione.getUnita().name());
@@ -181,7 +182,7 @@ public class ModificaIscrizioneGUI extends JFrame {
 					Classe classe=Classe.valueOf(String.valueOf(comboClasse.getSelectedItem()).trim());
 					Unita unita=Unita.valueOf(String.valueOf(comboUnita.getSelectedItem()).trim());
 
-					Iscrizione iscrizione=new Iscrizione(asd, numero, categoria, specialita, disciplina, unita, 0, classe, null);
+					Iscrizione iscrizione=new Iscrizione(asd, numero, categoria, specialita, disciplina, unita, classe);
 					controller.update(iscrizione);
 
 					JOptionPane.showMessageDialog(null, "Operazione effettuata con Successo!","CONFERMA",JOptionPane.INFORMATION_MESSAGE);

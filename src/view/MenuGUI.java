@@ -55,7 +55,7 @@ public class MenuGUI {
 		btnGiudici.setBounds(6, 50, 150, 40);
 		frmSkatingsoftware.getContentPane().add(btnGiudici);
 		
-		JLabel lblSkatingsoftware = new JLabel(new ImageIcon(System.getProperty("user.home")+"/logo.png"));
+		JLabel lblSkatingsoftware = new JLabel(new ImageIcon("icons/logo.png"));
 		lblSkatingsoftware.setFont(new Font("Calibri", Font.BOLD, 15));
 		lblSkatingsoftware.setForeground(Color.WHITE);
 		lblSkatingsoftware.setBounds(239, 26, 291, 167);
