@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -88,6 +89,7 @@ public class InserisciVotiGUI {
 		});
 		btnConferma.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnConferma.setBounds(417, 513, 60, 60);
+		btnConferma.setIcon(new ImageIcon("icons/confirm.png"));
 		frmVotazioni.getContentPane().add(btnConferma);
 		
 		JButton button = new JButton("");
@@ -98,6 +100,7 @@ public class InserisciVotiGUI {
 			}
 		});
 		button.setBounds(15, 513, 60, 60);
+		button.setIcon(new ImageIcon("icons/cancel.png"));
 		frmVotazioni.getContentPane().add(button);
 		
 		//Ottieni giudici e aggiorna tabella

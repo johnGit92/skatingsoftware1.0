@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -96,6 +97,7 @@ public class SelezionaGiuriaGUI {
 		});
 		btnSeleziona.setFont(new Font("Corbel", Font.PLAIN, 12));
 		btnSeleziona.setBounds(417, 311, 60, 60);
+		btnSeleziona.setIcon(new ImageIcon("icons/confirm.png"));
 		frmVotazioni.getContentPane().add(btnSeleziona);
 		
 		JButton button = new JButton("");
@@ -106,6 +108,7 @@ public class SelezionaGiuriaGUI {
 			}
 		});
 		button.setBounds(15, 311, 60, 60);
+		button.setIcon(new ImageIcon("icons/cancel.png"));
 		frmVotazioni.getContentPane().add(button);
 		
 		//Ottieni giudici e aggiorna tabella

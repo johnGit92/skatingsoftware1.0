@@ -24,7 +24,7 @@ public class ReportController{
 			
 			//inizializzazione connessione al database
 		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/skating?useSSL=false&amp&serverTimezone=UTC", "Giovanni", "mySqlGio922017");
+		    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/skating?useSSL=false&amp&serverTimezone=UTC&allowPublicKeyRetrieval=true", "Giovanni", "123456");
 		    
 		  //rendering e generazione del file PDF
 		    JasperPrint jp = JasperFillManager.fillReport("reports\\Cedolino_Giudici.jasper", null, conn);    
