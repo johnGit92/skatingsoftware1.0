@@ -307,7 +307,7 @@ public class CompetitionController {
 	 * @param gruppi gruppi in competizione.
 	 * @return 
 	 */
-	public void generaClassifica(List<Integer> gruppi) {
+	public void generaClassifica(List<Integer> gruppi, String filename) {
 		
 		//genera mappa numero gruppo-lista voti
 		Map<Integer,List<Valutazione>> gruppiInCompetizione=new HashMap<Integer,List<Valutazione>>();
@@ -348,8 +348,25 @@ public class CompetitionController {
 		for(String id : keySet) {
 			parziali.add(new ClassificaParzialeGiudice(id, classifiche.get(id)));
 		}
-		System.out.println(new ClassificaComplessiva(parziali));
+		ClassificaComplessiva classifica=new ClassificaComplessiva(parziali);
+		System.out.println(classifica);
 		for(ClassificaParzialeGiudice c : parziali) System.out.println(c);
+		scriviClassificaSuFile(filename, classifica, parziali);
+	}
+	
+	public void scriviClassificaSuFile(String filename, ClassificaComplessiva classifica, List<ClassificaParzialeGiudice> parziali) {
+		File file=new File("generatedFiles/"+filename+".txt");
+		try {
+			FileWriter writer=new FileWriter(file, true);
+			writer.write(filename+"\n\n");
+			writer.write(classifica.toString()+"\n\n");
+			for(ClassificaParzialeGiudice c : parziali) writer.write(c.toString()+"\n");
+			Desktop desktop = Desktop.getDesktop();
+	        if(file.exists()) desktop.open(file);
+			writer.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

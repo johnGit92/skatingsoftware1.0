@@ -128,7 +128,13 @@ public class CompetizioneGUI {
 					for(String key : gruppi.keySet()) {
 						list.add(Integer.parseInt(key));
 					}
-					compController.generaClassifica(list);
+					String categoria=textField.getText();
+					String specialita=textField_1.getText();
+					String disciplina=textField_2.getText();
+					String classe=textField_3.getText();
+					String unita=textField_4.getText();
+					String filename=categoria+"_"+specialita+"_"+disciplina+"_"+classe+"_"+unita;
+					compController.generaClassifica(list, filename);
 					
 					JOptionPane.showMessageDialog(null, "Classifica generata correttamente!","CONFERMA",JOptionPane.INFORMATION_MESSAGE);
 					
