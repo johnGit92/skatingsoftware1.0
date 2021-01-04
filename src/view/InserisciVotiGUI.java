@@ -85,6 +85,8 @@ public class InserisciVotiGUI {
 				compController.salvaValutazioni(valutazioni);
 				
 				JOptionPane.showMessageDialog(null, "Voti memorizzati correttamente!", "Messaggio", JOptionPane.INFORMATION_MESSAGE);
+				
+				frmVotazioni.dispose();
 			}
 		});
 		btnConferma.setFont(new Font("Corbel", Font.PLAIN, 12));

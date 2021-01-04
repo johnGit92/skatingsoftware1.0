@@ -29,15 +29,12 @@ import javax.swing.table.DefaultTableModel;
 import controller.CompetitionController;
 import controller.GUIController;
 import controller.ReportController;
-import dao.Service;
-import dao.ValutazioneDao;
 import model.Categoria;
 import model.Classe;
 import model.Disciplina;
 import model.Iscrizione;
 import model.Specialita;
 import model.Unita;
-import model.Valutazione;
 
 public class IscrizioniGUI {
 
@@ -64,7 +61,7 @@ public class IscrizioniGUI {
 		frmNuovaCompetizione = new JFrame();
 		frmNuovaCompetizione.setResizable(false);
 		frmNuovaCompetizione.setTitle("Skating Software 1.0 - Competizione");
-		frmNuovaCompetizione.setBounds(10, 10, 1102, 674);
+		frmNuovaCompetizione.setBounds(10, 10, 1159, 674);
 		frmNuovaCompetizione.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuovaCompetizione.getContentPane().setLayout(null);
 		frmNuovaCompetizione.getContentPane().setBackground(new Color(37, 61, 105));
@@ -89,19 +86,19 @@ public class IscrizioniGUI {
 		tableIscrizioni = new JTable(modelIscrizioni);
 		tableIscrizioni.setShowVerticalLines(true);
 		tableIscrizioni.setShowHorizontalLines(true);
-		tableIscrizioni.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()>1) {
-					ValutazioneDao dao=Service.getValutazioneDao();
-					List<Valutazione> list=dao.getValutazioni(Integer.valueOf((String) modelIscrizioni.getValueAt(tableIscrizioni.getSelectedRow(), 0)));
-					listModel.clear();
-					for(Valutazione v:list) {
-						listModel.addElement(v.toString());
-					}
-				}
-			}
-		});
+//		tableIscrizioni.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				if(e.getClickCount()>1) {
+//					ValutazioneDao dao=Service.getValutazioneDao();
+//					List<Valutazione> list=dao.getValutazioni(Integer.valueOf((String) modelIscrizioni.getValueAt(tableIscrizioni.getSelectedRow(), 0)));
+//					listModel.clear();
+//					for(Valutazione v:list) {
+//						listModel.addElement(v.toString());
+//					}
+//				}
+//			}
+//		});
 		tableIscrizioni.setFont(new Font("Corbel", Font.PLAIN, 12));
 		tableIscrizioni.setBorder(UIManager.getBorder("Table.cellNoFocusBorder"));
 		tableIscrizioni.setBounds(10, 170, 234, 89);
@@ -140,8 +137,8 @@ public class IscrizioniGUI {
 					int i=0;
 					for(i=0;i<rows.length;i++) {
 						Iscrizione selezione=new Iscrizione();
-						selezione.setNumero(Integer.parseInt((String)modelIscrizioni.getValueAt(i, 0)));
-						selezione.setAsd((String)modelIscrizioni.getValueAt(i, 1));
+						selezione.setNumero(Integer.parseInt((String)modelIscrizioni.getValueAt(rows[i], 0)));
+						selezione.setAsd((String)modelIscrizioni.getValueAt(rows[i], 1));
 						selezionati.add(selezione);
 					}
 					guiController.showVotazioni(selezionati, compController,guiController);					
@@ -157,16 +154,21 @@ public class IscrizioniGUI {
 		btnClassifica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Map<String,String> iscrittiInCompetizione=new HashMap<String,String>();
-				int[] rows=tableIscrizioni.getSelectedRows();
-				int i=0;
-				String numero,asd;
-				for(i=0;i<rows.length;i++) {
-					numero=(String) modelIscrizioni.getValueAt(rows[i], 0);
-					asd=(String) modelIscrizioni.getValueAt(rows[i], 1);
-					iscrittiInCompetizione.put(numero, asd);
+				if(tableIscrizioni.getSelectedRowCount()<1) {
+					JOptionPane.showMessageDialog(null, "Nessun iscritto selezionato!", "ATTENZIONE", JOptionPane.WARNING_MESSAGE);
 				}
-				guiController.showCompetizione(iscrittiInCompetizione);
+				else {
+					Map<String,String> iscrittiInCompetizione=new HashMap<String,String>();
+					int[] rows=tableIscrizioni.getSelectedRows();
+					int i=0;
+					String numero,asd;
+					for(i=0;i<rows.length;i++) {
+						numero=(String) modelIscrizioni.getValueAt(rows[i], 0);
+						asd=(String) modelIscrizioni.getValueAt(rows[i], 1);
+						iscrittiInCompetizione.put(numero, asd);
+					}
+					guiController.showCompetizione(iscrittiInCompetizione);					
+				}
 			}
 		});
 		btnClassifica.setFont(new Font("Corbel", Font.PLAIN, 12));
@@ -275,6 +277,7 @@ public class IscrizioniGUI {
 		printButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				compController.aggiornaCompetizioni();
 				ReportController.showReports();
 			}
 		});
@@ -282,6 +285,41 @@ public class IscrizioniGUI {
 		printButton.setBounds(957, 561, 40, 40);
 		printButton.setIcon(new ImageIcon("icons/print.png"));
 		frmNuovaCompetizione.getContentPane().add(printButton);
+		
+		JLabel lblAggiorna = new JLabel("Aggiorna");
+		lblAggiorna.setForeground(Color.WHITE);
+		lblAggiorna.setBounds(1000, 188, 55, 16);
+		frmNuovaCompetizione.getContentPane().add(lblAggiorna);
+		
+		JLabel lblModificaIscrizione = new JLabel("Modifica Iscrizione");
+		lblModificaIscrizione.setForeground(Color.WHITE);
+		lblModificaIscrizione.setBounds(1000, 263, 101, 16);
+		frmNuovaCompetizione.getContentPane().add(lblModificaIscrizione);
+		
+		JLabel lblNuovaIscrizione = new JLabel("Nuova Iscrizione");
+		lblNuovaIscrizione.setForeground(Color.WHITE);
+		lblNuovaIscrizione.setBounds(1000, 313, 91, 16);
+		frmNuovaCompetizione.getContentPane().add(lblNuovaIscrizione);
+		
+		JLabel lblCancellaIscrizione = new JLabel("Cancella Iscrizione");
+		lblCancellaIscrizione.setForeground(Color.WHITE);
+		lblCancellaIscrizione.setBounds(1000, 364, 104, 16);
+		frmNuovaCompetizione.getContentPane().add(lblCancellaIscrizione);
+		
+		JLabel lblInserisciVoti = new JLabel("Inserisci Voti");
+		lblInserisciVoti.setForeground(Color.WHITE);
+		lblInserisciVoti.setBounds(1000, 450, 69, 16);
+		frmNuovaCompetizione.getContentPane().add(lblInserisciVoti);
+		
+		JLabel lblCompetizione = new JLabel("Competizione");
+		lblCompetizione.setForeground(Color.WHITE);
+		lblCompetizione.setBounds(1000, 504, 76, 16);
+		frmNuovaCompetizione.getContentPane().add(lblCompetizione);
+		
+		JLabel lblStampaCedolini = new JLabel("Stampa Cedolini");
+		lblStampaCedolini.setForeground(Color.WHITE);
+		lblStampaCedolini.setBounds(1000, 571, 91, 16);
+		frmNuovaCompetizione.getContentPane().add(lblStampaCedolini);
 
 		//ottieni lista iscrizioni e riempi tabella
 		List<Iscrizione> iscrizioni=compController.getIscrizioni();

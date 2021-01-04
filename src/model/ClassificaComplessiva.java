@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import dao.Service;
+import dao.FactoryDao;
 
 public class ClassificaComplessiva {
 
@@ -108,7 +108,7 @@ public class ClassificaComplessiva {
 		Set<Integer> keys=punti.keySet();
 		for(Integer key : keys) {
 			Util u=new Util(key, punti.get(key), (double)Math.round(tecnico.get(key)*10)/10);
-			u.asd=Service.getIscrizioneDao().retrieve(u.numero).getAsd();
+			u.asd=FactoryDao.getIscrizioneDao().retrieve(u.numero).getAsd();
 			utilList.add(u);
 		}
 		Collections.sort(utilList);

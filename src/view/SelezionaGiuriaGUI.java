@@ -86,12 +86,13 @@ public class SelezionaGiuriaGUI {
 					int i=0;
 					for(i=0;i<rows.length;i++) {
 						Giudice g=new Giudice();
-						g.setId((String)model.getValueAt(i, 0));
-						g.setCognome((String)model.getValueAt(i, 2));
-						g.setNome((String)model.getValueAt(i, 1));
+						g.setId((String)model.getValueAt(rows[i], 0));
+						g.setCognome((String)model.getValueAt(rows[i], 2));
+						g.setNome((String)model.getValueAt(rows[i], 1));
 						giudiciSelezionati.add(g);
 					}
-					guiController.showInserisciVoti(gruppiSelezionati, giudiciSelezionati);					
+					guiController.showInserisciVoti(gruppiSelezionati, giudiciSelezionati);
+					frmVotazioni.dispose();
 				}
 			}
 		});

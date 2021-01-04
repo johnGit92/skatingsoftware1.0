@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import dao.Service;
+import dao.FactoryDao;
 
 public class ClassificaParzialeGiudice {
 	
@@ -91,7 +91,7 @@ public class ClassificaParzialeGiudice {
 		Iterator<Valutazione> itVoti=voti.iterator();
 		while(itPos.hasNext() && itComp.hasNext() && itVoti.hasNext()) {
 			int numero=itVoti.next().getNumero();
-			String asd=Service.getIscrizioneDao().retrieve(numero).getAsd();
+			String asd=FactoryDao.getIscrizioneDao().retrieve(numero).getAsd();
 			out+=itPos.next()+"°\t"+numero+"\t\t"+asd+"\t\t\t"+itComp.next()+"\n";
 		}
 		

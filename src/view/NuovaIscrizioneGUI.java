@@ -174,6 +174,7 @@ public class NuovaIscrizioneGUI extends JFrame {
 		comboSpecialita.addItem("SINCRO");
 		comboSpecialita.addItem("COREO");
 		comboSpecialita.addItem("SHOW");
+		comboDisciplina.addItem("ETNICHE");
 		comboSpecialita.addItem("ALTRO");
 
 		comboDisciplina.addItem("LATINO");
@@ -186,6 +187,7 @@ public class NuovaIscrizioneGUI extends JFrame {
 		comboDisciplina.addItem("ZUMBA");
 		comboDisciplina.addItem("SALSA");
 		comboDisciplina.addItem("CARAIBICHE");
+		comboDisciplina.addItem("ETNICHE");
 		comboDisciplina.addItem("ALTRO");
 
 		comboClasse.addItem("ED");

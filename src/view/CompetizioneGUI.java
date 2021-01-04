@@ -22,7 +22,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controller.CompetitionController;
-import dao.Service;
+import dao.FactoryDao;
 import model.Iscrizione;
 
 public class CompetizioneGUI {
@@ -110,7 +110,7 @@ public class CompetizioneGUI {
 		//aggiorna textfield competizione
 		Iterator<String> it=keys.iterator();
 		int numero=Integer.valueOf(it.next());
-		Iscrizione g=Service.getIscrizioneDao().retrieve(numero);
+		Iscrizione g=FactoryDao.getIscrizioneDao().retrieve(numero);
 		textField.setText(g.getCategoria().name());
 		textField_1.setText(g.getSpecialita().name());
 		textField_2.setText(g.getDisciplina().name());

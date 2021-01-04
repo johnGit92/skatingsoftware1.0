@@ -1,13 +1,11 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import model.Giudice;
-import model.Iscrizione;
 
 public class GiudiceHibernateDao implements GiudiceDao{
 

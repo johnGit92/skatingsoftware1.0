@@ -9,7 +9,9 @@ public enum Specialita {
 	
 	SINCRO(1),
 	COREO(2),
-	SHOW(3);
+	SHOW(3),
+	ETNICHE(4),
+	ALTRO(5);
 	
 	private final int val;
 	

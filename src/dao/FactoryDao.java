@@ -1,6 +1,6 @@
 package dao;
 
-public class Service {
+public class FactoryDao {
 	
 	private static IscrizioneDao iscrizioneDao;
 	private static CompetizioneDao competizioneDao;

@@ -81,25 +81,26 @@ order by c.id,i.numero]]>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="79" splitType="Stretch">
+		<band height="90" splitType="Stretch">
 			<frame>
-				<reportElement x="-10" y="2" width="575" height="68" uuid="b35b9904-e591-4c4a-b634-da79e749ee5a"/>
+				<reportElement x="-10" y="2" width="575" height="78" uuid="b35b9904-e591-4c4a-b634-da79e749ee5a"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<staticText>
-					<reportElement style="Title" x="10" y="0" width="434" height="33" uuid="f9198456-cf81-4c53-b076-12e959d55bdd"/>
+					<reportElement style="Title" x="0" y="0" width="575" height="33" uuid="f9198456-cf81-4c53-b076-12e959d55bdd"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Calibri" size="23"/>
+						<font fontName="Calibri" size="22"/>
 					</textElement>
-					<text><![CDATA[Campionato Interprovinciale AV-BN-SA]]></text>
+					<text><![CDATA[1° Prova Coppa Campioni CSEN 2020]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="SubTitle" x="11" y="33" width="432" height="22" uuid="a7ed3ab6-13bb-4552-b774-0f4781630f1b"/>
+					<reportElement style="SubTitle" x="0" y="33" width="575" height="37" uuid="a7ed3ab6-13bb-4552-b774-0f4781630f1b"/>
 					<textElement textAlignment="Center">
-						<font fontName="Calibri" size="17" isItalic="true"/>
+						<font fontName="Calibri" size="15" isItalic="true"/>
 					</textElement>
-					<text><![CDATA[Pala Angioni Caliendo - Maddaloni (CE), 17/02/2019]]></text>
+					<text><![CDATA[24 Novembre 2019 - Casagiove (CE)
+Palazzetto dello Sport Pala New System]]></text>
 				</staticText>
 			</frame>
 		</band>

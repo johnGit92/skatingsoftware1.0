@@ -17,7 +17,7 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import dao.IscrizioneDao;
-import dao.Service;
+import dao.FactoryDao;
 import dao.ValutazioneDao;
 import model.ClassificaComplessiva;
 import model.ClassificaParzialeGiudice;
@@ -180,7 +180,7 @@ public class CompetitionController {
 	}
 
 	public void salvaValutazioni(List<Valutazione> valutazioni) {
-		ValutazioneDao dao=Service.getValutazioneDao();
+		ValutazioneDao dao=FactoryDao.getValutazioneDao();
 		for(Valutazione v: valutazioni) {
 			dao.create(v); System.out.println(v);
 		}
@@ -188,31 +188,31 @@ public class CompetitionController {
 	}
 
 	public List<Giudice> getAllGiudici() {
-		return Service.getGiudiceDao().getAll();
+		return FactoryDao.getGiudiceDao().getAll();
 	}
 
 	public List<Valutazione> getValutazioni(int numero) {
-		return Service.getValutazioneDao().getValutazioni(numero);
+		return FactoryDao.getValutazioneDao().getValutazioni(numero);
 	}
 	
 	public void salvaIscrizione(Iscrizione iscrizione) {
-		Service.getIscrizioneDao().create(iscrizione);
+		FactoryDao.getIscrizioneDao().create(iscrizione);
 	}
 
 	public List<Iscrizione> getIscrizioni() {
-		IscrizioneDao dao=Service.getIscrizioneDao();
+		IscrizioneDao dao=FactoryDao.getIscrizioneDao();
 		List<Iscrizione> iscrizioni=dao.getAll();
 		return iscrizioni;
 	}
 
 	public void deleteIscrizione(int numero) {
-		IscrizioneDao dao=Service.getIscrizioneDao();
+		IscrizioneDao dao=FactoryDao.getIscrizioneDao();
 		dao.delete(numero);
 		
 	}
 
 	public void update(Iscrizione iscrizione) {
-		Service.getIscrizioneDao().update(iscrizione);		
+		FactoryDao.getIscrizioneDao().update(iscrizione);		
 	}
 
 	public void aggiornaCompetizioni() {
@@ -236,21 +236,21 @@ public class CompetitionController {
 	 * @return
 	 */
 	public List<Competizione> generateCompetizioni() {
-		List<Competizione> competizioni=Service.getCompetizioneDao().generateCompetizioni();
+		List<Competizione> competizioni=FactoryDao.getCompetizioneDao().generateCompetizioni();
 		competizioni=ordinaCompetizioni(competizioni);
 		for(Competizione c:competizioni)
-			Service.getCompetizioneDao().create(c);
+			FactoryDao.getCompetizioneDao().create(c);
 		
 		return competizioni;
 	}
 
 	public void deleteCompetizioni(List<Competizione> competizioni) {
-		Service.getCompetizioneDao().deleteAll(competizioni);
+		FactoryDao.getCompetizioneDao().deleteAll(competizioni);
 		
 	}
 
 	public List<Competizione> getCompetizioni() {
-		return Service.getCompetizioneDao().getCompetizioni();
+		return FactoryDao.getCompetizioneDao().getCompetizioni();
 	}
 	
 	public List<Competizione> ordinaCompetizioni(List<Competizione> competizioni){
@@ -312,7 +312,7 @@ public class CompetitionController {
 		//genera mappa numero gruppo-lista voti
 		Map<Integer,List<Valutazione>> gruppiInCompetizione=new HashMap<Integer,List<Valutazione>>();
 		for(Integer numero: gruppi) {
-			gruppiInCompetizione.put(numero, Service.getValutazioneDao().getValutazioni(numero));
+			gruppiInCompetizione.put(numero, FactoryDao.getValutazioneDao().getValutazioni(numero));
 		}
 		
 		//ottieni giuria competizione
@@ -351,18 +351,30 @@ public class CompetitionController {
 		ClassificaComplessiva classifica=new ClassificaComplessiva(parziali);
 		System.out.println(classifica);
 		for(ClassificaParzialeGiudice c : parziali) System.out.println(c);
+		
 		scriviClassificaSuFile(filename, classifica, parziali);
 	}
 	
 	public void scriviClassificaSuFile(String filename, ClassificaComplessiva classifica, List<ClassificaParzialeGiudice> parziali) {
 		File file=new File("generatedFiles/"+filename+".txt");
+		if(file.exists()) file.delete();
 		try {
+			file.createNewFile();
 			FileWriter writer=new FileWriter(file, true);
 			writer.write(filename+"\n\n");
 			writer.write(classifica.toString()+"\n\n");
 			for(ClassificaParzialeGiudice c : parziali) writer.write(c.toString()+"\n");
 			Desktop desktop = Desktop.getDesktop();
 	        if(file.exists()) desktop.open(file);
+			
+			String header="\n\nGIUDICI\n"+
+					"---------------------------------------------------------------------------------\n";
+			writer.write(header);
+			List<Giudice> list = FactoryDao.getGiudiceDao().getAll();
+			for(Giudice g : list) {
+				writer.write(g.getId()+" : "+g.getNome()+"\t\t"+g.getCognome()+"\n");
+			}
+
 			writer.close();
 		}catch(Exception e) {
 			e.printStackTrace();
